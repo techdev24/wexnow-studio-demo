@@ -419,6 +419,34 @@ ul.clean{list-style:none;margin:0;padding:0}
 .picks b{display:block;font-weight:600}
 .picks small{color:var(--mut);font-size:12.5px}
 .score{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-family:var(--head);font-weight:800;background:var(--greenbg);color:var(--green)}
+.how{padding:14px 18px}
+.howgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.howgrid > div{display:flex;gap:12px;align-items:flex-start}
+.howgrid b{display:block;font-weight:600}
+.howgrid small{color:var(--mut);font-size:13px}
+.hn{width:28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:700;font-size:13px;flex:none}
+.eb.jump{cursor:pointer}
+.eb.jump:hover{filter:brightness(.95);box-shadow:0 0 0 2px var(--ink) inset}
+.snd{position:absolute;right:12px;top:10px;z-index:3;border:0;background:rgba(0,0,0,.72);color:#fff;font-size:12px;font-weight:700;padding:4px 10px;border-radius:4px;cursor:pointer}
+.monitor .th .bug{display:none}
+.ph2 .th .sn{display:none}
+.lgo{position:absolute;z-index:4;cursor:grab;touch-action:none;user-select:none;line-height:0}
+.lgo.drag,.ph2 .caps.drag{cursor:grabbing;outline:2px dashed #fff;outline-offset:4px}
+.lgo:hover{outline:1.5px dashed rgba(255,255,255,.75);outline-offset:3px}
+.lgo.c-tl{left:10px;top:16px} .lgo.c-tr{right:10px;top:16px} .lgo.c-bl{left:10px;bottom:24%} .lgo.c-br{right:10px;bottom:24%}
+.lgo img{display:block;height:auto;max-width:180px}
+.lgo .wm{font-family:var(--head);font-weight:800;color:#fff;line-height:1;text-shadow:0 1px 3px rgba(0,0,0,.6);white-space:nowrap}
+.lgo .wm span{color:var(--red)}
+.ph2 .caps{cursor:grab;touch-action:none;user-select:none}
+.ph2 .caps:hover{outline:1.5px dashed rgba(255,255,255,.6);outline-offset:4px}
+.feedtx{position:absolute;left:10px;right:46px;bottom:3.5%;z-index:3;color:#fff;font-size:10.5px;line-height:1.3;text-shadow:0 1px 3px rgba(0,0,0,.8);pointer-events:none}
+.feedtx b{font-weight:700;margin-right:3px}
+.cnt{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px;font-size:12.5px;color:var(--mut)}
+.cnt .over{color:var(--redtx);font-weight:700}
+.cnt input{width:76px;border:1px solid var(--line);border-radius:7px;padding:4px 6px;margin-left:6px;background:#fff}
+.slugbox input[type=text]{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 11px;background:#fff}
+.tagchips{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+@media (max-width:900px){.howgrid{grid-template-columns:minmax(0,1fr)}}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(16px);background:var(--ink);color:#fff;padding:11px 16px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;max-width:min(92vw,560px);z-index:20;box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
@@ -443,7 +471,7 @@ ul.clean{list-style:none;margin:0;padding:0}
       <a href="#/control" data-r="control">Control</a>
       <a href="#/library" data-r="library">Library</a>
       <a href="#/planner" data-r="planner">Planner</a>
-      <a href="#/playout" data-r="playout">Playout</a>
+      <a href="#/playout" data-r="playout">On air</a>
       <a href="#/social" data-r="social">Social</a>
       <a href="#/connect" data-r="connect">Connect</a>
     </nav>
@@ -491,12 +519,12 @@ function videoTag(c,id,attrs,extra=""){const src=vidSrc(c);return `<video id="${
 const APP_ROWS=[["America 250","27942","27942"],["WEX NOW Daily (News Hits)","25675","25675","Every published clip, not a picked lineup"],["March to the Midterms","27944","27944"],["Wake Up","21699","21699"],["Political Perspectives","27365","27365"],["Over the Target","26352","26352"],["On Deadline","26353","26353"],["The Debriefs","21235","27366","Different playlist on each app"],["Reporters Notebooks","21229","21229"],["Inside Scoop","26092","26092"],["Latest News","25675","25403","Fire TV repeats WEX NOW Daily"]];
 const S={
   role:"admin",
-  lineup:[101,102,103,104,105,106],
+  lineup:[2834659,101,102,103,104,105,106], anchor:0, sound:false,
   pattern:"15",
   q:"", libq:"", libf:"all",
   trim:{}, bps:{101:[{t:252,l:"End of segment 1, pause detected",ok:true},{t:527,l:"End of segment 2, pause detected",ok:true},{t:690,l:"Suggested, low risk of cutting mid-sentence",ok:false}]},
   jobs:{}, trace:101, dest:"amazon", ptab:"order", vt:{},
-  soc:{sel:2834659,fmt:"916",pos:50,auto:true,caps:true,len:45,start:0,slug:{},slugY:{},slugSize:18,slugStyle:"bar",avoid:false,guides:false,layout:"full",pos2:[30,70],pos3:[20,50,80],
+  soc:{sel:2834659,fmt:"916",pos:50,auto:true,caps:true,len:45,start:0,slug:{},slugY:{},slugSize:18,slugStyle:"bar",avoid:false,guides:false,capY:{},desc:{},tags:{},descMax:150,tagMax:5,logo:{mode:"wordmark",src:null,corner:"tl",x:null,y:null,size:80},layout:"full",pos2:[30,70],pos3:[20,50,80],
     rules:{"Daily News Hits":true,"Inside Scoop":true,"The Wakeup":false,"America 250":false,caps:true,brand:true},
     plats:{reels:true,shorts:true,tiktok:true,fb:false},
     queue:[{id:2834659,st:"ready"},{id:2834515,st:"ready"},{id:2834510,st:"processing",pct:35},{id:2834706,st:"queued"},{id:2834373,st:"queued"},{id:102,st:"posted",at:"21:10",to:"Reels, Shorts, TikTok"},{id:105,st:"posted",at:"20:42",to:"Reels, Shorts"}]},
@@ -572,7 +600,7 @@ function sequence(){
   const s=[];S.lineup.forEach((id,i)=>{const c=byId(id);const trim=S.trim[id]??c.promo??DEFAULT_TRIM;s.push({type:"p",c,dur:c.dur-trim});if(breakAfter(i,S.lineup))s.push({type:"k",dur:120});});
   return s;
 }
-function at(t){const seq=sequence();const L=seq.reduce((a,b)=>a+b.dur,0);if(!L)return null;let o=((t%L)+L)%L,i=0;while(o>=seq[i].dur){o-=seq[i].dur;i++}return{seq,L,i,off:o,start:t-o}}
+function at(t){const seq=sequence();const L=seq.reduce((a,b)=>a+b.dur,0);if(!L)return null;let o=(((t-(S.anchor||0))%L)+L)%L,i=0;while(o>=seq[i].dur){o-=seq[i].dur;i++}return{seq,L,i,off:o,start:t-o}}
 
 /* ===================== CONTROL ===================== */
 function control(){
@@ -793,10 +821,15 @@ const WIN=45*60; let epg0=0;
 function playout(){
   epg0=Math.floor((etSec()-8*60)/60)*60;
   const a=at(etSec());
-  return `<div class="ph"><div><p class="eyebrow">WEX NOW 24/7, preview channel</p><h1>Playout</h1><p class="lead">The running order turned into a continuous channel, with ad markers at every break. Built for Amazon first; the same stream feeds Roku.</p></div>
-    <div style="display:flex;gap:8px"><button class="btn" data-toast="Swaps the channel to the standby loop of approved clips in one click. The channel never goes dark.">Emergency schedule</button><button class="btn dark" data-toast="Skips to the next program. Logged with your name.">Skip to next</button></div></div>
+  return `<div class="ph"><div><p class="eyebrow">WEX NOW 24/7, preview channel</p><h1>On air</h1><p class="lead">What the 24/7 channel is playing right now, what's next, and whether it's healthy. This is where Digital watches the channel and steps in.</p></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="#/planner">Edit the lineup</a><button class="btn" data-toast="Swaps the channel to a standby loop of approved clips in one click. The channel never goes dark.">Emergency schedule</button><button class="btn dark" id="skipnext" type="button">Skip to next</button></div></div>
+  <section class="card how"><div class="howgrid">
+    <div><span class="hn">1</span><div><b>Planner</b><small>Editors set the running order and the week. That's what should play.</small></div></div>
+    <div><span class="hn">2</span><div><b>On air</b><small>The Studio turns it into one nonstop channel with ad breaks. Digital watches it here and steps in if needed.</small></div></div>
+    <div><span class="hn">3</span><div><b>Amazon and Roku</b><small>Both pull the same channel. Amazon fills the ad breaks and shares the revenue.</small></div></div>
+  </div></section>
   <div class="po">
-    <section class="onair"><div>
+    <section class="onair mt"><div>
       <div class="monitor" id="mon"></div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px"><p class="eyebrow" style="margin:0">Program output</p><span class="chip" style="background:#3A2D10;color:#F5C25B">Preview channel</span></div>
       <div class="oa-title" id="oa-t"></div><div class="bar"><i id="oa-b"></i></div><div class="times"><span id="oa-e"></span><span id="oa-l"></span></div>
@@ -813,7 +846,7 @@ function playout(){
         </div></section>
     </div>
   </div>
-  <section class="card flush mt"><div class="ch" style="padding:16px 16px 0"><h2>Timeline</h2><small>Next 45 minutes, Eastern</small></div><div class="epg" id="epg"></div>
+  <section class="card flush mt"><div class="ch" style="padding:16px 16px 0"><h2>Timeline</h2><small>Next 45 minutes, Eastern. Click any program to play it now.</small></div><div class="epg" id="epg"></div>
     <div class="elg"><span><i style="background:#E8EEFB;border:1px solid #C9D6F2"></i>News hits</span><span><i style="background:#E5F1E8;border:1px solid #BFDDC9"></i>Shows and interviews</span><span><i style="background:#FFF1D9;border:1px solid #F2D49B"></i>Ad break, filled by Amazon</span><span><i style="background:var(--amberline);transform:rotate(45deg);width:10px;height:10px"></i>Ad marker</span><span><i style="background:var(--red);width:3px"></i>Now</span></div></section>`;
 }
 function drawEPG(){
@@ -821,7 +854,7 @@ function drawEPG(){
   let ticks="";for(let t=Math.ceil(epg0/300)*300;t<end;t+=300)ticks+=`<div class="tick" style="left:${(t-epg0)/WIN*100}%">${hhmm(t)}</div>`;
   let bl="",mk="",t=a.start,i=a.i;
   while(t<end){const s=a.seq[i];const l=Math.max(0,(t-epg0)/WIN*100),r=Math.min(100,(t+s.dur-epg0)/WIN*100),w=r-l,past=t+s.dur<now?" past":"",txt=w>4.2;
-    if(w>0){if(s.type==="p"){const cls=s.c.show==="Daily News Hits"?"p":"m";bl+=`<div class="eb ${cls}${past}" style="left:${l}%;width:calc(${w}% - 3px)" title="${esc(s.c.t)}, ${hhmm(t)}">${txt?`<b>${esc(s.c.t)}</b><small>${hhmm(t)}, ${mmss(s.dur)}</small>`:""}</div>`}
+    if(w>0){if(s.type==="p"){const cls=s.c.show==="Daily News Hits"?"p":"m";bl+=`<div class="eb ${cls}${past} jump" data-at="${t}" style="left:${l}%;width:calc(${w}% - 3px)" title="${esc(s.c.t)}, ${hhmm(t)}. Click to play it now.">${txt?`<b>${esc(s.c.t)}</b><small>${hhmm(t)}, ${mmss(s.dur)}</small>`:""}</div>`}
       else{bl+=`<div class="eb k${past}" style="left:${l}%;width:calc(${w}% - 3px)" title="Ad break ${hhmm(t)}">${txt?`<b>Ad break</b><small>${mmss(s.dur)}</small>`:""}</div>`;if(t>=epg0)mk+=`<div class="mk" style="left:${l}%" title="Ad marker at ${hhmm(t)}"></div>`}}
     t+=s.dur;i=(i+1)%a.seq.length}
   el.innerHTML=`<div class="rul">${ticks}</div><div class="lane"><div class="lb">WEX NOW 24/7<small>Program</small></div><div class="tr">${bl}</div></div><div class="lane"><div class="lb">Ad markers<small>Sent with the stream</small></div><div class="tr thin">${mk}</div></div><div class="now-l" id="nowl"></div>`;
@@ -830,10 +863,13 @@ function tickChannel(){
   const a=at(etSec()); if(!a) return; const s=a.seq[a.i];
   const mon=$("#mon");
   if(mon){const key=a.i+":"+Math.floor(a.start);if(mon.dataset.k!==key){mon.dataset.k=key;
-      mon.innerHTML=(s.type==="p"?thumb(s.c):`<div class="slate">We'll be right back</div>`)+`<span class="tag"><span class="dot live"></span>PROGRAM</span><span class="cd" id="cd"></span>`;
+      mon.innerHTML=(s.type==="p"?thumb(s.c)+(isReal(s.c)?videoTag(s.c,"monv",`muted autoplay playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1"`):""):`<div class="slate">We'll be right back</div>`)+`<span class="tag"><span class="dot live"></span>PROGRAM</span><span class="cd" id="cd"></span>${s.type==="p"&&isReal(s.c)?`<button class="snd" id="snd" type="button">${S.sound?"Mute":"Unmute"}</button>`:""}`;
+      const mv=$("#monv");if(mv){mv.muted=!S.sound;mv.addEventListener("loadedmetadata",()=>{const b=at(etSec());try{mv.currentTime=b.off}catch(e){}});const lst=mv.querySelector("source[data-last]");if(lst)lst.addEventListener("error",()=>{mv.style.display="none"});mv.play&&mv.play().catch(()=>{})}
+      const sb=$("#snd");if(sb)sb.addEventListener("click",()=>{S.sound=!S.sound;const m=$("#monv");if(m){m.muted=!S.sound;if(S.sound)m.play().catch(()=>{})}sb.textContent=S.sound?"Mute":"Unmute"});
       const tt=$("#oa-t");if(tt)tt.textContent=s.type==="p"?s.c.t:"Ad break, filled by Amazon";
       const nl=$("#oa-nl");if(nl){let t=a.start+s.dur,i=(a.i+1)%a.seq.length,out="";for(let k=0;k<3;k++){const x=a.seq[i];out+=`<span>${k===0?"NEXT":k===1?"THEN":"LATER"}</span><div>${x.type==="p"?esc(x.c.t):"Ad break, filled by Amazon"}</div><em>${hhmm(t)}</em>`;t+=x.dur;i=(i+1)%a.seq.length}nl.innerHTML=out}}
-    const cd=$("#cd");if(cd)cd.textContent=tc(s.dur-a.off);}
+    const cd=$("#cd");if(cd)cd.textContent=tc(s.dur-a.off);
+    const mv=$("#monv");if(mv&&mv.readyState>1&&Math.abs(mv.currentTime-a.off)>2){try{mv.currentTime=a.off}catch(e){}}}
   const b=$("#oa-b");if(b)b.style.width=(a.off/s.dur*100)+"%";
   const e=$("#oa-e");if(e)e.textContent=mmss(a.off);
   const l=$("#oa-l");if(l)l.textContent=mmss(s.dur-a.off)+" left";
@@ -851,6 +887,17 @@ const SLUGPOS=[["Top",8],["Upper",20],["Middle",42],["Lower",62]];
 const layoutName=k=>(LAYOUTS.find(l=>l[0]===k)||LAYOUTS[0])[1];
 function slugFor(c){return S.soc.slug[c.id]??c.t.split(/[:,]/)[0].split(" ").slice(0,7).join(" ")}
 function slugTop(c){return S.soc.avoid?7:(S.soc.slugY[c.id]??12)}
+function capTop(c){return S.soc.capY[c.id]??60}
+const STOP=new Set("about after again against also amid amidst among and being could during from have into over says said their there these they this those under until what when where which while with would your".split(" "));
+function parseTags(str){return [...new Set(String(str||"").split(/[\s,]+/).map(x=>x.replace(/^#+/,"").replace(/[^A-Za-z0-9_]/g,"")).filter(Boolean).map(x=>"#"+x))]}
+function defaultTags(c){const kw=c.t.replace(/[\u2018\u2019'"]/g,"").split(/[^A-Za-z0-9]+/).filter(w=>w.length>3&&/^[A-Z]/.test(w)&&!STOP.has(w.toLowerCase())).slice(0,3);return ["#WashingtonExaminer","#WEXNOW",...kw.map(w=>"#"+w)].join(" ")}
+function descFor(c){return S.soc.desc[c.id]??c.t}
+function tagsFor(c){return S.soc.tags[c.id]??defaultTags(c)}
+function feedText(c){const t=(descFor(c)+" "+parseTags(tagsFor(c)).join(" ")).trim();return t.length>64?t.slice(0,64).trim()+"... more":t}
+function logoHTML(){const L=S.soc.logo;if(L.mode==="none")return "";
+  const pos=L.x!=null?`left:${L.x}%;top:${L.y}%;`:"";
+  const inner=L.mode==="upload"&&L.src?`<img src="${L.src}" alt="Logo" style="width:${L.size}px">`:`<span class="wm" style="font-size:${Math.round(L.size*0.17)}px">WEX <span>NOW</span></span>`;
+  return `<div class="lgo ${L.x!=null?"":"c-"+L.corner}" id="slogo" style="${pos}" title="Drag to move">${inner}</div>`}
 function picksFor(c){
   const parts=c.t.split(/[:,]/).map(x=>x.trim()).filter(Boolean);
   const usable=Math.max(20,c.dur-DEFAULT_TRIM);
@@ -858,7 +905,10 @@ function picksFor(c){
   const starts=[0,Math.round(usable*0.35),Math.round(usable*0.6)].map((s,i)=>Math.max(0,Math.min(s,usable-lens[i])));
   const lay=c.h<720?"fit":/debate|interview|proxy war|vs\b/i.test(c.t)||c.show==="Inside Scoop"?"split2":"full";
   const layWhy={fit:`Source is ${c.h}p, so it keeps the whole frame instead of a soft crop`,split2:"Two people on screen, so each gets a panel",full:"One speaker, so a single crop that follows them"}[lay];
-  const heads=[parts[0],parts[1]||parts[0],(parts[2]||parts[0])].map(h=>h.split(" ").slice(0,8).join(" "));
+  const w=c.t.split(" "), big=parts.filter(x=>x.split(" ").length>=3);
+  const h1=(big[0]||w.slice(0,7).join(" ")).split(" ").slice(0,8).join(" ");
+  const h2=(big.find(x=>x!==big[0])||w.slice(-7).join(" ")).split(" ").slice(0,8).join(" ");
+  const heads=[h1,h2,"Watch: "+w.slice(0,5).join(" ")];
   const why=["Opens on the main point of the story","Strongest moment that stands on its own","Clean ending, well before the promo rail"];
   return [0,1,2].map(i=>({start:starts[i],len:lens[i],layout:i===2&&lay!=="fit"?"full":lay,head:heads[i],why:why[i],layWhy:i===2&&lay!=="fit"?"One speaker, so a single crop that follows them":layWhy,score:[92,86,78][i]}));
 }
@@ -872,9 +922,10 @@ function phoneHTML(c){
   else body=`<div class="pane" style="top:0;height:100%">${thumb(c)}${vt("svid",so.pos)}</div>`;
   const slug=slugFor(c);
   return `<div class="ph2 f${so.fmt}" id="phone">${body}
-    <div class="top"><div class="prog"><i id="sprog"></i></div>${so.rules.brand?`<div class="brand">WEX <span>NOW</span></div>`:""}</div>
+    <div class="top"><div class="prog"><i id="sprog"></i></div></div>${logoHTML()}
     ${so.rules.brand?`<div class="slug s-${so.slugStyle}" id="sslug" style="top:${slugTop(c)}%;font-size:${so.slugSize}px" title="Drag to move"><span>${esc(slug)}</span></div>`:""}
-    ${so.rules.caps?`<div class="caps" id="scaps"></div>`:""}
+    ${so.rules.caps?`<div class="caps" id="scaps" style="top:${capTop(c)}%" title="Drag to move"></div>`:""}
+    <div class="feedtx"><b>Washington Examiner</b> ${esc(feedText(c))}</div>
     ${so.guides?`<div class="safe-b"><span>Covered by the app's caption and buttons</span></div><div class="safe-r"></div>`:""}
     <div class="side"><i></i><i></i><i></i></div></div>`;
 }
@@ -933,6 +984,32 @@ function social(p){
             <div class="segs">${[["bar","Red bar"],["plain","Plain"],["box","Black box"]].map(s=>`<button type="button" data-slugstyle="${s[0]}" aria-pressed="${so.slugStyle===s[0]}">${s[1]}</button>`).join("")}</div>
             <label class="chk2"><input type="checkbox" id="avoid" ${so.avoid?"checked":""}> Keep text clear of faces</label>
             <label class="chk2"><input type="checkbox" id="guides" ${so.guides?"checked":""}> Show what the app covers</label>
+          </div>
+          <div class="slugbox">
+            <label class="l" style="margin-top:0">Logo</label>
+            <div class="segs">${[["wordmark","WEX NOW"],["upload","Upload logo"],["none","None"]].map(m=>`<button type="button" data-logomode="${m[0]}" aria-pressed="${so.logo.mode===m[0]}">${m[1]}</button>`).join("")}</div>
+            <input type="file" id="logofile" accept="image/png,image/svg+xml,image/jpeg,image/webp" hidden>
+            ${so.logo.mode==="upload"?`<div style="display:flex;gap:8px;align-items:center;margin-top:8px;flex-wrap:wrap"><button class="btn sm" id="logopick" type="button">${so.logo.src?"Replace file":"Choose file"}</button><span class="small">PNG or SVG with a transparent background works best.</span></div>`:""}
+            ${so.logo.mode!=="none"?`<label class="l">Corner</label>
+            <div class="segs">${[["tl","Top left"],["tr","Top right"],["bl","Bottom left"],["br","Bottom right"]].map(k=>`<button type="button" data-corner="${k[0]}" aria-pressed="${so.logo.x==null&&so.logo.corner===k[0]}">${k[1]}</button>`).join("")}</div>
+            <label class="l" for="logosz">Size <span class="mono">${so.logo.size}px</span></label>
+            <input type="range" id="logosz" min="40" max="170" value="${so.logo.size}">
+            <p class="small" style="margin-top:6px">Or drag the logo on the phone.</p>`:""}
+          </div>
+          ${so.rules.caps?`<div class="slugbox">
+            <label class="l" style="margin-top:0">Captions position</label>
+            <div class="segs">${[["Middle",44],["Lower",60],["Bottom",72]].map(k=>`<button type="button" data-cappos="${k[1]}" aria-pressed="${Math.abs(capTop(c)-k[1])<1}">${k[0]}</button>`).join("")}</div>
+            <p class="small" style="margin-top:6px">Or drag the captions on the phone.</p>
+          </div>`:""}
+          <div class="slugbox">
+            <label class="l" for="desc" style="margin-top:0">Post description</label>
+            <textarea id="desc" rows="3">${esc(descFor(c))}</textarea>
+            <div class="cnt"><span id="desccnt" class="${descFor(c).length>so.descMax?"over":""}">${descFor(c).length} / ${so.descMax}</span><label>Max length <input type="number" id="descmax" min="20" max="5000" value="${so.descMax}"></label></div>
+            <label class="l" for="tags">Hashtags</label>
+            <input type="text" id="tags" value="${esc(tagsFor(c))}">
+            <div class="cnt"><span id="tagcnt" class="${parseTags(tagsFor(c)).length>so.tagMax?"over":""}">${parseTags(tagsFor(c)).length} / ${so.tagMax}</span><label>Max hashtags <input type="number" id="tagmax" min="0" max="30" value="${so.tagMax}"></label></div>
+            <div class="tagchips" id="tagchips">${parseTags(tagsFor(c)).map(t=>`<span class="chip gray">${esc(t)}</span>`).join("")}</div>
+            <div style="display:flex;gap:8px;align-items:center;margin-top:10px;flex-wrap:wrap"><button class="btn sm dark" id="claudewrite" type="button">Write it with Claude</button><span class="chip info">Example output</span></div>
           </div>
           <label class="l">Format</label>
           <div class="segs">${[["916","9:16"],["45","4:5"],["11","1:1"]].map(f=>`<button type="button" data-fmt="${f[0]}" aria-pressed="${so.fmt===f[0]}">${f[1]}</button>`).join("")}</div>
@@ -997,6 +1074,15 @@ function socialLive(){
         const bottom=(so.slugY[c.id]??12)+sl.offsetHeight/r.height*100; if(bottom>80)toast("The headline is in the area the app covers. Move it up.");
         $$("[data-slugpos]").forEach(b=>b.setAttribute("aria-pressed",Math.abs(+b.dataset.slugpos-(so.slugY[c.id]??12))<1))};
       sl.addEventListener("pointermove",mv);sl.addEventListener("pointerup",up);});}
+  const makeDrag=(el,onMove,onEnd)=>{el.addEventListener("pointerdown",e=>{e.preventDefault();el.setPointerCapture(e.pointerId);el.classList.add("drag");
+      const r=ph.getBoundingClientRect(),er=el.getBoundingClientRect(),ox=e.clientX-er.left,oy=e.clientY-er.top;
+      const mv=ev=>onMove((ev.clientX-ox-r.left)/r.width*100,(ev.clientY-oy-r.top)/r.height*100,el.offsetWidth/r.width*100,el.offsetHeight/r.height*100);
+      const up=()=>{el.classList.remove("drag");el.removeEventListener("pointermove",mv);el.removeEventListener("pointerup",up);onEnd&&onEnd(el.offsetHeight/r.height*100)};
+      el.addEventListener("pointermove",mv);el.addEventListener("pointerup",up)})};
+  const cpEl=$("#scaps");
+  if(cpEl&&ph)makeDrag(cpEl,(x,y,w,h)=>{y=Math.max(3,Math.min(97-h,y));cpEl.style.top=y+"%";so.capY[c.id]=y},h=>{if((so.capY[c.id]??60)+h>80)toast("Captions are in the area the app covers. Move them up.");$$("[data-cappos]").forEach(b=>b.setAttribute("aria-pressed",Math.abs(+b.dataset.cappos-(so.capY[c.id]??60))<1))});
+  const lgEl=$("#slogo");
+  if(lgEl&&ph)makeDrag(lgEl,(x,y,w,h)=>{x=Math.max(0,Math.min(100-w,x));y=Math.max(2,Math.min(98-h,y));lgEl.className="lgo";lgEl.style.left=x+"%";lgEl.style.top=y+"%";so.logo.x=x;so.logo.y=y},()=>{$$("[data-corner]").forEach(b=>b.setAttribute("aria-pressed","false"))});
   let t0=Date.now();
   capTimer=setInterval(()=>{
     const ct=v&&!isNaN(v.currentTime)&&v.readyState>1?v.currentTime:so.start+((Date.now()-t0)/1000)%so.len;
@@ -1102,6 +1188,11 @@ function wire(p,parts){
       $("#pcut").addEventListener("click",()=>{const d=v.duration||c.dur;const airs=d-trimNow();previewing=true;v.currentTime=Math.max(0,airs-20);v.play().catch(()=>{});toast("Playing the last 20 seconds before the cut.")});
     }}
   const pc=$("#pcut"); if(pc&&!v){pc.addEventListener("click",()=>toast("The cut preview plays once this clip syncs from Brid."))}
+  /* on air */
+  const sk=$("#skipnext");if(sk)sk.addEventListener("click",()=>{const a=at(etSec());if(!a)return;const s=a.seq[a.i];S.anchor-=(s.dur-a.off);const n=at(etSec()).seq[at(etSec()).i];
+    log("Skipped to next",n.type==="p"?n.c.t:"Ad break");toast("Skipped. Now playing: "+(n.type==="p"?n.c.t.slice(0,70):"Ad break"));const m=$("#mon");if(m)m.dataset.k="";drawEPG();tickChannel()});
+  const ep=$("#epg");if(ep)ep.addEventListener("click",e=>{const b=e.target.closest("[data-at]");if(!b)return;S.anchor+=etSec()-(+b.dataset.at);const n=at(etSec()).seq[at(etSec()).i];
+    log("Moved to play now",n.c?n.c.t:"Ad break");toast("Playing now: "+(n.c?n.c.t.slice(0,70):"Ad break"));const m=$("#mon");if(m)m.dataset.k="";epg0=Math.floor((etSec()-8*60)/60)*60;drawEPG();tickChannel()});
   /* social */
   if(location.hash.startsWith("#/social")){
     const so=S.soc; const c=byId(so.sel)||byId(so.queue[0].id);
@@ -1125,9 +1216,29 @@ function wire(p,parts){
       log("Used Claude's pick",`${mmss(k.start)} to ${mmss(k.start+k.len)}, ${layoutName(k.layout)}`);toast("Applied: "+mmss(k.start)+" to "+mmss(k.start+k.len)+", "+layoutName(k.layout)+".");render()}));
     const st=$("#start");if(st)st.addEventListener("input",()=>{so.start=+st.value;$("#startv").textContent=mmss(so.start);["svid","svid2","svid3","svidbg"].forEach(id=>{const sv=$("#"+id);if(sv&&sv.readyState>0){try{sv.currentTime=so.start}catch(e){}}})});
     const ap=$("#approve");if(ap)ap.addEventListener("click",()=>{const to=Object.entries(so.plats).filter(x=>x[1]).map(x=>PLAT[x[0]]);if(!to.length){toast("Pick at least one place to post.");return}
+      if(descFor(c).length>so.descMax){toast("The description is over your "+so.descMax+"-character limit. Shorten it first.");return}
+      if(parseTags(tagsFor(c)).length>so.tagMax){toast("That's more than "+so.tagMax+" hashtags. Remove some first.");return}
       const q=so.queue.find(x=>String(x.id)===String(c.id));q.st="scheduled";q.to=to.join(", ");q.at=hhmm(etSec()+60);q.due=Date.now()+8000;
       log("Approved vertical",c.t+", "+layoutName(so.layout));toast("Approved. Posting to "+q.to+" in about a minute.");render()});
     const rj=$("#reject");if(rj)rj.addEventListener("click",()=>{so.queue=so.queue.filter(x=>String(x.id)!==String(c.id));so.sel=(so.queue.find(x=>x.st==="ready")||so.queue[0]).id;log("Sent back a vertical",c.t);toast("Sent back. It won't post.");render()});
+    $$("[data-logomode]").forEach(b=>b.addEventListener("click",()=>{so.logo.mode=b.dataset.logomode;render();if(so.logo.mode==="upload"&&!so.logo.src)setTimeout(()=>{const f=$("#logofile");if(f)f.click()},50)}));
+    const lp=$("#logopick");if(lp)lp.addEventListener("click",()=>$("#logofile").click());
+    const lf=$("#logofile");if(lf)lf.addEventListener("change",()=>{const f=lf.files&&lf.files[0];if(!f)return;if(f.size>2*1024*1024){toast("That file is over 2 MB. Use a smaller logo.");return}
+      const rd=new FileReader();rd.onload=()=>{so.logo.src=rd.result;so.logo.mode="upload";log("Uploaded a logo",f.name);toast("Logo added. Drag it or pick a corner.");render()};rd.readAsDataURL(f)});
+    $$("[data-corner]").forEach(b=>b.addEventListener("click",()=>{so.logo.corner=b.dataset.corner;so.logo.x=null;so.logo.y=null;render()}));
+    const ls=$("#logosz");if(ls)ls.addEventListener("input",()=>{so.logo.size=+ls.value;const el=$("#slogo");if(el){const im=el.querySelector("img");if(im)im.style.width=so.logo.size+"px";const wm=el.querySelector(".wm");if(wm)wm.style.fontSize=Math.round(so.logo.size*0.17)+"px"}ls.previousElementSibling.querySelector(".mono").textContent=so.logo.size+"px"});
+    $$("[data-cappos]").forEach(b=>b.addEventListener("click",()=>{so.capY[c.id]=+b.dataset.cappos;render()}));
+    const refreshPost=()=>{const d=descFor(c),tg=parseTags(tagsFor(c));const dc=$("#desccnt");dc.textContent=d.length+" / "+so.descMax;dc.className=d.length>so.descMax?"over":"";
+      const tcn=$("#tagcnt");tcn.textContent=tg.length+" / "+so.tagMax;tcn.className=tg.length>so.tagMax?"over":"";
+      $("#tagchips").innerHTML=tg.map(t=>`<span class="chip gray">${esc(t)}</span>`).join("");const ft=$(".feedtx");if(ft)ft.innerHTML=`<b>Washington Examiner</b> ${esc(feedText(c))}`};
+    const ds=$("#desc");if(ds)ds.addEventListener("input",()=>{so.desc[c.id]=ds.value;refreshPost()});
+    const tgi=$("#tags");if(tgi)tgi.addEventListener("input",()=>{so.tags[c.id]=tgi.value;refreshPost()});
+    const dm=$("#descmax");if(dm)dm.addEventListener("input",()=>{so.descMax=Math.max(20,+dm.value||150);refreshPost()});
+    const tm2=$("#tagmax");if(tm2)tm2.addEventListener("input",()=>{so.tagMax=Math.max(0,+tm2.value||0);refreshPost()});
+    const cw=$("#claudewrite");if(cw)cw.addEventListener("click",()=>{const t=c.t.replace(/\s+/g," ").trim();
+      const opts=[t+". Watch more on WEX NOW, free on Fire TV and Roku.",t+". Watch more on WEX NOW.",t+"."];
+      let d=opts.find(o=>o.length<=so.descMax);if(!d){d=t.slice(0,so.descMax-1);d=d.slice(0,Math.max(d.lastIndexOf(" "),10)).replace(/[,;:\s]+$/,"")+"\u2026"}
+      so.desc[c.id]=d;so.tags[c.id]=parseTags(defaultTags(c)).slice(0,so.tagMax).join(" ");log("Claude wrote the post text",c.t);toast("Written to fit your limits: "+d.length+" characters, "+Math.min(so.tagMax,parseTags(defaultTags(c)).length)+" hashtags.");render()});
     const ra=$("#runauto");if(ra)ra.addEventListener("click",()=>{const next=CLIPS.find(x=>so.rules[x.show]&&!so.queue.some(q=>String(q.id)===String(x.id)));
       if(!next){toast("Every clip from the selected shows already has a vertical version.");return}
       so.queue.unshift({id:next.id,st:"queued"});log("Automation picked up a new clip",next.t);toast("Picked up: "+next.t.slice(0,60)+". It's in the queue.");render()});
