@@ -447,6 +447,10 @@ ul.clean{list-style:none;margin:0;padding:0}
 .slugbox input[type=text]{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 11px;background:#fff}
 .tagchips{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
 @media (max-width:900px){.howgrid{grid-template-columns:minmax(0,1fr)}}
+.chk li .inl{margin-top:10px}
+.inl textarea,.inl input[type=text]{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 11px;font:inherit;background:#fff}
+.inl textarea{resize:vertical}
+.row-btns{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(16px);background:var(--ink);color:#fff;padding:11px 16px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;max-width:min(92vw,560px);z-index:20;box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
@@ -570,9 +574,10 @@ function checks(c){
   const o=[];
   o.push(c.h>=1080?{k:"ok",s:"V",l:"Full HD video",n:`${c.h===1080?"1920×1080":c.h+"p"}`}:c.h>=720?{k:"warn",s:"V",l:"HD video, not full HD",n:"720p. Airs, but 1080p looks better on TV"}:{k:"bad",s:"V",l:"Video too small for TV",n:`${c.h}p. TV needs 720p or higher`,short:`${c.h}p`});
   o.push(c.thumb?{k:"ok",s:"T",l:"Full-size thumbnail",n:"1920×1080"}:{k:"bad",s:"T",l:"No full-size thumbnail",n:"TV needs 1920×1080",short:"No full thumbnail"});
-  o.push(c.desc==="ok"?{k:"ok",s:"D",l:"Description",n:"Clean"}:c.desc==="links"?{k:"warn",s:"D",l:"Links and hashtags in description",n:"Removed automatically for TV"}:{k:"bad",s:"D",l:"No description",n:"Add one in Brid. Clips without one stay off TV",short:"No description"});
-  o.push(c.t.length<=100?{k:"ok",s:"L",l:"Title length",n:`${c.t.length} of 100 characters`}:{k:"bad",s:"L",l:"Title too long",n:`${c.t.length} characters. TV allows 100`,short:"Long title"});
-  o.push(c.tf===true?{k:"ok",s:"F",l:"Text-free thumbnail",n:"Confirmed by editorial"}:c.tf===false?{k:"warn",s:"F",l:"Text on thumbnail",n:"Airs, but Amazon won't promote it on Alexa"}:{k:"na",s:"F",l:"Text-free thumbnail",n:"Not confirmed yet"});
+  o.push(c.desc==="ok"?{k:"ok",s:"D",l:"Description",n:c.descNote||"Clean"}:c.desc==="links"?{k:"warn",s:"D",l:"Links and hashtags in description",n:"Removed automatically for TV"}:{k:"bad",s:"D",l:"No description",n:"Add one below. Clips without one stay off TV",short:"No description"});
+  const tt=c.tvTitle||c.t;
+  o.push(tt.length<=100?{k:"ok",s:"L",l:"Title length",n:c.titleNote||`${tt.length} of 100 characters`}:{k:"bad",s:"L",l:"Title too long",n:`${tt.length} characters. TV allows 100`,short:"Long title"});
+  o.push(c.tf===true?{k:"ok",s:"F",l:"Text-free thumbnail",n:c.tfNote||"Confirmed by editorial"}:c.tf===false?{k:"warn",s:"F",l:"Text on thumbnail",n:"Airs, but Amazon won't promote it on Alexa"}:{k:"na",s:"F",l:"Text-free thumbnail",n:"Not confirmed yet"});
   o.push(c.promo!=null?{k:"ok",s:"P",l:"End promo trimmed",n:`Last ${c.promo} seconds removed for TV`}:{k:"na",s:"P",l:"End promo",n:"Cut point not set yet"});
   return o;
 }
@@ -607,9 +612,9 @@ function control(){
   const ready=CLIPS.filter(tvReady).length, held=CLIPS.length-ready;
   const alerts=[
     {s:"r",w:`${CLIPS.filter(c=>c.h<720).length} clips are 360p YouTube imports`,where:"Amazon, 24/7 channel",imp:"Can't air on TV",act:"Upload the original file to Brid",go:"#/library?f=low"},
-    {s:"a",w:`${CLIPS.filter(c=>c.desc==="none").length} clips have no description`,where:"Amazon free channel",imp:"Held back from Amazon",act:"Add descriptions in Brid",go:"#/library?f=nodesc"},
-    {s:"a",w:"1 title is over 100 characters",where:"Amazon free channel",imp:"Held back",act:"Shorten it in Brid",go:"#/clip/2834510"},
-    {s:"a",w:"All 5 of today's thumbnails have text burned in",where:"Amazon free channel",imp:"Amazon won't promote them on Alexa",act:"Pick a clean frame in the Studio",go:"#/clip/2834659"},
+    ...(()=>{const n=CLIPS.filter(c=>c.desc==="none").length;return n?[{s:"a",w:`${n} ${n===1?"clip has":"clips have"} no description`,where:"Amazon free channel",imp:"Held back from Amazon",act:"Add it right in the Studio",go:"#/library?f=nodesc"}]:[]})(),
+    ...(()=>{const L=CLIPS.filter(c=>(c.tvTitle||c.t).length>100);return L.length?[{s:"a",w:`${L.length} ${L.length===1?"title is":"titles are"} over 100 characters`,where:"Amazon free channel",imp:"Held back",act:"Shorten it in the Studio",go:`#/clip/${L[0].id}?tab=checks`}]:[]})(),
+    ...(()=>{const T=CLIPS.filter(c=>isReal(c)&&c.tf===false);return T.length?[{s:"a",w:`${T.length} of today's 5 thumbnails ${T.length===1?"has":"have"} text burned in`,where:"Amazon free channel",imp:"Amazon won't promote them on Alexa",act:"Pick a clean frame in the Studio",go:`#/clip/${T[0].id}?tab=checks`}]:[]})(),
     {s:"a",w:"The Debriefs uses different playlists",where:"Fire TV 21235, Roku 27366",imp:"Apps show different episodes",act:"Pick one playlist",go:"#/connect?d=fire"},
     {s:"b",w:"Amazon feed takes every published clip",where:"Amazon free channel",imp:"No editorial approval before air",act:"Turn on TV approval",go:"#/connect?d=amazon"}
   ];
@@ -718,7 +723,7 @@ function clip(id,tab){
         <div><b style="font-weight:600">Vertical preview</b><p class="small" style="margin:4px 0 10px">Keeps the speaker centered, adds burned-in captions from the transcript and the WEX NOW brand. Editors approve before anything posts.</p>
         <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="chip gray">Instagram Reels</span><span class="chip gray">YouTube Shorts</span><span class="chip gray">TikTok</span><span class="chip gray">Facebook</span></div>
         <a class="btn sm redline" style="margin-top:12px" href="#/social?c=${c.id}">Open in Social</a></div></div>`,
-    checks:`<ul class="clean chk">${checks(c).map(x=>`<li><span class="ck"><i class="${x.k}">${x.k==="ok"?"✓":x.k==="na"?"–":"!"}</i></span><div><b>${x.l}</b><small>${x.n}</small></div>${x.k==="bad"?`<button class="btn sm" data-toast="Opens this clip in Brid. The Studio picks up the fix on its next sync, within 15 minutes.">Fix in Brid</button>`:""}</li>`).join("")}</ul>`,
+    checks:`<ul class="clean chk">${checks(c).map(x=>checkRow(c,x)).join("")}</ul>`,
     breaks:`<p class="small" style="margin-bottom:12px;color:var(--tx)">Long shows need natural pauses for mid-show breaks. Pick from the suggested pauses, or add your own at the playhead.</p>
       ${bps.length?bps.slice().sort((a,b)=>a.t-b.t).map(b=>`<div class="bpi ${b.ok?"":"sug"}"><div><span class="t">${mmss(b.t)}</span><small>${b.l}</small></div>${b.ok?`<span class="chip ok">Approved</span>`:`<button class="btn sm redline" data-approve="${b.t}">Approve</button>`}</div>`).join(""):`<p class="small">No break points yet. Short clips usually don't need them.</p>`}
       <button class="btn wide" id="addbp">+ Add break point at ${mmss(head)}</button>
@@ -728,7 +733,7 @@ function clip(id,tab){
         <p class="small" style="margin-top:6px">Amazon sets the ad length. We mark where breaks can go.</p></div>`
   };
   return `<a class="back" href="#/library">← Library</a>
-  <div class="ph"><div><h1>${esc(c.t)}</h1><p class="lead">${esc(c.show)}. ${c.src}, ${c.at}. Source length ${mmss(c.dur)}. Video and text are edited in Brid, not here.</p></div>
+  <div class="ph"><div><h1>${esc(c.t)}</h1><p class="lead">${esc(c.show)}. ${c.src}, ${c.at}. Source length ${mmss(c.dur)}. Video is edited in Brid. Text fixes save back to Brid from here.</p></div>
     ${f.length?`<span class="chip bad">${f.length} to fix before TV</span>`:`<span class="chip ok">Ready for TV</span>`}</div>
   <div class="ed">
     <section class="card">
@@ -747,6 +752,23 @@ function clip(id,tab){
       <div role="tabpanel">${panels[tab]}</div>
     </section>
   </div>`;
+}
+function checkRow(c,x){
+  const mark=`<span class="ck"><i class="${x.k}">${x.k==="ok"?"✓":x.k==="na"?"–":"!"}</i></span>`;
+  let form="",btn="";
+  if(x.k==="bad"&&x.s==="D") form=`<div class="inl">
+      <textarea id="fixdesc" rows="3" placeholder="One or two sentences on what the clip shows.">${esc(c.descText||"")}</textarea>
+      <div class="cnt"><span id="fdcnt">${(c.descText||"").length} characters</span><span>At least one full sentence</span></div>
+      <label class="chk2"><input type="checkbox" id="tvonly"> TV only. Leave Brid as it is.</label>
+      <div class="row-btns"><button class="btn sm dark" id="fdclaude" type="button">Write it with Claude</button><button class="btn sm red" id="fdsave" type="button">Save to Brid</button></div></div>`;
+  else if(x.k==="bad"&&x.s==="L") form=`<div class="inl">
+      <input type="text" id="fixtitle" value="${esc(c.tvTitle||c.t)}">
+      <div class="cnt"><span id="ftcnt" class="${(c.tvTitle||c.t).length>100?"over":""}">${(c.tvTitle||c.t).length} / 100</span><span>TV titles max out at 100</span></div>
+      <label class="chk2"><input type="checkbox" id="tvonlyt" checked> TV only. Keep the full title in Brid for web.</label>
+      <div class="row-btns"><button class="btn sm dark" id="ftclaude" type="button">Shorten it with Claude</button><button class="btn sm red" id="ftsave" type="button">Save for TV</button></div></div>`;
+  else if(x.k==="warn"&&x.s==="F"&&c.h>=1080) btn=`<button class="btn sm" id="tfgrab" type="button">Use the frame on screen</button>`;
+  else if(x.k==="bad") btn=`<button class="btn sm" type="button" data-toast="${x.s==="V"?"This needs the original, higher-quality file uploaded to Brid. Nothing in the Studio can add detail a 360p file doesn't have.":"A full-size thumbnail needs a full-size source. Upload the original file to Brid."}">Upload original in Brid</button>`;
+  return `<li>${mark}<div><b>${x.l}</b><small>${x.n}</small>${form}</div>${btn}</li>`;
 }
 function startJob(cid,k){
   const key=cid+":"+k; S.jobs[key]={state:"QUEUED",pct:0};
@@ -1132,6 +1154,7 @@ function destDetail(k,x,ed){
 /* ===================== ROUTER ===================== */
 let timer=null;
 function render(){
+  if(location.hash.startsWith("#/clip/")&&$("#fixdesc,#fixtitle,#tfgrab")&&!location.hash.includes("tab=")){history.replaceState(null,"",location.hash+"?tab=checks")}
   const ov=$("#vid"); if(ov&&ov.dataset.cid) S.vt[ov.dataset.cid]=ov.currentTime;
   const raw=location.hash.replace(/^#\/?/,"")||"control"; const [path,qs]=raw.split("?"); const parts=path.split("/"); const p=new URLSearchParams(qs||"");
   let r=parts[0],html;
@@ -1187,6 +1210,29 @@ function wire(p,parts){
       $("#trk").addEventListener("click",e=>{const r=e.currentTarget.getBoundingClientRect();const d=v.duration||c.dur;v.currentTime=Math.max(0,Math.min(d,(e.clientX-r.left)/r.width*d))});
       $("#pcut").addEventListener("click",()=>{const d=v.duration||c.dur;const airs=d-trimNow();previewing=true;v.currentTime=Math.max(0,airs-20);v.play().catch(()=>{});toast("Playing the last 20 seconds before the cut.")});
     }}
+  /* fix it here */
+  const who=S.role==="admin"?"Digital admin":"Video desk";
+  const fd=$("#fixdesc");
+  if(fd){const c=byId(parts[1]);const cnt=$("#fdcnt"),sv=$("#fdsave"),tv=$("#tvonly");
+    fd.addEventListener("input",()=>{c.descText=fd.value;cnt.textContent=fd.value.length+" characters"});
+    tv.addEventListener("change",()=>{sv.textContent=tv.checked?"Save for TV":"Save to Brid"});
+    $("#fdclaude").addEventListener("click",()=>{fd.value=c.t.replace(/\s+/g," ").trim()+". Video from the Washington Examiner.";c.descText=fd.value;cnt.textContent=fd.value.length+" characters";toast("Example draft. In the live build Claude writes it from the clip's transcript.")});
+    sv.addEventListener("click",()=>{const val=fd.value.trim();if(val.split(" ").length<4){toast("Write at least one full sentence.");return}
+      c.desc="ok";c.descText=val;const tvo=tv.checked;c.descNote=tvo?`TV version saved in the Studio by ${who} at ${nowHHMM()}. Brid unchanged.`:`Saved to Brid by ${who} at ${nowHHMM()}.`;
+      log(tvo?"Saved a TV-only description":"Saved a description to Brid",c.t);
+      toast((tvo?"Saved for TV. ":"Saved to Brid. The apps and web pick it up on their next refresh. ")+(tvReady(c)?"Checks pass, so it goes to Amazon on the next feed check.":"Fix the remaining check to send it to TV."));render()});}
+  const ft=$("#fixtitle");
+  if(ft){const c=byId(parts[1]);const cnt=$("#ftcnt");
+    const upd=()=>{cnt.textContent=ft.value.length+" / 100";cnt.className=ft.value.length>100?"over":""};
+    ft.addEventListener("input",upd);
+    $("#tvonlyt").addEventListener("change",e=>{$("#ftsave").textContent=e.target.checked?"Save for TV":"Save to Brid"});
+    $("#ftclaude").addEventListener("click",()=>{let t=c.t.replace(/\s+/g," ").trim();[[/ death row inmate\u2019s/," inmate\u2019s"],[/ during /," at "],[/ and /," & "]].forEach(([a,b])=>{if(t.length>100)t=t.replace(a,b)});if(t.length>100){t=t.slice(0,99);t=t.slice(0,t.lastIndexOf(" "))}ft.value=t;upd();toast("Example. Claude keeps the meaning and fits the limit.")});
+    $("#ftsave").addEventListener("click",()=>{const val=ft.value.trim();if(val.length>100){toast("Still over 100 characters.");return}if(val.length<10){toast("That title is too short.");return}
+      const tvo=$("#tvonlyt").checked;if(tvo){c.tvTitle=val;c.titleNote=`TV title saved in the Studio by ${who} at ${nowHHMM()}: ${val.length} of 100. Full title kept in Brid.`}else{c.t=val;c.titleNote=`Saved to Brid by ${who} at ${nowHHMM()}: ${val.length} of 100.`}
+      log(tvo?"Saved a TV title":"Saved a new title to Brid",val);toast(tvReady(c)?"Saved. Checks pass, so it goes to Amazon on the next feed check.":"Saved. Fix the remaining check to send it to TV.");render()});}
+  const tg=$("#tfgrab");
+  if(tg){const c=byId(parts[1]);tg.addEventListener("click",()=>{const vv=$("#vid");const t=vv&&!isNaN(vv.currentTime)?vv.currentTime:c.dur*0.46;
+    c.tf=true;c.tfNote=`Clean frame from ${mmss(t)}, picked in the Studio by ${who}. Sent to Amazon as the TV thumbnail.`;log("Picked a clean thumbnail frame",c.t+" at "+mmss(t));toast("Thumbnail set from "+mmss(t)+". Pause on a frame with no text, then click.");render()})}
   const pc=$("#pcut"); if(pc&&!v){pc.addEventListener("click",()=>toast("The cut preview plays once this clip syncs from Brid."))}
   /* on air */
   const sk=$("#skipnext");if(sk)sk.addEventListener("click",()=>{const a=at(etSec());if(!a)return;const s=a.seq[a.i];S.anchor-=(s.dur-a.off);const n=at(etSec()).seq[at(etSec()).i];
