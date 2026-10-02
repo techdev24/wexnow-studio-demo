@@ -329,6 +329,66 @@ ul.clean{list-style:none;margin:0;padding:0}
 .rules li::before{content:"✓";color:var(--green);font-weight:700}
 .lockn{display:flex;gap:10px;align-items:center;background:var(--bluebg);color:#1B3A7A;border-radius:12px;padding:11px 14px;margin-bottom:16px;font-size:13.5px}
 
+.player video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000}
+.player .ov.playing{background:transparent}
+.player .ov.playing span{opacity:0}
+.player:hover .ov.playing span{opacity:.85}
+.vfail{position:absolute;inset:auto 12px 50px 12px;display:none;background:rgba(0,0,0,.75);color:#fff;font-size:13px;padding:8px 10px;border-radius:6px;z-index:3}
+.track{cursor:pointer}
+/* social */
+.soc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:20px;align-items:start}
+.rule{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line2)}
+.rule:first-of-type{border-top:0}
+.rule b{display:block;font-weight:600}
+.rule small{color:var(--mut);font-size:12.5px}
+.sw{position:relative;width:42px;height:24px;flex:none}
+.sw input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer;z-index:1}
+.sw span{position:absolute;inset:0;background:#D9D5CE;border-radius:999px;transition:background .15s}
+.sw span::after{content:"";position:absolute;left:3px;top:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .15s;box-shadow:0 1px 2px rgba(0,0,0,.2)}
+.sw input:checked+span{background:var(--green)}
+.sw input:checked+span::after{transform:translateX(18px)}
+.sw input:disabled+span{opacity:.6}
+.sw input:focus-visible+span{outline:3px solid var(--blue);outline-offset:2px}
+.showchips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.tg{border:1px solid var(--line);background:#fff;border-radius:999px;padding:5px 12px;font-size:13px;font-weight:600;cursor:pointer}
+.tg[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.q li{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px;border-radius:10px;cursor:pointer}
+.q li:hover{background:var(--row)}
+.q li.sel{background:var(--pink)}
+.q li b{display:block;font-weight:600;font-size:13.5px;line-height:1.3}
+.q li small{color:var(--mut);font-size:12px}
+.q .mini{width:64px;aspect-ratio:9/16;border-radius:6px;overflow:hidden;position:relative;background:#222}
+.q .mini img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.q .mini .th{position:absolute;inset:0;aspect-ratio:auto;height:100%;border-radius:0;padding:4px}
+.q .mini .th .sn{font-size:8px}
+.stage{display:grid;grid-template-columns:auto minmax(0,1fr);gap:22px;align-items:start}
+.ph2{position:relative;background:#000;border:6px solid #161616;border-radius:26px;overflow:hidden;width:250px;box-shadow:0 12px 30px rgba(0,0,0,.18);transition:width .2s}
+.ph2.f916{aspect-ratio:9/16} .ph2.f45{aspect-ratio:4/5;width:300px} .ph2.f11{aspect-ratio:1/1;width:310px}
+.ph2 video,.ph2 > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:object-position .4s}
+.ph2 .th{position:absolute;inset:0;aspect-ratio:auto;height:100%;border-radius:0}
+.ph2 .top{position:absolute;left:10px;right:10px;top:9px;z-index:3}
+.ph2 .prog{height:3px;background:rgba(255,255,255,.35);border-radius:2px;overflow:hidden}
+.ph2 .prog i{display:block;height:100%;background:#fff;width:0}
+.ph2 .brand{margin-top:8px;font-family:var(--head);font-weight:800;font-size:12px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.ph2 .brand span{color:var(--red)}
+.ph2 .hook{position:absolute;left:12px;right:12px;top:15%;z-index:3;font-family:var(--head);font-weight:800;font-size:17px;line-height:1.12;color:#fff;text-shadow:0 2px 6px rgba(0,0,0,.7)}
+.ph2.f11 .hook,.ph2.f45 .hook{top:12%}
+.ph2 .caps{position:absolute;left:10px;right:10px;bottom:16%;z-index:3;text-align:center;font-family:var(--head);font-weight:800;font-size:18px;line-height:1.15;color:#fff;text-shadow:0 2px 5px rgba(0,0,0,.9);min-height:44px}
+.ph2 .caps em{font-style:normal;background:var(--red);padding:0 4px;border-radius:3px}
+.ph2 .side{position:absolute;right:8px;bottom:30%;z-index:3;display:flex;flex-direction:column;gap:12px;opacity:.9}
+.ph2 .side i{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.22);display:block}
+.ctl label.l{display:block;font-size:12.5px;font-weight:600;color:var(--mut);margin:14px 0 6px}
+.ctl label.l:first-child{margin-top:0}
+.ctl input[type=text]{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 11px}
+.ctl input[type=range]{width:100%;accent-color:var(--red)}
+.ctl .rng{display:flex;justify-content:space-between;font-size:11.5px;color:var(--dim)}
+.segs{display:flex;background:var(--row);border-radius:9px;padding:3px;gap:2px}
+.segs button{flex:1;border:0;background:transparent;border-radius:7px;padding:7px 6px;font-weight:600;font-size:12.5px;cursor:pointer;color:var(--mut)}
+.segs button[aria-pressed="true"]{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.chk2{display:flex;align-items:center;gap:8px;font-size:13.5px;margin-top:8px}
+.warnbox{background:var(--amberbg);color:var(--amber);border-radius:9px;padding:8px 11px;font-size:13px;margin-top:12px}
+@media (max-width:1240px){.soc{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){.stage{grid-template-columns:minmax(0,1fr)} .ph2{margin:0 auto}}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(16px);background:var(--ink);color:#fff;padding:11px 16px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;max-width:min(92vw,560px);z-index:20;box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
@@ -354,6 +414,7 @@ ul.clean{list-style:none;margin:0;padding:0}
       <a href="#/library" data-r="library">Library</a>
       <a href="#/planner" data-r="planner">Planner</a>
       <a href="#/playout" data-r="playout">Playout</a>
+      <a href="#/social" data-r="social">Social</a>
       <a href="#/connect" data-r="connect">Connect</a>
     </nav>
     <div class="hright">
@@ -373,11 +434,11 @@ const SHOW_COLORS={"Daily News Hits":"#B5102A","Inside Scoop":"#1F3A5F","The Wak
 const TOTAL_LIBRARY=18358;
 /* First five: real Brid clips pulled Oct 1 (partner 19383). The rest: from the Amazon playlist used in the console mockup. */
 const CLIPS=[
- {id:2834706,t:"Trump slams convention date, Good family sues Trump, 100+ CDC monkeys need home",show:"Daily News Hits",dur:206,h:360,src:"YouTube import",desc:"links",thumb:false,tf:null,promo:null,yt:true,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834706_sd_6abeca254e54c_1790888485.jpg",at:"Oct 1, 8:59 PM"},
- {id:2834659,t:"Potential pardons, 2028, and Iran: Trump sounds off at the White House",show:"Daily News Hits",dur:314,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:null,promo:null,yt:false,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834659_sd_6abec58c6ebf8_1790887308.jpg",at:"Oct 1, 8:27 PM"},
- {id:2834515,t:"JD Vance heckled by protesters during Florida rally",show:"Daily News Hits",dur:149,h:1080,src:"Brid upload",desc:"none",thumb:true,tf:null,promo:null,yt:false,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834515_sd_6abeb8b0b00c4_1790884016.jpg",at:"Oct 1, 7:44 PM"},
- {id:2834510,t:"Blackburn calls to reinstate electric chair after Tennessee death row inmate\u2019s botched lethal injections",show:"Daily News Hits",dur:80,h:1080,src:"Brid upload",desc:"none",thumb:true,tf:null,promo:null,yt:false,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834510_sd_6abeb8129720e_1790883858.jpg",at:"Oct 1, 7:43 PM"},
- {id:2834373,t:"California governor debate turns into Trump-Newsom proxy war",show:"Daily News Hits",dur:108,h:360,src:"YouTube import",desc:"links",thumb:false,tf:null,promo:null,yt:true,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834373_sd_6abec98101ee2_1790888321.jpg",at:"Oct 1, 6:24 PM"},
+ {id:2834706,t:"Trump slams convention date, Good family sues Trump, 100+ CDC monkeys need home",show:"Daily News Hits",dur:206,h:360,src:"YouTube import",desc:"links",thumb:false,tf:false,promo:null,yt:true,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834706_sd_6abeca254e54c_1790888485.jpg",at:"Oct 1, 8:59 PM"},
+ {id:2834659,t:"Potential pardons, 2028, and Iran: Trump sounds off at the White House",show:"Daily News Hits",dur:314,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:false,promo:null,yt:false,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834659_sd_6abec58c6ebf8_1790887308.jpg",at:"Oct 1, 8:27 PM"},
+ {id:2834515,t:"JD Vance heckled by protesters during Florida rally",show:"Daily News Hits",dur:149,h:1080,src:"Brid upload",desc:"none",thumb:true,tf:false,promo:null,yt:false,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834515_sd_6abeb8b0b00c4_1790884016.jpg",at:"Oct 1, 7:44 PM"},
+ {id:2834510,t:"Blackburn calls to reinstate electric chair after Tennessee death row inmate\u2019s botched lethal injections",show:"Daily News Hits",dur:80,h:1080,src:"Brid upload",desc:"none",thumb:true,tf:false,promo:null,yt:false,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834510_sd_6abeb8129720e_1790883858.jpg",at:"Oct 1, 7:43 PM"},
+ {id:2834373,t:"California governor debate turns into Trump-Newsom proxy war",show:"Daily News Hits",dur:108,h:360,src:"YouTube import",desc:"links",thumb:false,tf:false,promo:null,yt:true,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834373_sd_6abec98101ee2_1790888321.jpg",at:"Oct 1, 6:24 PM"},
  {id:101,t:"Inside Scoop: Democrats\u2019 decision time, God and the internet",show:"Inside Scoop",dur:803,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:15,yt:true,at:"Oct 1"},
  {id:102,t:"South Korea to commit $54 billion for Alaska LNG pipeline",show:"Daily News Hits",dur:84,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:15,yt:true,at:"Oct 1"},
  {id:103,t:"Republicans worry they\u2019ve \u2018glossed over\u2019 voters\u2019 affordability concerns",show:"Daily News Hits",dur:108,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:15,yt:true,at:"Oct 1"},
@@ -391,6 +452,10 @@ const CLIPS=[
  {id:111,t:"GOP midterm freakout: Are Republicans doomed?",show:"Inside Scoop",dur:612,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:false,promo:14,yt:true,at:"Sep 30"}
 ];
 const byId=id=>CLIPS.find(c=>String(c.id)===String(id));
+const isReal=c=>c&&c.id>200000;
+/* Brid serves files at /live/partners/<partner>/<quality>/<videoId>.mp4 (same scheme as the snapshot URLs). */
+const vidSrc=c=>isReal(c)?["hd","sd"].flatMap(q=>[`https://cdn.target-video.com/live/partners/19383/${q}/${c.id}.mp4`,`https://cdn.brid.tv/live/partners/19383/${q}/${c.id}.mp4`]):[];
+function videoTag(c,id,attrs,extra=""){const src=vidSrc(c);return `<video id="${id}" ${attrs} poster="${c.img||""}">${src.map((u,i)=>`<source src="${u}" type="video/mp4"${i===src.length-1?` data-last="1"`:""}>`).join("")}</video>${extra}`}
 const APP_ROWS=[["America 250","27942","27942"],["WEX NOW Daily (News Hits)","25675","25675","Every published clip, not a picked lineup"],["March to the Midterms","27944","27944"],["Wake Up","21699","21699"],["Political Perspectives","27365","27365"],["Over the Target","26352","26352"],["On Deadline","26353","26353"],["The Debriefs","21235","27366","Different playlist on each app"],["Reporters Notebooks","21229","21229"],["Inside Scoop","26092","26092"],["Latest News","25675","25403","Fire TV repeats WEX NOW Daily"]];
 const S={
   role:"admin",
@@ -398,7 +463,11 @@ const S={
   pattern:"15",
   q:"", libq:"", libf:"all",
   trim:{}, bps:{101:[{t:252,l:"End of segment 1, pause detected",ok:true},{t:527,l:"End of segment 2, pause detected",ok:true},{t:690,l:"Suggested, low risk of cutting mid-sentence",ok:false}]},
-  jobs:{}, trace:101, dest:"amazon", ptab:"order",
+  jobs:{}, trace:101, dest:"amazon", ptab:"order", vt:{},
+  soc:{sel:2834659,fmt:"916",pos:50,auto:true,caps:true,len:45,start:0,hook:{},
+    rules:{"Daily News Hits":true,"Inside Scoop":true,"The Wakeup":false,"America 250":false,caps:true,brand:true},
+    plats:{reels:true,shorts:true,tiktok:true,fb:false},
+    queue:[{id:2834659,st:"ready"},{id:2834515,st:"ready"},{id:2834510,st:"processing",pct:35},{id:2834706,st:"queued"},{id:2834373,st:"queued"},{id:102,st:"posted",at:"21:10",to:"Reels, Shorts, TikTok"},{id:105,st:"posted",at:"20:42",to:"Reels, Shorts"}]},
   log:[
     {t:"10:42",w:"Video desk",a:"Published the 24/7 lineup",d:"6 clips, breaks after every clip"},
     {t:"10:31",w:"Video desk",a:"Approved break point 8:47",d:"Inside Scoop: Democrats\u2019 decision time"},
@@ -480,6 +549,7 @@ function control(){
     {s:"r",w:`${CLIPS.filter(c=>c.h<720).length} clips are 360p YouTube imports`,where:"Amazon, 24/7 channel",imp:"Can't air on TV",act:"Upload the original file to Brid",go:"#/library?f=low"},
     {s:"a",w:`${CLIPS.filter(c=>c.desc==="none").length} clips have no description`,where:"Amazon free channel",imp:"Held back from Amazon",act:"Add descriptions in Brid",go:"#/library?f=nodesc"},
     {s:"a",w:"1 title is over 100 characters",where:"Amazon free channel",imp:"Held back",act:"Shorten it in Brid",go:"#/clip/2834510"},
+    {s:"a",w:"All 5 of today's thumbnails have text burned in",where:"Amazon free channel",imp:"Amazon won't promote them on Alexa",act:"Pick a clean frame in the Studio",go:"#/clip/2834659"},
     {s:"a",w:"The Debriefs uses different playlists",where:"Fire TV 21235, Roku 27366",imp:"Apps show different episodes",act:"Pick one playlist",go:"#/connect?d=fire"},
     {s:"b",w:"Amazon feed takes every published clip",where:"Amazon free channel",imp:"No editorial approval before air",act:"Turn on TV approval",go:"#/connect?d=amazon"}
   ];
@@ -586,7 +656,8 @@ function clip(id,tab){
       ${verRow("vert",`<div class="vframe v">${thumb(c)}</div>`,"Vertical 9:16 for social","Reframed for phones, captions burned in. For Reels, Shorts and TikTok.",false,`<button class="btn sm redline" data-job="vert">Create</button>`)}
       <div class="vert"><div class="phone">${thumb(c)}<div class="brand">WEX <span>NOW</span></div><div class="cap">${esc(c.t.split(" ").slice(0,6).join(" "))} <em>${esc(c.t.split(" ").slice(6,8).join(" ")||"now")}</em></div></div>
         <div><b style="font-weight:600">Vertical preview</b><p class="small" style="margin:4px 0 10px">Keeps the speaker centered, adds burned-in captions from the transcript and the WEX NOW brand. Editors approve before anything posts.</p>
-        <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="chip gray">Instagram Reels</span><span class="chip gray">YouTube Shorts</span><span class="chip gray">TikTok</span><span class="chip gray">Facebook</span></div></div></div>`,
+        <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="chip gray">Instagram Reels</span><span class="chip gray">YouTube Shorts</span><span class="chip gray">TikTok</span><span class="chip gray">Facebook</span></div>
+        <a class="btn sm redline" style="margin-top:12px" href="#/social?c=${c.id}">Open in Social</a></div></div>`,
     checks:`<ul class="clean chk">${checks(c).map(x=>`<li><span class="ck"><i class="${x.k}">${x.k==="ok"?"✓":x.k==="na"?"–":"!"}</i></span><div><b>${x.l}</b><small>${x.n}</small></div>${x.k==="bad"?`<button class="btn sm" data-toast="Opens this clip in Brid. The Studio picks up the fix on its next sync, within 15 minutes.">Fix in Brid</button>`:""}</li>`).join("")}</ul>`,
     breaks:`<p class="small" style="margin-bottom:12px;color:var(--tx)">Long shows need natural pauses for mid-show breaks. Pick from the suggested pauses, or add your own at the playhead.</p>
       ${bps.length?bps.slice().sort((a,b)=>a.t-b.t).map(b=>`<div class="bpi ${b.ok?"":"sug"}"><div><span class="t">${mmss(b.t)}</span><small>${b.l}</small></div>${b.ok?`<span class="chip ok">Approved</span>`:`<button class="btn sm redline" data-approve="${b.t}">Approve</button>`}</div>`).join(""):`<p class="small">No break points yet. Short clips usually don't need them.</p>`}
@@ -601,13 +672,14 @@ function clip(id,tab){
     ${f.length?`<span class="chip bad">${f.length} to fix before TV</span>`:`<span class="chip ok">Ready for TV</span>`}</div>
   <div class="ed">
     <section class="card">
-      <div class="player">${thumb(c)}<button class="ov" type="button" aria-label="Preview" data-toast="Plays the last 20 seconds and stops at the cut point, so you can check the cut."><span>${I.play}</span></button>
-        <span class="tc">${tc(head)}</span><span class="lk"><span class="chip gray">Original, locked</span></span><span class="cut">TV CUT AT ${mmss(airs)}</span></div>
+      <div class="player">${thumb(c)}${isReal(c)?videoTag(c,"vid",'playsinline preload="metadata"',`<div class="vfail" id="vfail">Preview couldn't load from Brid. The clip itself is fine.</div>`):""}<button class="ov" id="vplay" type="button" aria-label="Play"><span>${I.play}</span></button>
+        <span class="tc" id="vtc">${tc(isReal(c)?0:head)}</span><span class="lk"><span class="chip gray">Original, locked</span></span><span class="cut">TV CUT AT ${mmss(airs)}</span></div>
       <div class="tline"><span>0:00</span><span>${mmss(c.dur/2)}</span><span>${mmss(c.dur)}</span></div>
-      <div class="track"><div class="wv">${wave.map(h=>`<i style="height:${h}%"></i>`).join("")}</div><div class="trim" style="width:${pct}%"></div>
-        ${bps.filter(b=>b.ok).map(b=>`<div class="bp" style="left:${b.t/c.dur*100}%"></div>`).join("")}<div class="ph" style="left:${head/c.dur*100}%"></div></div>
+      <div class="track" id="trk" title="Click to jump"><div class="wv">${wave.map(h=>`<i style="height:${h}%"></i>`).join("")}</div><div class="trim" style="width:${pct}%"></div>
+        ${bps.filter(b=>b.ok).map(b=>`<div class="bp" style="left:${b.t/c.dur*100}%"></div>`).join("")}<div class="ph" id="vph" style="left:${(isReal(c)?0:head)/c.dur*100}%"></div></div>
       <div class="legend"><span><i style="background:var(--airs)"></i>Airs on TV</span><span><i style="background:#F3A6B4"></i>Trimmed end promo</span><span><i style="background:var(--amber);width:3px;height:14px"></i>Ad break point</span><span><i style="background:var(--ink);width:2px;height:14px"></i>Playhead</span></div>
       <div class="trimctl"><b>Trim from end</b><button class="stp" id="tm" aria-label="Trim less">−</button><span class="tv">${mmss(trim)}</span><button class="stp" id="tp" aria-label="Trim more">+</button>
+        <button class="btn sm dark" id="pcut" type="button">Preview the cut</button>
         <span class="small">${esc(c.show)} default 0:15. Airs as ${mmss(airs)}. Trimming makes a new TV version; the original never changes.</span></div>
     </section>
     <section class="card">
@@ -738,6 +810,104 @@ function tickChannel(){
     const nl=$("#nowl"),tr=ep.querySelector(".tr");if(nl&&tr){const off=tr.getBoundingClientRect().left-ep.getBoundingClientRect().left;nl.style.left=(off+(now-epg0)/WIN*tr.clientWidth)+"px"}}
 }
 
+
+/* ===================== SOCIAL (vertical clips) ===================== */
+const PLAT={reels:"Instagram Reels",shorts:"YouTube Shorts",tiktok:"TikTok",fb:"Facebook Reels"};
+const stLabel={queued:["gray","Queued"],processing:["info","Making vertical"],ready:["warn","Ready for review"],scheduled:["info","Scheduled"],posted:["ok","Posted"]};
+function hookFor(c){return S.soc.hook[c.id]??c.t.split(/[:,]/)[0].split(" ").slice(0,7).join(" ")}
+function social(p){
+  const so=S.soc; if(p.get("c")){const id=+p.get("c")||p.get("c");if(!so.queue.some(q=>String(q.id)===String(id)))so.queue.unshift({id,st:"ready"});so.sel=id}
+  const c=byId(so.sel)||byId(so.queue[0].id); const qi=so.queue.find(q=>String(q.id)===String(c.id))||{st:"ready"};
+  const counts=k=>so.queue.filter(q=>q.st===k).length;
+  const fmtW={"916":"9:16","45":"4:5","11":"1:1"}[so.fmt];
+  const maxStart=Math.max(0,c.dur-so.len);
+  return `<div class="ph"><div><p class="eyebrow">Social, automated</p><h1>Vertical clips</h1>
+    <p class="lead">Every new clip from the shows you pick becomes a vertical version automatically: reframed for phones, captions burned in, WEX NOW branded. An editor approves it, then it posts.</p></div>
+    <button class="btn dark" id="runauto" type="button">Run automation now</button></div>
+  <div class="soc">
+    <div style="display:grid;gap:20px">
+      <section class="card"><div class="ch"><h2>Automation rules</h2><small>Applies to every new clip from Brid</small></div>
+        <div class="rule" style="display:block"><b>Make a vertical version of every new clip from</b>
+          <div class="showchips">${["Daily News Hits","Inside Scoop","The Wakeup","America 250"].map(n=>`<button class="tg" type="button" data-show="${n}" aria-pressed="${!!so.rules[n]}">${n}</button>`).join("")}</div></div>
+        ${sw("caps","Burn in captions","From the clip's transcript, word by word",so.rules.caps)}
+        ${sw("brand","Add WEX NOW branding","Logo and headline on every version",so.rules.brand)}
+        ${sw("approve","Editor approves before anything posts","Always on",true,true)}
+        <div class="rule"><div><b>Pick the strongest 60 seconds automatically</b><small>Finds the hook in the transcript</small></div><span class="chip gray">Later</span></div>
+        <div class="rule" style="display:block"><b>Post to</b><div class="showchips">${Object.entries(PLAT).map(([k,v])=>`<button class="tg" type="button" data-plat="${k}" aria-pressed="${!!so.plats[k]}">${v}</button>`).join("")}</div></div>
+      </section>
+      <section class="card"><div class="ch"><h2>Queue</h2><small>${counts("processing")+counts("queued")} in progress, ${counts("ready")} to review, ${counts("posted")} posted</small></div>
+        <ul class="clean q" id="queue">${queueHTML()}</ul></section>
+    </div>
+    <section class="card">
+      <div class="ch"><div><h2 style="font-size:17px">${esc(c.t)}</h2><small>${esc(c.show)}, ${mmss(c.dur)} source, ${c.h}p</small></div><span class="chip ${stLabel[qi.st][0]}" id="selst" data-k="${qi.st}">${stLabel[qi.st][1]}</span></div>
+      <div class="stage">
+        <div><div class="ph2 f${so.fmt}" id="phone">
+          ${thumb(c)}${isReal(c)?videoTag(c,"svid",`muted autoplay loop playsinline style="object-position:${so.pos}% 50%"`):""}
+          <div class="top"><div class="prog"><i id="sprog"></i></div>${so.rules.brand?`<div class="brand">WEX <span>NOW</span></div>`:""}</div>
+          ${so.rules.brand?`<div class="hook" id="shook">${esc(hookFor(c))}</div>`:""}
+          ${so.rules.caps?`<div class="caps" id="scaps"></div>`:""}
+          <div class="side"><i></i><i></i><i></i></div>
+        </div>
+        <p class="small" style="max-width:250px;margin-top:8px">${isReal(c)?"Playing the real clip, reframed live.":"Video plays once this clip syncs from Brid."} Captions come from the transcript; this preview uses the headline.</p></div>
+        <div class="ctl">
+          <label class="l">Format</label>
+          <div class="segs">${[["916","9:16 Reels, Shorts, TikTok"],["45","4:5 Feed"],["11","1:1 Square"]].map(f=>`<button type="button" data-fmt="${f[0]}" aria-pressed="${so.fmt===f[0]}">${f[1]}</button>`).join("")}</div>
+          <label class="l" for="pos">Reframe: where the crop sits</label>
+          <input type="range" id="pos" min="0" max="100" value="${so.pos}" ${so.auto?"disabled":""}><div class="rng"><span>Left</span><span>Center</span><span>Right</span></div>
+          <label class="chk2"><input type="checkbox" id="auto" ${so.auto?"checked":""}> Keep the speaker in frame automatically</label>
+          <label class="l" for="hook">Headline on the video</label>
+          <input type="text" id="hook" value="${esc(hookFor(c))}" maxlength="60">
+          <label class="l">Length</label>
+          <div class="segs">${[30,45,60].map(n=>`<button type="button" data-len="${n}" aria-pressed="${so.len===n}">0:${n===60?"60":n}</button>`).join("")}</div>
+          <label class="l" for="start">Starts at <span class="mono" id="startv">${mmss(Math.min(so.start,maxStart))}</span></label>
+          <input type="range" id="start" min="0" max="${maxStart}" value="${Math.min(so.start,maxStart)}">
+          ${c.h<720?`<div class="warnbox">This source is ${c.h}p. Cropped to ${fmtW} it will look soft on phones. Upload the original to Brid for a sharper version.</div>`:""}
+          <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
+            ${qi.st==="ready"?`<button class="btn red" id="approve" type="button">Approve and schedule</button><button class="btn" id="reject" type="button">Send back</button>`:
+              qi.st==="posted"?`<span class="small">Posted at ${qi.at} to ${qi.to}.</span>`:
+              qi.st==="scheduled"?`<span class="small">Scheduled for ${qi.at} to ${qi.to}.</span>`:
+              `<span class="small">Still being made. You can review it as soon as it's ready.</span>`}
+          </div>
+          <p class="small" style="margin-top:10px">Posting is simulated in this preview. Account logins stay with Digital.</p>
+        </div>
+      </div>
+    </section>
+  </div>`;
+}
+function sw(k,title,sub,on,locked){return `<div class="rule"><div><b>${title}</b><small>${sub}</small></div><span class="sw"><input type="checkbox" data-rule="${k}" ${on?"checked":""} ${locked?"disabled":""} aria-label="${title}"><span></span></span></div>`}
+function queueHTML(){
+  return S.soc.queue.map(q=>{const c=byId(q.id);const [cls,lab]=stLabel[q.st];
+    return `<li class="${String(q.id)===String(S.soc.sel)?"sel":""}" data-sel="${q.id}"><div class="mini">${thumb(c)}</div>
+      <div><b>${esc(c.t)}</b><small>${esc(c.show)}${q.st==="posted"?`, ${q.at}`:""}</small>${q.st==="processing"?`<div class="pbar"><i style="width:${q.pct||0}%"></i></div>`:""}</div>
+      <span class="chip ${cls}">${lab}</span></li>`}).join("");
+}
+/* background pipeline: queued -> making vertical -> ready for review; scheduled -> posted */
+setInterval(()=>{
+  const qu=S.soc.queue; let changed=false;
+  let pr=qu.find(q=>q.st==="processing");
+  if(!pr){pr=qu.find(q=>q.st==="queued");if(pr){pr.st="processing";pr.pct=0;changed=true}}
+  if(pr){pr.pct=Math.min(100,(pr.pct||0)+4+Math.random()*5);changed=true;
+    if(pr.pct>=100){pr.st="ready";log("Vertical version ready",byId(pr.id).t);if(location.hash.startsWith("#/social"))toast("New vertical ready for review: "+byId(pr.id).t.slice(0,60))}}
+  qu.filter(q=>q.st==="scheduled"&&Date.now()>=q.due).forEach(q=>{q.st="posted";q.at=hhmm(etSec());changed=true;log("Posted vertical",byId(q.id).t+" to "+q.to)});
+  if(changed&&location.hash.startsWith("#/social")){const ul=$("#queue");if(ul)ul.innerHTML=queueHTML(),wireQueue();const sel=qu.find(q=>String(q.id)===String(S.soc.sel));const st=$("#selst");if(st&&sel&&st.dataset.k!==sel.st){st.dataset.k=sel.st;if(sel.st==="ready"||sel.st==="posted")render()}}
+},600);
+function wireQueue(){$$("[data-sel]").forEach(li=>li.addEventListener("click",()=>{S.soc.sel=isNaN(+li.dataset.sel)?li.dataset.sel:+li.dataset.sel;S.soc.start=0;history.replaceState(null,"","#/social");render()}))}
+let capTimer=null;
+function socialLive(){
+  clearInterval(capTimer);
+  const c=byId(S.soc.sel)||byId(S.soc.queue[0].id); const v=$("#svid"); const words=hookFor(c).split(" ").concat(c.t.split(" ")).filter(Boolean);
+  if(v){v.addEventListener("loadedmetadata",()=>{try{v.currentTime=S.soc.start}catch(e){}});
+    const last=v.querySelector("source[data-last]");if(last)last.addEventListener("error",()=>{v.style.display="none";if(!S.warned){S.warned=true;toast("The clip couldn't load from Brid here, so the preview shows the thumbnail.")}});}
+  let t0=Date.now();
+  capTimer=setInterval(()=>{
+    const so=S.soc; const ct=v&&!isNaN(v.currentTime)&&v.readyState>1?v.currentTime:so.start+((Date.now()-t0)/1000)%so.len;
+    if(v&&v.readyState>1&&(ct>so.start+so.len||ct<so.start-0.5)){try{v.currentTime=so.start}catch(e){}}
+    const pr=$("#sprog");if(pr)pr.style.width=Math.max(0,Math.min(100,(ct-so.start)/so.len*100))+"%";
+    const cp=$("#scaps");if(cp){const i=Math.floor((ct-so.start)*2.6)%words.length;const s0=Math.floor(i/4)*4;cp.innerHTML=words.slice(s0,s0+4).map((w,k)=>s0+k===i?`<em>${esc(w)}</em>`:esc(w)).join(" ")}
+    if(so.auto&&v){const x=50+Math.sin(Date.now()/2600)*6;v.style.objectPosition=x+"% 50%"}
+  },120);
+}
+
 /* ===================== CONNECT ===================== */
 const DEST={
   fire:{g:"FT",n:"Fire TV app",type:"Owned app",st:"live",sl:"Live",sub:"11 rows from Brid playlists"},
@@ -748,7 +918,7 @@ const DEST={
   rokuch:{g:"RC",n:"Roku free channel",type:"Free channel, 24/7",st:"plan",sl:"Jan 1",sub:"Same stream as Amazon 24/7"},
   ch247:{g:"24",n:"WEX NOW 24/7",type:"Our own stream",st:"plan",sl:"Preview",sub:"Amazon first, then Roku"},
   samsung:{g:"SM",n:"Samsung TV app",type:"Owned app",st:"plan",sl:"Jan 1",sub:"Same playlists as Fire TV and Roku"},
-  social:{g:"SO",n:"Reels, Shorts, TikTok",type:"Social, vertical",st:"plan",sl:"Next",sub:"Posted after editor approval"}
+  social:{g:"SO",n:"Reels, Shorts, TikTok",type:"Social, vertical",st:"ok",sl:"Automated",sub:"Vertical versions, editor approves"}
 };
 function connect(p){
   const ed=S.role==="editor"; const d=p.get("d")||S.dest; S.dest=d; const x=DEST[d]||DEST.amazon;
@@ -767,7 +937,7 @@ function destDetail(k,x,ed){
     <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap"><button class="btn" data-toast="Shows exactly which clips were sent and which were held back, and why.">View last check</button>${ed?"":`<button class="btn redline" data-toast="Only clips an editor approves for TV go to Amazon. Today the feed takes every published clip.">Turn on TV approval</button>`}</div>`;
   if(k==="fire"||k==="roku")return head+`<div class="tw"><table><thead><tr><th>Row</th>${ed?"":"<th>Fire TV</th><th>Roku</th>"}<th></th></tr></thead><tbody>${APP_ROWS.map(r=>`<tr><td>${r[0]}</td>${ed?"":`<td class="mono">${r[1]}</td><td class="mono">${r[2]}</td>`}<td>${r[3]?`<span class="chip warn">${r[3]}</span>`:`<span class="chip ok">Matches</span>`}</td></tr>`).join("")}</tbody></table></div>`;
   if(k==="yt")return head+`<dl class="kv"><dt>Today</dt><dd>Posted outside the Studio, with the end promo baked in</dd><dt>Next</dt><dd>Clean master from Brid, outro added by rule per show, YouTube end screen on top</dd><dt>Shorts</dt><dd>From the vertical versions made in the Studio</dd></dl>`;
-  if(k==="social")return head+`<dl class="kv"><dt>What goes out</dt><dd>Vertical 9:16 versions with burned-in captions and WEX NOW branding</dd><dt>Approval</dt><dd>An editor approves every post</dd><dt>Accounts</dt><dd>Connected by Digital; editors never see logins</dd></dl>`;
+  if(k==="social")return head+`<a class="btn sm redline" href="#/social" style="margin-bottom:12px">Open Social</a><dl class="kv"><dt>What goes out</dt><dd>Vertical 9:16 versions with burned-in captions and WEX NOW branding</dd><dt>Approval</dt><dd>An editor approves every post</dd><dt>Accounts</dt><dd>Connected by Digital; editors never see logins</dd></dl>`;
   if(k==="ch247"||k==="rokuch")return head+`<dl class="kv"><dt>Built from</dt><dd>The Planner's running order and weekly schedule</dd><dt>Stream</dt><dd>Continuous HD stream with ad markers at every break</dd><dt>Ads</dt><dd>Filled by the platform; we mark where breaks go</dd><dt>Safety</dt><dd>A failed clip is skipped; the channel never goes dark</dd><dt>Status</dt><dd>${k==="ch247"?"Preview running in Playout. Waiting on enough programming to fill the day.":"Applying to Roku's free channel lineup; target Jan 1"}</dd></dl><a class="btn mt" href="#/playout">Open playout</a>`;
   if(k==="samsung")return head+`<dl class="kv"><dt>Type</dt><dd>Our own app, like Fire TV and Roku</dd><dt>Content</dt><dd>Same Brid playlists and rows</dd><dt>Target</dt><dd>Jan 1</dd></dl>`;
   return head+`<dl class="kv"><dt>Type</dt><dd>${x.type}</dd><dt>Status</dt><dd>${x.sl}</dd><dt>Notes</dt><dd>${x.sub}</dd></dl>`;
@@ -776,6 +946,7 @@ function destDetail(k,x,ed){
 /* ===================== ROUTER ===================== */
 let timer=null;
 function render(){
+  const ov=$("#vid"); if(ov&&ov.dataset.cid) S.vt[ov.dataset.cid]=ov.currentTime;
   const raw=location.hash.replace(/^#\/?/,"")||"control"; const [path,qs]=raw.split("?"); const parts=path.split("/"); const p=new URLSearchParams(qs||"");
   let r=parts[0],html;
   if(r==="library")html=library(p);
@@ -783,10 +954,12 @@ function render(){
   else if(r==="planner")html=planner();
   else if(r==="playout")html=playout();
   else if(r==="connect")html=connect(p);
+  else if(r==="social")html=social(p);
   else{html=control();r="control"}
   const app=$("#app");app.innerHTML=html;
   $$(".tabs a").forEach(a=>a.toggleAttribute("aria-current",false));const cur=$(`.tabs a[data-r="${r}"]`);if(cur)cur.setAttribute("aria-current","page");
-  clearInterval(timer);
+  clearInterval(timer); clearInterval(capTimer);
+  if(r==="social")socialLive();
   if(r==="control"||r==="playout"){if(r==="playout")drawEPG();tickChannel();timer=setInterval(tickChannel,250)}
   wire(p,parts);
 }
@@ -812,6 +985,44 @@ function wire(p,parts){
   const pub=$("#pub");if(pub)pub.addEventListener("click",()=>{log("Published the 24/7 lineup",`${S.lineup.length} clips`);toast("Published. The channel picks up the new lineup within minutes.");render()});
   const plq=$("#plq");if(plq)plq.addEventListener("input",()=>{S.q=plq.value;rerenderKeep("plq")});
   $$("[data-dest]").forEach(b=>b.addEventListener("click",()=>{S.dest=b.dataset.dest;history.replaceState(null,"","#/connect?d="+b.dataset.dest);render()}));
+
+  /* clip player */
+  const v=$("#vid"), vb=$("#vplay");
+  if(vb){const c=byId(parts[1]);
+    if(!v){vb.addEventListener("click",()=>toast("Video preview plays once this clip syncs from Brid. The five clips published Oct 1 play now."));}
+    else{
+      v.dataset.cid=c.id; const trimNow=()=>S.trim[c.id]??c.promo??15; let previewing=false;
+      const last=v.querySelector("source[data-last]");if(last)last.addEventListener("error",()=>{v.style.display="none";const f=$("#vfail");if(f)f.style.display="block"});
+      v.addEventListener("loadedmetadata",()=>{if(S.vt[c.id]){try{v.currentTime=S.vt[c.id]}catch(e){}}});
+      vb.addEventListener("click",()=>{if(v.paused){v.play().catch(()=>toast("Click play again to start the preview."))}else v.pause()});
+      v.addEventListener("play",()=>vb.classList.add("playing"));v.addEventListener("pause",()=>vb.classList.remove("playing"));
+      v.addEventListener("timeupdate",()=>{const d=v.duration||c.dur;$("#vtc").textContent=tc(v.currentTime);$("#vph").style.left=(v.currentTime/d*100)+"%";
+        const airs=d-trimNow(); if(previewing&&v.currentTime>=airs){v.pause();previewing=false;toast("Stopped at "+mmss(airs)+". That's where the TV version ends.")}});
+      $("#trk").addEventListener("click",e=>{const r=e.currentTarget.getBoundingClientRect();const d=v.duration||c.dur;v.currentTime=Math.max(0,Math.min(d,(e.clientX-r.left)/r.width*d))});
+      $("#pcut").addEventListener("click",()=>{const d=v.duration||c.dur;const airs=d-trimNow();previewing=true;v.currentTime=Math.max(0,airs-20);v.play().catch(()=>{});toast("Playing the last 20 seconds before the cut.")});
+    }}
+  const pc=$("#pcut"); if(pc&&!v){pc.addEventListener("click",()=>toast("The cut preview plays once this clip syncs from Brid."))}
+  /* social */
+  if(location.hash.startsWith("#/social")){
+    const so=S.soc; const c=byId(so.sel)||byId(so.queue[0].id);
+    wireQueue();
+    $$("[data-show]").forEach(b=>b.addEventListener("click",()=>{so.rules[b.dataset.show]=!so.rules[b.dataset.show];log((so.rules[b.dataset.show]?"Turned on":"Turned off")+" auto verticals",b.dataset.show);render()}));
+    $$("[data-plat]").forEach(b=>b.addEventListener("click",()=>{so.plats[b.dataset.plat]=!so.plats[b.dataset.plat];render()}));
+    $$("[data-rule]").forEach(i=>i.addEventListener("change",()=>{so.rules[i.dataset.rule]=i.checked;render()}));
+    $$("[data-fmt]").forEach(b=>b.addEventListener("click",()=>{so.fmt=b.dataset.fmt;render()}));
+    $$("[data-len]").forEach(b=>b.addEventListener("click",()=>{so.len=+b.dataset.len;render()}));
+    const pos=$("#pos");if(pos)pos.addEventListener("input",()=>{so.pos=+pos.value;const sv=$("#svid");if(sv)sv.style.objectPosition=so.pos+"% 50%"});
+    const au=$("#auto");if(au)au.addEventListener("change",()=>{so.auto=au.checked;if(!so.auto)so.pos=50;render()});
+    const hk=$("#hook");if(hk)hk.addEventListener("input",()=>{so.hook[c.id]=hk.value;const h=$("#shook");if(h)h.textContent=hk.value});
+    const st=$("#start");if(st)st.addEventListener("input",()=>{so.start=+st.value;$("#startv").textContent=mmss(so.start);const sv=$("#svid");if(sv&&sv.readyState>0){try{sv.currentTime=so.start}catch(e){}}});
+    const ap=$("#approve");if(ap)ap.addEventListener("click",()=>{const to=Object.entries(so.plats).filter(x=>x[1]).map(x=>PLAT[x[0]]);if(!to.length){toast("Pick at least one place to post.");return}
+      const q=so.queue.find(x=>String(x.id)===String(c.id));q.st="scheduled";q.to=to.join(", ");q.at=hhmm(etSec()+60);q.due=Date.now()+8000;
+      log("Approved vertical",c.t);toast("Approved. Posting to "+q.to+" in about a minute.");render()});
+    const rj=$("#reject");if(rj)rj.addEventListener("click",()=>{so.queue=so.queue.filter(x=>String(x.id)!==String(c.id));so.sel=(so.queue.find(x=>x.st==="ready")||so.queue[0]).id;log("Sent back a vertical",c.t);toast("Sent back. It won't post.");render()});
+    const ra=$("#runauto");if(ra)ra.addEventListener("click",()=>{const next=CLIPS.find(x=>so.rules[x.show]&&!so.queue.some(q=>String(q.id)===String(x.id)));
+      if(!next){toast("Every clip from the selected shows already has a vertical version.");return}
+      so.queue.unshift({id:next.id,st:"queued"});log("Automation picked up a new clip",next.t);toast("Picked up: "+next.t.slice(0,60)+". It's in the queue.");render()});
+  }
 }
 $("#role").addEventListener("change",e=>{S.role=e.target.value;$("#av").textContent=S.role==="admin"?"DA":"VD";render();toast(S.role==="editor"?"Signed in as an editor: playlist IDs, connections and settings are hidden.":"Signed in as Digital admin.")});
 function clk(){$("#clock").innerHTML=new Date().toLocaleTimeString("en-US",{timeZone:"America/New_York",hour12:false})+"<small>ET</small>"}
