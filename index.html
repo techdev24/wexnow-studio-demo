@@ -7,7 +7,7 @@
 <title>WEX NOW Studio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#EEECE8; --card:#FFFFFF; --row:#F6F5F2; --line:#E2DFD9; --line2:#ECEAE5;
@@ -450,6 +450,23 @@ ul.clean{list-style:none;margin:0;padding:0}
 .chk li .inl{margin-top:10px}
 .inl textarea,.inl input[type=text]{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 11px;font:inherit;background:#fff}
 .inl textarea{resize:vertical}
+.tth{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#111;container-type:inline-size}
+.tth-bg,.tth-bg .th,.tth-bg img,.tth-bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;aspect-ratio:auto;border-radius:0}
+.tth-bg .th .sn{display:none}
+.tth-grad{position:absolute;left:0;right:0;height:62%;z-index:1;pointer-events:none}
+.tth-grad.bottom{bottom:0;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.55) 45%,rgba(0,0,0,.9) 100%)}
+.tth-grad.top{top:0;background:linear-gradient(0deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.55) 45%,rgba(0,0,0,.9) 100%)}
+.tth-bug{position:absolute;right:3cqw;top:3cqw;z-index:2;font-family:var(--head);font-weight:800;font-size:4.4cqw;line-height:.92;color:rgba(255,255,255,.82);text-align:right;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.tth-text{position:absolute;left:4%;right:4%;z-index:3;text-align:center;font-family:"Anton","Archivo","Impact",sans-serif;text-transform:uppercase;line-height:.98;letter-spacing:.02em}
+.tth-text.bottom{bottom:4.5%} .tth-text.top{top:5%}
+.tl{white-space:nowrap;overflow:hidden;font-size:13cqw}
+.tl .w{color:#EDEDED;cursor:pointer;text-shadow:0 .6cqw 1.6cqw rgba(0,0,0,.55);border-radius:4px}
+.tl .w.r{color:#D7192A}
+.tl .w:hover{outline:2px dashed rgba(255,255,255,.8);outline-offset:2px}
+.ttl{display:block;font-size:12.5px;font-weight:600;color:var(--mut);margin:12px 0 6px}
+.ttin{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 11px;font-family:"Anton","Archivo",sans-serif;font-size:17px;letter-spacing:.03em;text-transform:uppercase;background:#fff}
+.thprev{display:flex;gap:12px;align-items:center;margin-top:10px;background:var(--row);border-radius:10px;padding:8px}
+.thprev img{width:120px;aspect-ratio:16/9;object-fit:cover;border-radius:6px;display:block}
 .row-btns{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(16px);background:var(--ink);color:#fff;padding:11px 16px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;max-width:min(92vw,560px);z-index:20;box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -566,19 +583,19 @@ function thumb(c,w,extra=""){
   const col=SHOW_COLORS[c.show]||"#333";
   return `<div class="th" style="${w?`width:${w}px;`:""}background:linear-gradient(140deg,${col},#141414 135%)">
     <span class="bug">WEX NOW</span><span class="sn">${esc(c.show)}</span>
-    ${c.img?`<img src="${c.img}" alt="" loading="lazy" onerror="this.remove()">`:""}${extra}</div>`;
+    ${(c.customThumb||c.img)?`<img src="${c.customThumb||c.img}" alt="" loading="lazy" onerror="this.remove()">`:""}${extra}</div>`;
 }
 
 /* checks: the rules that decide what can go to TV */
 function checks(c){
   const o=[];
   o.push(c.h>=1080?{k:"ok",s:"V",l:"Full HD video",n:`${c.h===1080?"1920×1080":c.h+"p"}`}:c.h>=720?{k:"warn",s:"V",l:"HD video, not full HD",n:"720p. Airs, but 1080p looks better on TV"}:{k:"bad",s:"V",l:"Video too small for TV",n:`${c.h}p. TV needs 720p or higher`,short:`${c.h}p`});
-  o.push(c.thumb?{k:"ok",s:"T",l:"Full-size thumbnail",n:"1920×1080"}:{k:"bad",s:"T",l:"No full-size thumbnail",n:"TV needs 1920×1080",short:"No full thumbnail"});
+  o.push(c.thumb?{k:"ok",s:"T",l:"Full-size thumbnail",n:c.thumbNote||"1920×1080"}:{k:"bad",s:"T",l:"No full-size thumbnail",n:"TV needs 1920×1080",short:"No full thumbnail"});
   o.push(c.desc==="ok"?{k:"ok",s:"D",l:"Description",n:c.descNote||"Clean"}:c.desc==="links"?{k:"warn",s:"D",l:"Links and hashtags in description",n:"Removed automatically for TV"}:{k:"bad",s:"D",l:"No description",n:"Add one below. Clips without one stay off TV",short:"No description"});
   const tt=c.tvTitle||c.t;
   o.push(tt.length<=100?{k:"ok",s:"L",l:"Title length",n:c.titleNote||`${tt.length} of 100 characters`}:{k:"bad",s:"L",l:"Title too long",n:`${tt.length} characters. TV allows 100`,short:"Long title"});
   o.push(c.tf===true?{k:"ok",s:"F",l:"Text-free thumbnail",n:c.tfNote||"Confirmed by editorial"}:c.tf===false?{k:"warn",s:"F",l:"Text on thumbnail",n:"Airs, but Amazon won't promote it on Alexa"}:{k:"na",s:"F",l:"Text-free thumbnail",n:"Not confirmed yet"});
-  o.push(c.promo!=null?{k:"ok",s:"P",l:"End promo trimmed",n:`Last ${c.promo} seconds removed for TV`}:{k:"na",s:"P",l:"End promo",n:"Cut point not set yet"});
+  {const tr=S.trim[c.id]??c.promo??DEFAULT_TRIM;o.push({k:"ok",s:"P",l:"End promo trimmed",n:`Last ${tr} seconds removed for TV${S.trim[c.id]==null&&c.promo==null?" (show default)":""}`});}
   return o;
 }
 const fails=c=>checks(c).filter(x=>x.k==="bad");
@@ -705,7 +722,7 @@ function clip(id,tab){
   const trim=S.trim[c.id]??c.promo??DEFAULT_TRIM, airs=c.dur-trim, pct=trim/c.dur*100, head=Math.round(c.dur*0.46);
   const bps=S.bps[c.id]||[];
   const r=seeded(c.id), wave=Array.from({length:120},()=>Math.round(25+r()*70));
-  tab=["checks","versions","breaks"].includes(tab)?tab:"versions";
+  tab=["checks","versions","breaks","thumb"].includes(tab)?tab:"versions";
   const f=fails(c);
   const job=k=>{const j=S.jobs[c.id+":"+k];if(!j)return null;return j};
   const verRow=(k,frame,title,sub,ready,action)=>{const j=job(k);let right;
@@ -718,12 +735,14 @@ function clip(id,tab){
       ${verRow("orig",`<div class="vframe">${thumb(c)}</div>`,"Original","In Brid. Locked. The apps and web use it as it is.",true,"")}
       ${verRow("tv",`<div class="vframe">${thumb(c)}</div>`,"TV clean cut",`End promo trimmed, audio evened to TV level, text-free thumbnail. For Amazon, Roku channel, 24/7.`,c.promo!=null&&tvReady(c),tvReady(c)?`<button class="btn sm redline" data-job="tv">Create</button>`:`<button class="btn sm" disabled title="Fix the checks first">Fix first</button>`)}
       ${verRow("yt",`<div class="vframe">${thumb(c)}</div>`,"YouTube with outro",`Clean cut plus the show's outro, added by rule for every ${esc(c.show)} clip.`,false,`<button class="btn sm redline" data-job="yt">Create</button>`)}
+      <div class="ver"><div class="vframe">${thumb(c)}</div><div><b>YouTube and web thumbnail</b><small>WEX-style headline, red and white. TV keeps the text-free one.</small></div>${c.tt&&c.tt.saved?`<span class="chip ok">Ready</span>`:`<a class="btn sm redline" href="#/clip/${c.id}?tab=thumb">Make it</a>`}</div>
       ${verRow("vert",`<div class="vframe v">${thumb(c)}</div>`,"Vertical 9:16 for social","Reframed for phones, captions burned in. For Reels, Shorts and TikTok.",false,`<button class="btn sm redline" data-job="vert">Create</button>`)}
       <div class="vert"><div class="phone">${thumb(c)}<div class="brand">WEX <span>NOW</span></div><div class="cap">${esc(c.t.split(" ").slice(0,6).join(" "))} <em>${esc(c.t.split(" ").slice(6,8).join(" ")||"now")}</em></div></div>
         <div><b style="font-weight:600">Vertical preview</b><p class="small" style="margin:4px 0 10px">Keeps the speaker centered, adds burned-in captions from the transcript and the WEX NOW brand. Editors approve before anything posts.</p>
         <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="chip gray">Instagram Reels</span><span class="chip gray">YouTube Shorts</span><span class="chip gray">TikTok</span><span class="chip gray">Facebook</span></div>
         <a class="btn sm redline" style="margin-top:12px" href="#/social?c=${c.id}">Open in Social</a></div></div>`,
     checks:`<ul class="clean chk">${checks(c).map(x=>checkRow(c,x)).join("")}</ul>`,
+    thumb:thumbEditor(c),
     breaks:`<p class="small" style="margin-bottom:12px;color:var(--tx)">Long shows need natural pauses for mid-show breaks. Pick from the suggested pauses, or add your own at the playhead.</p>
       ${bps.length?bps.slice().sort((a,b)=>a.t-b.t).map(b=>`<div class="bpi ${b.ok?"":"sug"}"><div><span class="t">${mmss(b.t)}</span><small>${b.l}</small></div>${b.ok?`<span class="chip ok">Approved</span>`:`<button class="btn sm redline" data-approve="${b.t}">Approve</button>`}</div>`).join(""):`<p class="small">No break points yet. Short clips usually don't need them.</p>`}
       <button class="btn wide" id="addbp">+ Add break point at ${mmss(head)}</button>
@@ -748,11 +767,44 @@ function clip(id,tab){
         <span class="small">${esc(c.show)} default ${mmss(DEFAULT_TRIM)}. Airs as ${mmss(airs)}. Trimming makes a new TV version; the original never changes.</span></div>
     </section>
     <section class="card">
-      <div class="seg" role="tablist">${[["versions","Versions"],["checks","TV checks"],["breaks","Break points"]].map(t=>`<button role="tab" aria-selected="${t[0]===tab}" data-tab="${t[0]}">${t[1]}</button>`).join("")}</div>
+      <div class="seg" role="tablist">${[["versions","Versions"],["checks","TV checks"],["thumb","Thumbnail"],["breaks","Break points"]].map(t=>`<button role="tab" aria-selected="${t[0]===tab}" data-tab="${t[0]}">${t[1]}</button>`).join("")}</div>
       <div role="tabpanel">${panels[tab]}</div>
     </section>
   </div>`;
 }
+function ttFor(c){
+  if(!c.tt){const words=c.t.replace(/[,:]/g," ").split(/\s+/).filter(Boolean);
+    const l1=words.slice(0,2).join(" ").toUpperCase(), l2=words.slice(2,4).join(" ").toUpperCase();
+    c.tt={l1,l2,red1:l1.split(" ").map(()=>true),red2:l2.split(" ").map(()=>false),t:Math.round(Math.min(c.dur*0.3,c.dur-DEFAULT_TRIM-2)),size:13,pos:"bottom",grad:true,bug:true,bg:c.customThumb?"upload":"frame",saved:false}}
+  return c.tt}
+function ttWords(line,reds,n){return line.split(" ").filter(Boolean).map((w,i)=>`<span class="w${reds[i]?" r":""}" data-l="${n}" data-i="${i}" title="Click to switch red and white">${esc(w.replace(/^["']/,m=>m==='"'?"\u201C":"\u2018").replace(/["']$/,m=>m==='"'?"\u201D":"\u2019").replace(/'/g,"\u2019"))}</span>`).join(" ")}
+function thumbEditor(c){
+  const T=ttFor(c);
+  const bg=T.bg==="upload"&&c.customThumb?`<img src="${c.customThumb}" alt="">`:isReal(c)?`${thumb(c)}${videoTag(c,"ttv",'muted playsinline preload="auto"')}`:thumb(c);
+  return `<div class="tth" id="tth">
+      <div class="tth-bg">${bg}</div>
+      ${T.grad?`<div class="tth-grad ${T.pos}"></div>`:""}
+      ${T.bug?`<div class="tth-bug">WEX<br>NOW</div>`:""}
+      <div class="tth-text ${T.pos}"><div class="tl" id="tl1">${ttWords(T.l1,T.red1,1)}</div><div class="tl" id="tl2">${ttWords(T.l2,T.red2,2)}</div></div>
+    </div>
+    <p class="small" style="margin:8px 0 12px">Click any word to switch it between red and white.</p>
+    <label class="l" style="display:block;font-size:12.5px;font-weight:600;color:var(--mut);margin-bottom:6px">Background</label>
+    <div class="segs">${[["frame","Frame from the video"],["upload","Uploaded image"]].map(b=>`<button type="button" data-ttbg="${b[0]}" aria-pressed="${T.bg===b[0]}" ${b[0]==="upload"&&!c.customThumb?"disabled title='Upload an image in TV checks first'":""}>${b[1]}</button>`).join("")}</div>
+    ${T.bg==="frame"?`<label class="ttl" for="ttframe">Pick the frame <span class="mono" id="ttft">${mmss(T.t)}</span></label><input type="range" id="ttframe" min="0" max="${Math.max(1,c.dur-DEFAULT_TRIM)}" value="${T.t}" style="width:100%;accent-color:var(--red)">`:""}
+    <label class="ttl" for="ttl1">Top line</label><input type="text" class="ttin" id="ttl1" value="${esc(T.l1)}" maxlength="28">
+    <label class="ttl" for="ttl2">Bottom line</label><input type="text" class="ttin" id="ttl2" value="${esc(T.l2)}" maxlength="28">
+    <label class="ttl">Colors</label>
+    <div class="segs">${[["top","Top red"],["bottom","Bottom red"],["last","Last word red"],["white","All white"]].map(k=>`<button type="button" data-ttpreset="${k[0]}">${k[1]}</button>`).join("")}</div>
+    <label class="ttl" for="ttsize">Max size</label><input type="range" id="ttsize" min="7" max="18" step="0.5" value="${T.size}" style="width:100%;accent-color:var(--red)">
+    <label class="ttl">Text position</label>
+    <div class="segs">${[["bottom","Bottom"],["top","Top"]].map(k=>`<button type="button" data-ttpos="${k[0]}" aria-pressed="${T.pos===k[0]}">${k[1]}</button>`).join("")}</div>
+    <label class="chk2"><input type="checkbox" id="ttgrad" ${T.grad?"checked":""}> Dark fade behind the text</label>
+    <label class="chk2"><input type="checkbox" id="ttbug" ${T.bug?"checked":""}> WEX NOW mark in the corner</label>
+    <div class="row-btns" style="margin-top:14px"><button class="btn sm dark" id="ttclaude" type="button">Suggest text with Claude</button><button class="btn sm red" id="ttsave" type="button">${T.saved?"Update":"Save"} YouTube and web thumbnail</button></div>
+    <p class="small" style="margin-top:10px">Amazon and TV keep the text-free version, so Alexa can still promote the clip. The live build renders the final 1920×1080 image.</p>`;
+}
+function fitTT(){const box=$("#tth");if(!box)return;const c=byId(location.hash.split("/")[2].split("?")[0]);if(!c||!c.tt)return;
+  ["tl1","tl2"].forEach(id=>{const el=$("#"+id);if(!el)return;let sz=c.tt.size;el.style.fontSize=sz+"cqw";let n=0;while(el.scrollWidth>el.clientWidth+1&&sz>3&&n<80){sz-=0.25;el.style.fontSize=sz+"cqw";n++}})}
 function checkRow(c,x){
   const mark=`<span class="ck"><i class="${x.k}">${x.k==="ok"?"✓":x.k==="na"?"–":"!"}</i></span>`;
   let form="",btn="";
@@ -766,8 +818,18 @@ function checkRow(c,x){
       <div class="cnt"><span id="ftcnt" class="${(c.tvTitle||c.t).length>100?"over":""}">${(c.tvTitle||c.t).length} / 100</span><span>TV titles max out at 100</span></div>
       <label class="chk2"><input type="checkbox" id="tvonlyt" checked> TV only. Keep the full title in Brid for web.</label>
       <div class="row-btns"><button class="btn sm dark" id="ftclaude" type="button">Shorten it with Claude</button><button class="btn sm red" id="ftsave" type="button">Save for TV</button></div></div>`;
+  else if(x.k==="bad"&&x.s==="T"){const pend=S.pendThumb&&S.pendThumb.cid===c.id?S.pendThumb:null;
+    form=`<div class="inl">
+      <div class="row-btns"><button class="btn sm dark" id="thup" type="button">${pend?"Choose a different image":"Upload an image"}</button>${c.h>=720?`<button class="btn sm" id="thgrab" type="button">Use the frame on screen</button>`:""}</div>
+      <input type="file" id="thfile" accept="image/png,image/jpeg,image/webp" hidden>
+      ${pend?`<div class="thprev"><img src="${pend.data}" alt="New thumbnail"><div><b>${pend.w}×${pend.h}</b><span class="small"> ${esc(pend.name)}</span></div></div>`:""}
+      <p class="small" style="margin-top:8px">1920×1080 or larger, 16:9, JPG or PNG, under 2 MB. ${c.h<720?"This clip is "+c.h+"p, so a frame from the video would look blurry. Upload a designed image instead.":c.h<1080?"This clip is 720p, so a frame gets scaled up to 1920×1080 and looks a little soft. A designed image is sharper.":""}</p>
+      <label class="chk2"><input type="checkbox" id="thnotext" checked> No text or logos on this image (needed for Alexa promotion)</label>
+      <label class="chk2"><input type="checkbox" id="thtvonly"> TV only. Leave Brid as it is.</label>
+      ${pend?`<div class="row-btns"><button class="btn sm red" id="thsave" type="button">Save to Brid</button><button class="btn sm" id="thcancel" type="button">Cancel</button></div>`:""}
+    </div>`;}
   else if(x.k==="warn"&&x.s==="F"&&c.h>=1080) btn=`<button class="btn sm" id="tfgrab" type="button">Use the frame on screen</button>`;
-  else if(x.k==="bad") btn=`<button class="btn sm" type="button" data-toast="${x.s==="V"?"This needs the original, higher-quality file uploaded to Brid. Nothing in the Studio can add detail a 360p file doesn't have.":"A full-size thumbnail needs a full-size source. Upload the original file to Brid."}">Upload original in Brid</button>`;
+  else if(x.k==="bad"&&x.s==="V") btn=`<button class="btn sm" type="button" data-toast="This needs the original, higher-quality file uploaded to Brid. Nothing in the Studio can add detail a ${c.h}p file doesn't have.">Upload original in Brid</button>`;
   return `<li>${mark}<div><b>${x.l}</b><small>${x.n}</small>${form}</div>${btn}</li>`;
 }
 function startJob(cid,k){
@@ -1154,7 +1216,7 @@ function destDetail(k,x,ed){
 /* ===================== ROUTER ===================== */
 let timer=null;
 function render(){
-  if(location.hash.startsWith("#/clip/")&&$("#fixdesc,#fixtitle,#tfgrab")&&!location.hash.includes("tab=")){history.replaceState(null,"",location.hash+"?tab=checks")}
+  if(location.hash.startsWith("#/clip/")&&$("#fixdesc,#fixtitle,#tfgrab,#thup")&&!location.hash.includes("tab=")){history.replaceState(null,"",location.hash+"?tab=checks")}
   const ov=$("#vid"); if(ov&&ov.dataset.cid) S.vt[ov.dataset.cid]=ov.currentTime;
   const raw=location.hash.replace(/^#\/?/,"")||"control"; const [path,qs]=raw.split("?"); const parts=path.split("/"); const p=new URLSearchParams(qs||"");
   let r=parts[0],html;
@@ -1230,6 +1292,53 @@ function wire(p,parts){
     $("#ftsave").addEventListener("click",()=>{const val=ft.value.trim();if(val.length>100){toast("Still over 100 characters.");return}if(val.length<10){toast("That title is too short.");return}
       const tvo=$("#tvonlyt").checked;if(tvo){c.tvTitle=val;c.titleNote=`TV title saved in the Studio by ${who} at ${nowHHMM()}: ${val.length} of 100. Full title kept in Brid.`}else{c.t=val;c.titleNote=`Saved to Brid by ${who} at ${nowHHMM()}: ${val.length} of 100.`}
       log(tvo?"Saved a TV title":"Saved a new title to Brid",val);toast(tvReady(c)?"Saved. Checks pass, so it goes to Amazon on the next feed check.":"Saved. Fix the remaining check to send it to TV.");render()});}
+  /* thumbnail text */
+  if($("#tth")){const c=byId(parts[1]);const T=ttFor(c);
+    const redraw=()=>{$("#tl1").innerHTML=ttWords(T.l1,T.red1,1);$("#tl2").innerHTML=ttWords(T.l2,T.red2,2);wireWords();fitTT()};
+    const wireWords=()=>$$("#tth .w").forEach(w=>w.addEventListener("click",()=>{const arr=w.dataset.l==="1"?T.red1:T.red2;arr[+w.dataset.i]=!arr[+w.dataset.i];redraw()}));
+    wireWords();fitTT();if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fitTT);
+    const tv=$("#ttv");if(tv){tv.addEventListener("loadedmetadata",()=>{try{tv.currentTime=T.t}catch(e){}});const l=tv.querySelector("source[data-last]");if(l)l.addEventListener("error",()=>{tv.style.display="none"})}
+    const fr=$("#ttframe");if(fr)fr.addEventListener("input",()=>{T.t=+fr.value;$("#ttft").textContent=mmss(T.t);if(tv&&tv.readyState>0){try{tv.currentTime=T.t}catch(e){}}});
+    const syncReds=(line,reds,def)=>{const n=line.split(" ").filter(Boolean).length;while(reds.length<n)reds.push(def);reds.length=n};
+    $("#ttl1").addEventListener("input",e=>{T.l1=e.target.value.toUpperCase();syncReds(T.l1,T.red1,T.red1[0]??true);redraw()});
+    $("#ttl2").addEventListener("input",e=>{T.l2=e.target.value.toUpperCase();syncReds(T.l2,T.red2,false);redraw()});
+    $$("[data-ttpreset]").forEach(b=>b.addEventListener("click",()=>{const k=b.dataset.ttpreset,n1=T.red1.length,n2=T.red2.length;
+      if(k==="top"){T.red1=Array(n1).fill(true);T.red2=Array(n2).fill(false)}
+      if(k==="bottom"){T.red1=Array(n1).fill(false);T.red2=Array(n2).fill(true)}
+      if(k==="white"){T.red1=Array(n1).fill(false);T.red2=Array(n2).fill(false)}
+      if(k==="last"){T.red1=Array(n1).fill(false);T.red2=Array(n2).fill(false);if(n2)T.red2[n2-1]=true;else if(n1)T.red1[n1-1]=true}
+      redraw()}));
+    $("#ttsize").addEventListener("input",e=>{T.size=+e.target.value;fitTT()});
+    $$("[data-ttpos]").forEach(b=>b.addEventListener("click",()=>{T.pos=b.dataset.ttpos;render()}));
+    $$("[data-ttbg]").forEach(b=>b.addEventListener("click",()=>{T.bg=b.dataset.ttbg;render()}));
+    $("#ttgrad").addEventListener("change",e=>{T.grad=e.target.checked;render()});
+    $("#ttbug").addEventListener("change",e=>{T.bug=e.target.checked;render()});
+    $("#ttclaude").addEventListener("click",()=>{const parts2=c.t.split(/[:,]/).map(x=>x.trim()).filter(Boolean);const w=(parts2[0]||c.t).split(" ");
+      const verb=w.findIndex((x,i)=>i>0&&/^[a-z]/.test(x));const cut=verb>0?verb+1:Math.min(2,w.length);
+      T.l1=w.slice(0,cut).join(" ").toUpperCase();T.l2=(w.slice(cut,cut+2).join(" ")||(parts2[1]||"").split(" ").slice(0,2).join(" ")).toUpperCase();
+      T.red1=T.l1.split(" ").map(()=>true);T.red2=T.l2.split(" ").map(()=>false);$("#ttl1").value=T.l1;$("#ttl2").value=T.l2;redraw();
+      toast("Example. In the live build Claude picks the hook from the transcript and keeps it to a few big words.")});
+    $("#ttsave").addEventListener("click",()=>{if(!T.l1.trim()&&!T.l2.trim()){toast("Add some text first.");return}T.saved=true;
+      log("Saved a YouTube and web thumbnail",c.t);toast("Saved for YouTube, web and the apps. Amazon and TV keep the text-free one.");render()});}
+  const thu=$("#thup");
+  if(thu){const c=byId(parts[1]);const f=$("#thfile");
+    thu.addEventListener("click",()=>f.click());
+    f.addEventListener("change",()=>{const file=f.files&&f.files[0];if(!file)return;
+      if(file.size>2*1024*1024){toast("That image is over 2 MB. Export a smaller JPG.");return}
+      const rd=new FileReader();rd.onload=()=>{const im=new Image();im.onload=()=>{const w=im.naturalWidth,h=im.naturalHeight;
+          if(w<1920||h<1080){toast(`That image is ${w}×${h}. TV needs at least 1920×1080.`);return}
+          if(Math.abs(w/h-16/9)>0.03){toast(`That image is ${w}×${h}, which isn't 16:9. Crop it to 16:9 first.`);return}
+          S.pendThumb={cid:c.id,data:rd.result,w,h,name:file.name};render()};im.onerror=()=>toast("That file couldn't be read as an image.");im.src=rd.result};rd.readAsDataURL(file)});
+    const tv=$("#thtvonly"),sv=$("#thsave");if(tv&&sv)tv.addEventListener("change",()=>{sv.textContent=tv.checked?"Save for TV":"Save to Brid"});
+    if(sv)sv.addEventListener("click",()=>{const pd=S.pendThumb;const tvo=$("#thtvonly").checked,nt=$("#thnotext").checked;
+      c.thumb=true;c.customThumb=pd.data;c.thumbNote=`${pd.w}×${pd.h} image ${tvo?"saved for TV in the Studio":"saved to Brid"} by ${who} at ${nowHHMM()}.`;
+      if(nt){c.tf=true;c.tfNote="Confirmed text-free by "+who+" when uploading."}S.pendThumb=null;
+      log(tvo?"Set a TV-only thumbnail":"Uploaded a thumbnail to Brid",c.t);toast("Thumbnail saved. "+(tvReady(c)?"Checks pass, so it goes to Amazon on the next feed check.":"Fix the remaining check to send it to TV."));render()});
+    const cn=$("#thcancel");if(cn)cn.addEventListener("click",()=>{S.pendThumb=null;render()});
+    const gb=$("#thgrab");if(gb)gb.addEventListener("click",()=>{const vv=$("#vid");const t=vv&&!isNaN(vv.currentTime)&&vv.currentTime>0?vv.currentTime:c.dur*0.46;const tvo=$("#thtvonly").checked,nt=$("#thnotext").checked;
+      c.thumb=true;c.thumbNote=`Frame from ${mmss(t)} made at 1920×1080${c.h<1080?" (scaled up from "+c.h+"p)":""}, ${tvo?"saved for TV in the Studio":"saved to Brid"} by ${who}.`;
+      if(nt){c.tf=true;c.tfNote="Frame confirmed text-free by "+who+"."}
+      log("Made a thumbnail from the video",c.t+" at "+mmss(t));toast("Thumbnail made from "+mmss(t)+". "+(tvReady(c)?"Checks pass, so it goes to Amazon on the next feed check.":"Fix the remaining check to send it to TV."));render()});}
   const tg=$("#tfgrab");
   if(tg){const c=byId(parts[1]);tg.addEventListener("click",()=>{const vv=$("#vid");const t=vv&&!isNaN(vv.currentTime)?vv.currentTime:c.dur*0.46;
     c.tf=true;c.tfNote=`Clean frame from ${mmss(t)}, picked in the Studio by ${who}. Sent to Amazon as the TV thumbnail.`;log("Picked a clean thumbnail frame",c.t+" at "+mmss(t));toast("Thumbnail set from "+mmss(t)+". Pause on a frame with no text, then click.");render()})}
