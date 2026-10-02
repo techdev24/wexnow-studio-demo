@@ -389,6 +389,36 @@ ul.clean{list-style:none;margin:0;padding:0}
 .warnbox{background:var(--amberbg);color:var(--amber);border-radius:9px;padding:8px 11px;font-size:13px;margin-top:12px}
 @media (max-width:1240px){.soc{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:640px){.stage{grid-template-columns:minmax(0,1fr)} .ph2{margin:0 auto}}
+.pane{position:absolute;left:0;right:0;overflow:hidden;background:#000}
+.pane + .pane{border-top:3px solid #000}
+.pane .th{position:absolute;inset:0;aspect-ratio:auto;height:100%;border-radius:0}
+.pane video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pane .plab{position:absolute;right:8px;top:6px;z-index:2;font-size:10px;font-weight:700;color:#fff;background:rgba(0,0,0,.55);border-radius:3px;padding:0 5px}
+.pane.fitfg{border-top:0;left:0;right:0;top:50%;height:auto;aspect-ratio:16/9;transform:translateY(-50%);box-shadow:0 0 0 1px rgba(255,255,255,.08)}
+.slug{position:absolute;left:12px;right:12px;z-index:4;font-family:var(--head);font-weight:800;line-height:1.15;color:#fff;cursor:grab;touch-action:none;user-select:none}
+.slug.drag{cursor:grabbing;outline:2px dashed #fff;outline-offset:4px}
+.slug:hover{outline:1.5px dashed rgba(255,255,255,.75);outline-offset:4px}
+.slug.s-plain span{text-shadow:0 2px 6px rgba(0,0,0,.85)}
+.slug.s-bar span{background:var(--red);-webkit-box-decoration-break:clone;box-decoration-break:clone;padding:1px 6px;line-height:1.45}
+.slug.s-box{background:rgba(0,0,0,.74);padding:8px 10px;border-radius:7px}
+.ph2 .caps{bottom:24%}
+.safe-b,.safe-r{position:absolute;z-index:5;pointer-events:none;background:repeating-linear-gradient(135deg,rgba(255,255,255,.22) 0 6px,rgba(255,255,255,.07) 6px 12px)}
+.safe-b{left:0;right:0;bottom:0;height:20%;border-top:1.5px dashed rgba(255,255,255,.8)}
+.safe-b span{position:absolute;left:8px;top:6px;font-size:9.5px;font-weight:700;color:#fff;text-shadow:0 1px 2px #000}
+.safe-r{right:0;top:38%;bottom:20%;width:15%;border-left:1.5px dashed rgba(255,255,255,.8)}
+.lays{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.lay{display:flex;flex-direction:column;align-items:center;gap:4px;border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 4px;cursor:pointer;color:var(--mut);font-size:12px;font-weight:600}
+.lay[aria-pressed="true"]{border-color:var(--ink);color:var(--ink)}
+.lay:hover{border-color:#BBB5AB}
+.slugbox{background:var(--row);border-radius:12px;padding:12px;margin-top:14px}
+.slugbox .segs{background:#E7E3DC}
+.slugbox textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 11px;font:inherit;resize:vertical;background:#fff}
+.segs button[disabled]{opacity:.45;cursor:not-allowed}
+.picks li{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line2)}
+.picks li:first-child{border-top:0}
+.picks b{display:block;font-weight:600}
+.picks small{color:var(--mut);font-size:12.5px}
+.score{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-family:var(--head);font-weight:800;background:var(--greenbg);color:var(--green)}
 .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(16px);background:var(--ink);color:#fff;padding:11px 16px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;max-width:min(92vw,560px);z-index:20;box-shadow:0 10px 30px rgba(0,0,0,.25)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
@@ -466,7 +496,7 @@ const S={
   q:"", libq:"", libf:"all",
   trim:{}, bps:{101:[{t:252,l:"End of segment 1, pause detected",ok:true},{t:527,l:"End of segment 2, pause detected",ok:true},{t:690,l:"Suggested, low risk of cutting mid-sentence",ok:false}]},
   jobs:{}, trace:101, dest:"amazon", ptab:"order", vt:{},
-  soc:{sel:2834659,fmt:"916",pos:50,auto:true,caps:true,len:45,start:0,hook:{},
+  soc:{sel:2834659,fmt:"916",pos:50,auto:true,caps:true,len:45,start:0,slug:{},slugY:{},slugSize:18,slugStyle:"bar",avoid:false,guides:false,layout:"full",pos2:[30,70],pos3:[20,50,80],
     rules:{"Daily News Hits":true,"Inside Scoop":true,"The Wakeup":false,"America 250":false,caps:true,brand:true},
     plats:{reels:true,shorts:true,tiktok:true,fb:false},
     queue:[{id:2834659,st:"ready"},{id:2834515,st:"ready"},{id:2834510,st:"processing",pct:35},{id:2834706,st:"queued"},{id:2834373,st:"queued"},{id:102,st:"posted",at:"21:10",to:"Reels, Shorts, TikTok"},{id:105,st:"posted",at:"20:42",to:"Reels, Shorts"}]},
@@ -816,54 +846,101 @@ function tickChannel(){
 /* ===================== SOCIAL (vertical clips) ===================== */
 const PLAT={reels:"Instagram Reels",shorts:"YouTube Shorts",tiktok:"TikTok",fb:"Facebook Reels"};
 const stLabel={queued:["gray","Queued"],processing:["info","Making vertical"],ready:["warn","Ready for review"],scheduled:["info","Scheduled"],posted:["ok","Posted"]};
-function hookFor(c){return S.soc.hook[c.id]??c.t.split(/[:,]/)[0].split(" ").slice(0,7).join(" ")}
+const LAYOUTS=[["full","Full","One crop that follows the speaker"],["fit","Fit + blur","Whole frame with a blurred fill. Best for wide shots and low-res video"],["split2","2-up","Two crops stacked, like host and guest"],["split3","3-up","Three crops stacked"]];
+const SLUGPOS=[["Top",8],["Upper",20],["Middle",42],["Lower",62]];
+const layoutName=k=>(LAYOUTS.find(l=>l[0]===k)||LAYOUTS[0])[1];
+function slugFor(c){return S.soc.slug[c.id]??c.t.split(/[:,]/)[0].split(" ").slice(0,7).join(" ")}
+function slugTop(c){return S.soc.avoid?7:(S.soc.slugY[c.id]??12)}
+function picksFor(c){
+  const parts=c.t.split(/[:,]/).map(x=>x.trim()).filter(Boolean);
+  const usable=Math.max(20,c.dur-DEFAULT_TRIM);
+  const lens=[45,30,60].map(n=>Math.min(n,usable));
+  const starts=[0,Math.round(usable*0.35),Math.round(usable*0.6)].map((s,i)=>Math.max(0,Math.min(s,usable-lens[i])));
+  const lay=c.h<720?"fit":/debate|interview|proxy war|vs\b/i.test(c.t)||c.show==="Inside Scoop"?"split2":"full";
+  const layWhy={fit:`Source is ${c.h}p, so it keeps the whole frame instead of a soft crop`,split2:"Two people on screen, so each gets a panel",full:"One speaker, so a single crop that follows them"}[lay];
+  const heads=[parts[0],parts[1]||parts[0],(parts[2]||parts[0])].map(h=>h.split(" ").slice(0,8).join(" "));
+  const why=["Opens on the main point of the story","Strongest moment that stands on its own","Clean ending, well before the promo rail"];
+  return [0,1,2].map(i=>({start:starts[i],len:lens[i],layout:i===2&&lay!=="fit"?"full":lay,head:heads[i],why:why[i],layWhy:i===2&&lay!=="fit"?"One speaker, so a single crop that follows them":layWhy,score:[92,86,78][i]}));
+}
+function phoneHTML(c){
+  const so=S.soc, real=isReal(c);
+  const vt=(id,pos,extra="")=>real?videoTag(c,id,`muted autoplay loop playsinline style="object-position:${pos}% 50%;${extra}"`):"";
+  let body="";
+  if(so.layout==="fit") body=`<div class="pane" style="top:0;height:100%">${thumb(c)}${vt("svidbg",50,"filter:blur(14px) brightness(.65);transform:scale(1.3)")}</div><div class="pane fitfg">${thumb(c)}${vt("svid",50)}</div>`;
+  else if(so.layout==="split2"||so.layout==="split3"){const ps=so.layout==="split2"?so.pos2:so.pos3,n=ps.length;
+    body=ps.map((p,i)=>`<div class="pane" style="top:${i*100/n}%;height:${100/n}%">${thumb(c)}${vt(i?"svid"+(i+1):"svid",p)}<span class="plab">${i+1}</span></div>`).join("");}
+  else body=`<div class="pane" style="top:0;height:100%">${thumb(c)}${vt("svid",so.pos)}</div>`;
+  const slug=slugFor(c);
+  return `<div class="ph2 f${so.fmt}" id="phone">${body}
+    <div class="top"><div class="prog"><i id="sprog"></i></div>${so.rules.brand?`<div class="brand">WEX <span>NOW</span></div>`:""}</div>
+    ${so.rules.brand?`<div class="slug s-${so.slugStyle}" id="sslug" style="top:${slugTop(c)}%;font-size:${so.slugSize}px" title="Drag to move"><span>${esc(slug)}</span></div>`:""}
+    ${so.rules.caps?`<div class="caps" id="scaps"></div>`:""}
+    ${so.guides?`<div class="safe-b"><span>Covered by the app's caption and buttons</span></div><div class="safe-r"></div>`:""}
+    <div class="side"><i></i><i></i><i></i></div></div>`;
+}
+const LAYICON={full:'<svg viewBox="0 0 18 32" width="18" height="32"><rect x="1" y="1" width="16" height="30" rx="2" fill="currentColor" opacity=".85"/></svg>',
+  fit:'<svg viewBox="0 0 18 32" width="18" height="32"><rect x="1" y="1" width="16" height="30" rx="2" fill="currentColor" opacity=".3"/><rect x="1" y="11" width="16" height="10" fill="currentColor"/></svg>',
+  split2:'<svg viewBox="0 0 18 32" width="18" height="32"><rect x="1" y="1" width="16" height="14" rx="2" fill="currentColor"/><rect x="1" y="17" width="16" height="14" rx="2" fill="currentColor" opacity=".6"/></svg>',
+  split3:'<svg viewBox="0 0 18 32" width="18" height="32"><rect x="1" y="1" width="16" height="9" rx="2" fill="currentColor"/><rect x="1" y="11.5" width="16" height="9" rx="2" fill="currentColor" opacity=".7"/><rect x="1" y="22" width="16" height="9" rx="2" fill="currentColor" opacity=".45"/></svg>'};
 function social(p){
   const so=S.soc; if(p.get("c")){const id=+p.get("c")||p.get("c");if(!so.queue.some(q=>String(q.id)===String(id)))so.queue.unshift({id,st:"ready"});so.sel=id}
   const c=byId(so.sel)||byId(so.queue[0].id); const qi=so.queue.find(q=>String(q.id)===String(c.id))||{st:"ready"};
   const counts=k=>so.queue.filter(q=>q.st===k).length;
   const fmtW={"916":"9:16","45":"4:5","11":"1:1"}[so.fmt];
   const maxStart=Math.max(0,c.dur-so.len);
+  const curY=slugTop(c);
+  const reframe=so.layout==="full"?`<label class="l" for="pos">Crop position</label><input type="range" id="pos" min="0" max="100" value="${so.pos}" ${so.auto?"disabled":""}><div class="rng"><span>Left</span><span>Center</span><span>Right</span></div>
+      <label class="chk2"><input type="checkbox" id="auto" ${so.auto?"checked":""}> Keep the speaker in frame automatically</label>`
+    :so.layout==="fit"?`<p class="small" style="margin-top:12px">The whole frame stays in view. Nothing gets cut off.</p>`
+    :(so.layout==="split2"?so.pos2:so.pos3).map((v,i,a)=>`<label class="l" for="pp${i}">Panel ${i+1} crop</label><input type="range" id="pp${i}" data-pp="${i}" min="0" max="100" value="${v}"><div class="rng"><span>Left</span><span>Center</span><span>Right</span></div>`).join("");
+  const picks=picksFor(c);
   return `<div class="ph"><div><p class="eyebrow">Social, automated</p><h1>Vertical clips</h1>
-    <p class="lead">Every new clip from the shows you pick becomes a vertical version automatically: reframed for phones, captions burned in, WEX NOW branded. An editor approves it, then it posts.</p></div>
+    <p class="lead">Every new clip from the shows you pick becomes vertical versions automatically: reframed for phones, captions burned in, WEX NOW branded. An editor approves, then it posts.</p></div>
     <button class="btn dark" id="runauto" type="button">Run automation now</button></div>
   <div class="soc">
     <div style="display:grid;gap:20px">
       <section class="card"><div class="ch"><h2>Automation rules</h2><small>Applies to every new clip from Brid</small></div>
-        <div class="rule" style="display:block"><b>Make a vertical version of every new clip from</b>
+        <div class="rule" style="display:block"><b>Make vertical versions of every new clip from</b>
           <div class="showchips">${["Daily News Hits","Inside Scoop","The Wakeup","America 250"].map(n=>`<button class="tg" type="button" data-show="${n}" aria-pressed="${!!so.rules[n]}">${n}</button>`).join("")}</div></div>
         ${sw("caps","Burn in captions","From the clip's transcript, word by word",so.rules.caps)}
-        ${sw("brand","Add WEX NOW branding","Logo and headline on every version",so.rules.brand)}
+        ${sw("brand","Add WEX NOW branding and headline","Logo plus an editable headline on every version",so.rules.brand)}
         ${sw("approve","Editor approves before anything posts","Always on",true,true)}
-        <div class="rule"><div><b>Pick the strongest 60 seconds automatically</b><small>Finds the hook in the transcript</small></div><span class="chip gray">Later</span></div>
+        <div class="rule"><div><b>Let Claude pick the moments</b><small>Reads the transcript and frames, suggests 3 clips per video</small></div><span class="chip info">Shown below</span></div>
         <div class="rule" style="display:block"><b>Post to</b><div class="showchips">${Object.entries(PLAT).map(([k,v])=>`<button class="tg" type="button" data-plat="${k}" aria-pressed="${!!so.plats[k]}">${v}</button>`).join("")}</div></div>
       </section>
       <section class="card"><div class="ch"><h2>Queue</h2><small>${counts("processing")+counts("queued")} in progress, ${counts("ready")} to review, ${counts("posted")} posted</small></div>
         <ul class="clean q" id="queue">${queueHTML()}</ul></section>
     </div>
+    <div style="display:grid;gap:20px;align-content:start">
     <section class="card">
       <div class="ch"><div><h2 style="font-size:17px">${esc(c.t)}</h2><small>${esc(c.show)}, ${mmss(c.dur)} source, ${c.h}p</small></div><span class="chip ${stLabel[qi.st][0]}" id="selst" data-k="${qi.st}">${stLabel[qi.st][1]}</span></div>
       <div class="stage">
-        <div><div class="ph2 f${so.fmt}" id="phone">
-          ${thumb(c)}${isReal(c)?videoTag(c,"svid",`muted autoplay loop playsinline style="object-position:${so.pos}% 50%"`):""}
-          <div class="top"><div class="prog"><i id="sprog"></i></div>${so.rules.brand?`<div class="brand">WEX <span>NOW</span></div>`:""}</div>
-          ${so.rules.brand?`<div class="hook" id="shook">${esc(hookFor(c))}</div>`:""}
-          ${so.rules.caps?`<div class="caps" id="scaps"></div>`:""}
-          <div class="side"><i></i><i></i><i></i></div>
-        </div>
-        <p class="small" style="max-width:250px;margin-top:8px">${isReal(c)?"Playing the real clip, reframed live.":"Video plays once this clip syncs from Brid."} Captions come from the transcript; this preview uses the headline.</p></div>
+        <div>${phoneHTML(c)}
+          <p class="small" style="max-width:260px;margin-top:8px">${isReal(c)?"Playing the real clip.":"Video plays once this clip syncs from Brid."} Drag the headline to move it. Captions come from the transcript; this preview uses the headline.</p></div>
         <div class="ctl">
+          <label class="l">Layout</label>
+          <div class="lays">${LAYOUTS.map(l=>`<button type="button" class="lay" data-layout="${l[0]}" aria-pressed="${so.layout===l[0]}" title="${l[2]}">${LAYICON[l[0]]}<span>${l[1]}</span></button>`).join("")}</div>
+          <p class="small" style="margin-top:6px">${(LAYOUTS.find(l=>l[0]===so.layout)||LAYOUTS[0])[2]}</p>
+          ${reframe}
+          <div class="slugbox">
+            <label class="l" for="slugtx" style="margin-top:0">Headline on the video</label>
+            <textarea id="slugtx" rows="2" maxlength="90">${esc(slugFor(c))}</textarea>
+            <label class="l">Position</label>
+            <div class="segs">${SLUGPOS.map(s=>`<button type="button" data-slugpos="${s[1]}" aria-pressed="${!so.avoid&&Math.abs(curY-s[1])<1}" ${so.avoid?"disabled":""}>${s[0]}</button>`).join("")}</div>
+            <label class="l" for="slugsz">Size <span class="mono">${so.slugSize}px</span></label>
+            <input type="range" id="slugsz" min="13" max="30" value="${so.slugSize}">
+            <label class="l">Style</label>
+            <div class="segs">${[["bar","Red bar"],["plain","Plain"],["box","Black box"]].map(s=>`<button type="button" data-slugstyle="${s[0]}" aria-pressed="${so.slugStyle===s[0]}">${s[1]}</button>`).join("")}</div>
+            <label class="chk2"><input type="checkbox" id="avoid" ${so.avoid?"checked":""}> Keep text clear of faces</label>
+            <label class="chk2"><input type="checkbox" id="guides" ${so.guides?"checked":""}> Show what the app covers</label>
+          </div>
           <label class="l">Format</label>
-          <div class="segs">${[["916","9:16 Reels, Shorts, TikTok"],["45","4:5 Feed"],["11","1:1 Square"]].map(f=>`<button type="button" data-fmt="${f[0]}" aria-pressed="${so.fmt===f[0]}">${f[1]}</button>`).join("")}</div>
-          <label class="l" for="pos">Reframe: where the crop sits</label>
-          <input type="range" id="pos" min="0" max="100" value="${so.pos}" ${so.auto?"disabled":""}><div class="rng"><span>Left</span><span>Center</span><span>Right</span></div>
-          <label class="chk2"><input type="checkbox" id="auto" ${so.auto?"checked":""}> Keep the speaker in frame automatically</label>
-          <label class="l" for="hook">Headline on the video</label>
-          <input type="text" id="hook" value="${esc(hookFor(c))}" maxlength="60">
+          <div class="segs">${[["916","9:16"],["45","4:5"],["11","1:1"]].map(f=>`<button type="button" data-fmt="${f[0]}" aria-pressed="${so.fmt===f[0]}">${f[1]}</button>`).join("")}</div>
           <label class="l">Length</label>
-          <div class="segs">${[30,45,60].map(n=>`<button type="button" data-len="${n}" aria-pressed="${so.len===n}">0:${n===60?"60":n}</button>`).join("")}</div>
+          <div class="segs">${[30,45,60].map(n=>`<button type="button" data-len="${n}" aria-pressed="${so.len===n}">0:${n}</button>`).join("")}</div>
           <label class="l" for="start">Starts at <span class="mono" id="startv">${mmss(Math.min(so.start,maxStart))}</span></label>
           <input type="range" id="start" min="0" max="${maxStart}" value="${Math.min(so.start,maxStart)}">
-          ${c.h<720?`<div class="warnbox">This source is ${c.h}p. Cropped to ${fmtW} it will look soft on phones. Upload the original to Brid for a sharper version.</div>`:""}
+          ${c.h<720&&so.layout!=="fit"?`<div class="warnbox">This source is ${c.h}p. Cropped to ${fmtW} it will look soft. Try Fit + blur, or upload the original to Brid.</div>`:""}
           <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
             ${qi.st==="ready"?`<button class="btn red" id="approve" type="button">Approve and schedule</button><button class="btn" id="reject" type="button">Send back</button>`:
               qi.st==="posted"?`<span class="small">Posted at ${qi.at} to ${qi.to}.</span>`:
@@ -874,6 +951,13 @@ function social(p){
         </div>
       </div>
     </section>
+    <section class="card"><div class="ch"><h2>Claude's picks for this clip</h2><span class="chip info">Example output</span></div>
+      <p class="small" style="margin-bottom:6px">In the live build, Claude reads the transcript and samples frames, then suggests the strongest moments, a layout and a headline. An editor picks one, tweaks it and approves it.</p>
+      <ul class="clean picks">${picks.map((k,i)=>`<li><span class="score">${k.score}</span><div><b>${esc(k.head)}</b>
+        <small><span class="mono">${mmss(k.start)} to ${mmss(k.start+k.len)}</span>, ${layoutName(k.layout)}. ${k.why}. ${k.layWhy}.</small></div>
+        <button class="btn sm redline" type="button" data-pick="${i}">Use this</button></li>`).join("")}</ul>
+    </section>
+    </div>
   </div>`;
 }
 function sw(k,title,sub,on,locked){return `<div class="rule"><div><b>${title}</b><small>${sub}</small></div><span class="sw"><input type="checkbox" data-rule="${k}" ${on?"checked":""} ${locked?"disabled":""} aria-label="${title}"><span></span></span></div>`}
@@ -897,16 +981,30 @@ function wireQueue(){$$("[data-sel]").forEach(li=>li.addEventListener("click",()
 let capTimer=null;
 function socialLive(){
   clearInterval(capTimer);
-  const c=byId(S.soc.sel)||byId(S.soc.queue[0].id); const v=$("#svid"); const words=hookFor(c).split(" ").concat(c.t.split(" ")).filter(Boolean);
-  if(v){v.addEventListener("loadedmetadata",()=>{try{v.currentTime=S.soc.start}catch(e){}});
-    const last=v.querySelector("source[data-last]");if(last)last.addEventListener("error",()=>{v.style.display="none";if(!S.warned){S.warned=true;toast("The clip couldn't load from Brid here, so the preview shows the thumbnail.")}});}
+  const so=S.soc, c=byId(so.sel)||byId(so.queue[0].id);
+  const vids=["svid","svid2","svid3","svidbg"].map(id=>$("#"+id)).filter(Boolean); const v=vids[0];
+  const words=slugFor(c).split(" ").concat(c.t.split(" ")).filter(Boolean);
+  vids.forEach(x=>{x.addEventListener("loadedmetadata",()=>{try{x.currentTime=so.start}catch(e){}});
+    const last=x.querySelector("source[data-last]");if(last)last.addEventListener("error",()=>{x.style.display="none";if(!S.warned){S.warned=true;toast("The clip couldn't load from Brid here, so the preview shows the thumbnail.")}});});
+  /* drag the headline */
+  const sl=$("#sslug"), ph=$("#phone");
+  if(sl&&ph){sl.addEventListener("pointerdown",e=>{
+      if(so.avoid){toast("Turn off \"Keep text clear of faces\" to place it by hand.");return}
+      e.preventDefault();sl.setPointerCapture(e.pointerId);sl.classList.add("drag");
+      const r=ph.getBoundingClientRect(), off=e.clientY-sl.getBoundingClientRect().top;
+      const mv=ev=>{let y=(ev.clientY-off-r.top)/r.height*100;y=Math.max(3,Math.min(90-sl.offsetHeight/r.height*100,y));sl.style.top=y+"%";so.slugY[c.id]=y};
+      const up=()=>{sl.classList.remove("drag");sl.removeEventListener("pointermove",mv);sl.removeEventListener("pointerup",up);
+        const bottom=(so.slugY[c.id]??12)+sl.offsetHeight/r.height*100; if(bottom>80)toast("The headline is in the area the app covers. Move it up.");
+        $$("[data-slugpos]").forEach(b=>b.setAttribute("aria-pressed",Math.abs(+b.dataset.slugpos-(so.slugY[c.id]??12))<1))};
+      sl.addEventListener("pointermove",mv);sl.addEventListener("pointerup",up);});}
   let t0=Date.now();
   capTimer=setInterval(()=>{
-    const so=S.soc; const ct=v&&!isNaN(v.currentTime)&&v.readyState>1?v.currentTime:so.start+((Date.now()-t0)/1000)%so.len;
+    const ct=v&&!isNaN(v.currentTime)&&v.readyState>1?v.currentTime:so.start+((Date.now()-t0)/1000)%so.len;
     if(v&&v.readyState>1&&(ct>so.start+so.len||ct<so.start-0.5)){try{v.currentTime=so.start}catch(e){}}
+    vids.slice(1).forEach(x=>{if(x.readyState>1&&Math.abs(x.currentTime-ct)>0.35){try{x.currentTime=ct}catch(e){}}});
     const pr=$("#sprog");if(pr)pr.style.width=Math.max(0,Math.min(100,(ct-so.start)/so.len*100))+"%";
     const cp=$("#scaps");if(cp){const i=Math.floor((ct-so.start)*2.6)%words.length;const s0=Math.floor(i/4)*4;cp.innerHTML=words.slice(s0,s0+4).map((w,k)=>s0+k===i?`<em>${esc(w)}</em>`:esc(w)).join(" ")}
-    if(so.auto&&v){const x=50+Math.sin(Date.now()/2600)*6;v.style.objectPosition=x+"% 50%"}
+    if(so.auto&&so.layout==="full"&&v){const x=50+Math.sin(Date.now()/2600)*6;v.style.objectPosition=x+"% 50%"}
   },120);
 }
 
@@ -1013,18 +1111,28 @@ function wire(p,parts){
     $$("[data-rule]").forEach(i=>i.addEventListener("change",()=>{so.rules[i.dataset.rule]=i.checked;render()}));
     $$("[data-fmt]").forEach(b=>b.addEventListener("click",()=>{so.fmt=b.dataset.fmt;render()}));
     $$("[data-len]").forEach(b=>b.addEventListener("click",()=>{so.len=+b.dataset.len;render()}));
+    $$("[data-layout]").forEach(b=>b.addEventListener("click",()=>{so.layout=b.dataset.layout;log("Changed layout to "+layoutName(so.layout),c.t);render()}));
+    $$("[data-pp]").forEach(r=>r.addEventListener("input",()=>{const i=+r.dataset.pp;const arr=so.layout==="split2"?so.pos2:so.pos3;arr[i]=+r.value;const vid=$("#"+(i?"svid"+(i+1):"svid"));if(vid)vid.style.objectPosition=r.value+"% 50%"}));
     const pos=$("#pos");if(pos)pos.addEventListener("input",()=>{so.pos=+pos.value;const sv=$("#svid");if(sv)sv.style.objectPosition=so.pos+"% 50%"});
     const au=$("#auto");if(au)au.addEventListener("change",()=>{so.auto=au.checked;if(!so.auto)so.pos=50;render()});
-    const hk=$("#hook");if(hk)hk.addEventListener("input",()=>{so.hook[c.id]=hk.value;const h=$("#shook");if(h)h.textContent=hk.value});
-    const st=$("#start");if(st)st.addEventListener("input",()=>{so.start=+st.value;$("#startv").textContent=mmss(so.start);const sv=$("#svid");if(sv&&sv.readyState>0){try{sv.currentTime=so.start}catch(e){}}});
+    const tx=$("#slugtx");if(tx)tx.addEventListener("input",()=>{so.slug[c.id]=tx.value;const h=$("#sslug span");if(h)h.textContent=tx.value});
+    $$("[data-slugpos]").forEach(b=>b.addEventListener("click",()=>{so.slugY[c.id]=+b.dataset.slugpos;render()}));
+    const sz=$("#slugsz");if(sz)sz.addEventListener("input",()=>{so.slugSize=+sz.value;const h=$("#sslug");if(h)h.style.fontSize=so.slugSize+"px";sz.previousElementSibling.querySelector(".mono").textContent=so.slugSize+"px"});
+    $$("[data-slugstyle]").forEach(b=>b.addEventListener("click",()=>{so.slugStyle=b.dataset.slugstyle;render()}));
+    const av=$("#avoid");if(av)av.addEventListener("change",()=>{so.avoid=av.checked;toast(so.avoid?"Headline moved clear of faces. In the live build a face detector checks every frame.":"You can place the headline by hand again.");render()});
+    const gd=$("#guides");if(gd)gd.addEventListener("change",()=>{so.guides=gd.checked;render()});
+    $$("[data-pick]").forEach(b=>b.addEventListener("click",()=>{const k=picksFor(c)[+b.dataset.pick];so.start=k.start;so.len=[30,45,60].reduce((a,n)=>Math.abs(n-k.len)<Math.abs(a-k.len)?n:a,45);so.layout=k.layout;so.slug[c.id]=k.head;
+      log("Used Claude's pick",`${mmss(k.start)} to ${mmss(k.start+k.len)}, ${layoutName(k.layout)}`);toast("Applied: "+mmss(k.start)+" to "+mmss(k.start+k.len)+", "+layoutName(k.layout)+".");render()}));
+    const st=$("#start");if(st)st.addEventListener("input",()=>{so.start=+st.value;$("#startv").textContent=mmss(so.start);["svid","svid2","svid3","svidbg"].forEach(id=>{const sv=$("#"+id);if(sv&&sv.readyState>0){try{sv.currentTime=so.start}catch(e){}}})});
     const ap=$("#approve");if(ap)ap.addEventListener("click",()=>{const to=Object.entries(so.plats).filter(x=>x[1]).map(x=>PLAT[x[0]]);if(!to.length){toast("Pick at least one place to post.");return}
       const q=so.queue.find(x=>String(x.id)===String(c.id));q.st="scheduled";q.to=to.join(", ");q.at=hhmm(etSec()+60);q.due=Date.now()+8000;
-      log("Approved vertical",c.t);toast("Approved. Posting to "+q.to+" in about a minute.");render()});
+      log("Approved vertical",c.t+", "+layoutName(so.layout));toast("Approved. Posting to "+q.to+" in about a minute.");render()});
     const rj=$("#reject");if(rj)rj.addEventListener("click",()=>{so.queue=so.queue.filter(x=>String(x.id)!==String(c.id));so.sel=(so.queue.find(x=>x.st==="ready")||so.queue[0]).id;log("Sent back a vertical",c.t);toast("Sent back. It won't post.");render()});
     const ra=$("#runauto");if(ra)ra.addEventListener("click",()=>{const next=CLIPS.find(x=>so.rules[x.show]&&!so.queue.some(q=>String(q.id)===String(x.id)));
       if(!next){toast("Every clip from the selected shows already has a vertical version.");return}
       so.queue.unshift({id:next.id,st:"queued"});log("Automation picked up a new clip",next.t);toast("Picked up: "+next.t.slice(0,60)+". It's in the queue.");render()});
   }
+
 }
 $("#role").addEventListener("change",e=>{S.role=e.target.value;$("#av").textContent=S.role==="admin"?"DA":"VD";render();toast(S.role==="editor"?"Signed in as an editor: playlist IDs, connections and settings are hidden.":"Signed in as Digital admin.")});
 function clk(){$("#clock").innerHTML=new Date().toLocaleTimeString("en-US",{timeZone:"America/New_York",hour12:false})+"<small>ET</small>"}
