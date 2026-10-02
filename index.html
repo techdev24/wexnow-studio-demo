@@ -432,24 +432,26 @@ ul.clean{list-style:none;margin:0;padding:0}
 /* ===================== DATA ===================== */
 const SHOW_COLORS={"Daily News Hits":"#B5102A","Inside Scoop":"#1F3A5F","The Wakeup":"#A85A12","The Debriefs":"#136F63","America 250":"#2B4C9B","Full interview":"#3E3E3E"};
 const TOTAL_LIBRARY=18358;
+/* End promo rail measured on the real clips: the last 21 seconds. */
+const DEFAULT_TRIM=21;
 /* First five: real Brid clips pulled Oct 1 (partner 19383). The rest: from the Amazon playlist used in the console mockup. */
 const CLIPS=[
- {id:2834706,t:"Trump slams convention date, Good family sues Trump, 100+ CDC monkeys need home",show:"Daily News Hits",dur:206,h:360,src:"YouTube import",desc:"links",thumb:false,tf:false,promo:null,yt:true,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834706_sd_6abeca254e54c_1790888485.jpg",at:"Oct 1, 8:59 PM"},
- {id:2834659,t:"Potential pardons, 2028, and Iran: Trump sounds off at the White House",show:"Daily News Hits",dur:314,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:false,promo:null,yt:false,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834659_sd_6abec58c6ebf8_1790887308.jpg",at:"Oct 1, 8:27 PM"},
- {id:2834515,t:"JD Vance heckled by protesters during Florida rally",show:"Daily News Hits",dur:149,h:1080,src:"Brid upload",desc:"none",thumb:true,tf:false,promo:null,yt:false,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834515_sd_6abeb8b0b00c4_1790884016.jpg",at:"Oct 1, 7:44 PM"},
- {id:2834510,t:"Blackburn calls to reinstate electric chair after Tennessee death row inmate\u2019s botched lethal injections",show:"Daily News Hits",dur:80,h:1080,src:"Brid upload",desc:"none",thumb:true,tf:false,promo:null,yt:false,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834510_sd_6abeb8129720e_1790883858.jpg",at:"Oct 1, 7:43 PM"},
- {id:2834373,t:"California governor debate turns into Trump-Newsom proxy war",show:"Daily News Hits",dur:108,h:360,src:"YouTube import",desc:"links",thumb:false,tf:false,promo:null,yt:true,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834373_sd_6abec98101ee2_1790888321.jpg",at:"Oct 1, 6:24 PM"},
- {id:101,t:"Inside Scoop: Democrats\u2019 decision time, God and the internet",show:"Inside Scoop",dur:803,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:15,yt:true,at:"Oct 1"},
- {id:102,t:"South Korea to commit $54 billion for Alaska LNG pipeline",show:"Daily News Hits",dur:84,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:15,yt:true,at:"Oct 1"},
- {id:103,t:"Republicans worry they\u2019ve \u2018glossed over\u2019 voters\u2019 affordability concerns",show:"Daily News Hits",dur:108,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:15,yt:true,at:"Oct 1"},
- {id:104,t:"Congress unveils slate of bills to combat healthcare fraud",show:"Daily News Hits",dur:66,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:15,yt:false,at:"Oct 1"},
- {id:105,t:"Deportations to \u2018lower rent\u2019, Supreme Court takes deportation case",show:"The Wakeup",dur:161,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:15,yt:true,at:"Oct 1"},
- {id:106,t:"US announces all forces withdrawn from Iraq",show:"Daily News Hits",dur:66,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:15,yt:true,at:"Oct 1"},
- {id:107,t:"Entergy insists Google covering costs for data center power project",show:"Full interview",dur:1063,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:15,yt:false,at:"Sep 30"},
- {id:108,t:"Sen. Eric Schmitt presses Jack Smith\u2019s basketball game testimony",show:"Daily News Hits",dur:56,h:1080,src:"Brid upload",desc:"none",thumb:true,tf:true,promo:15,yt:false,at:"Sep 30"},
- {id:109,t:"Cutting gas taxes becomes bipartisan issue",show:"Daily News Hits",dur:92,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:15,yt:true,at:"Sep 30"},
+ {id:2834706,t:"Trump slams convention date, Good family sues Trump, 100+ CDC monkeys need home",show:"Daily News Hits",dur:206,h:360,src:"YouTube import",desc:"links",thumb:false,tf:false,promo:21,yt:true,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834706_sd_6abeca254e54c_1790888485.jpg",at:"Oct 1, 8:59 PM"},
+ {id:2834659,t:"Potential pardons, 2028, and Iran: Trump sounds off at the White House",show:"Daily News Hits",dur:314,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:false,promo:21,yt:false,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834659_sd_6abec58c6ebf8_1790887308.jpg",at:"Oct 1, 8:27 PM"},
+ {id:2834515,t:"JD Vance heckled by protesters during Florida rally",show:"Daily News Hits",dur:149,h:1080,src:"Brid upload",desc:"none",thumb:true,tf:false,promo:21,yt:false,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834515_sd_6abeb8b0b00c4_1790884016.jpg",at:"Oct 1, 7:44 PM"},
+ {id:2834510,t:"Blackburn calls to reinstate electric chair after Tennessee death row inmate\u2019s botched lethal injections",show:"Daily News Hits",dur:80,h:1080,src:"Brid upload",desc:"none",thumb:true,tf:false,promo:21,yt:false,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834510_sd_6abeb8129720e_1790883858.jpg",at:"Oct 1, 7:43 PM"},
+ {id:2834373,t:"California governor debate turns into Trump-Newsom proxy war",show:"Daily News Hits",dur:108,h:360,src:"YouTube import",desc:"links",thumb:false,tf:false,promo:21,yt:true,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834373_sd_6abec98101ee2_1790888321.jpg",at:"Oct 1, 6:24 PM"},
+ {id:101,t:"Inside Scoop: Democrats\u2019 decision time, God and the internet",show:"Inside Scoop",dur:803,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:21,yt:true,at:"Oct 1"},
+ {id:102,t:"South Korea to commit $54 billion for Alaska LNG pipeline",show:"Daily News Hits",dur:84,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:21,yt:true,at:"Oct 1"},
+ {id:103,t:"Republicans worry they\u2019ve \u2018glossed over\u2019 voters\u2019 affordability concerns",show:"Daily News Hits",dur:108,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:21,yt:true,at:"Oct 1"},
+ {id:104,t:"Congress unveils slate of bills to combat healthcare fraud",show:"Daily News Hits",dur:66,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:21,yt:false,at:"Oct 1"},
+ {id:105,t:"Deportations to \u2018lower rent\u2019, Supreme Court takes deportation case",show:"The Wakeup",dur:161,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:21,yt:true,at:"Oct 1"},
+ {id:106,t:"US announces all forces withdrawn from Iraq",show:"Daily News Hits",dur:66,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:21,yt:true,at:"Oct 1"},
+ {id:107,t:"Entergy insists Google covering costs for data center power project",show:"Full interview",dur:1063,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:21,yt:false,at:"Sep 30"},
+ {id:108,t:"Sen. Eric Schmitt presses Jack Smith\u2019s basketball game testimony",show:"Daily News Hits",dur:56,h:1080,src:"Brid upload",desc:"none",thumb:true,tf:true,promo:21,yt:false,at:"Sep 30"},
+ {id:109,t:"Cutting gas taxes becomes bipartisan issue",show:"Daily News Hits",dur:92,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:21,yt:true,at:"Sep 30"},
  {id:110,t:"Jack Smith\u2019s disbarment, Netanyahu\u2019s warning, Candace Owens\u2019s second lawsuit",show:"Daily News Hits",dur:244,h:720,src:"Brid upload",desc:"ok",thumb:false,tf:null,promo:null,yt:true,at:"Sep 30"},
- {id:111,t:"GOP midterm freakout: Are Republicans doomed?",show:"Inside Scoop",dur:612,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:false,promo:14,yt:true,at:"Sep 30"}
+ {id:111,t:"GOP midterm freakout: Are Republicans doomed?",show:"Inside Scoop",dur:612,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:false,promo:21,yt:true,at:"Sep 30"}
 ];
 const byId=id=>CLIPS.find(c=>String(c.id)===String(id));
 const isReal=c=>c&&c.id>200000;
@@ -537,7 +539,7 @@ function breakAfter(idx,list){
   return true;
 }
 function sequence(){
-  const s=[];S.lineup.forEach((id,i)=>{const c=byId(id);const trim=S.trim[id]??c.promo??0;s.push({type:"p",c,dur:c.dur-trim});if(breakAfter(i,S.lineup))s.push({type:"k",dur:120});});
+  const s=[];S.lineup.forEach((id,i)=>{const c=byId(id);const trim=S.trim[id]??c.promo??DEFAULT_TRIM;s.push({type:"p",c,dur:c.dur-trim});if(breakAfter(i,S.lineup))s.push({type:"k",dur:120});});
   return s;
 }
 function at(t){const seq=sequence();const L=seq.reduce((a,b)=>a+b.dur,0);if(!L)return null;let o=((t%L)+L)%L,i=0;while(o>=seq[i].dur){o-=seq[i].dur;i++}return{seq,L,i,off:o,start:t-o}}
@@ -637,7 +639,7 @@ function library(p){
 function seeded(n){let x=n%2147483647||7;return()=>(x=x*16807%2147483647)/2147483647}
 function clip(id,tab){
   const c=byId(id); if(!c) return `<h1>Clip not found</h1><p><a class="btn" href="#/library">Back to Library</a></p>`;
-  const trim=S.trim[c.id]??c.promo??15, airs=c.dur-trim, pct=trim/c.dur*100, head=Math.round(c.dur*0.46);
+  const trim=S.trim[c.id]??c.promo??DEFAULT_TRIM, airs=c.dur-trim, pct=trim/c.dur*100, head=Math.round(c.dur*0.46);
   const bps=S.bps[c.id]||[];
   const r=seeded(c.id), wave=Array.from({length:120},()=>Math.round(25+r()*70));
   tab=["checks","versions","breaks"].includes(tab)?tab:"versions";
@@ -680,7 +682,7 @@ function clip(id,tab){
       <div class="legend"><span><i style="background:var(--airs)"></i>Airs on TV</span><span><i style="background:#F3A6B4"></i>Trimmed end promo</span><span><i style="background:var(--amber);width:3px;height:14px"></i>Ad break point</span><span><i style="background:var(--ink);width:2px;height:14px"></i>Playhead</span></div>
       <div class="trimctl"><b>Trim from end</b><button class="stp" id="tm" aria-label="Trim less">−</button><span class="tv">${mmss(trim)}</span><button class="stp" id="tp" aria-label="Trim more">+</button>
         <button class="btn sm dark" id="pcut" type="button">Preview the cut</button>
-        <span class="small">${esc(c.show)} default 0:15. Airs as ${mmss(airs)}. Trimming makes a new TV version; the original never changes.</span></div>
+        <span class="small">${esc(c.show)} default ${mmss(DEFAULT_TRIM)}. Airs as ${mmss(airs)}. Trimming makes a new TV version; the original never changes.</span></div>
     </section>
     <section class="card">
       <div class="seg" role="tablist">${[["versions","Versions"],["checks","TV checks"],["breaks","Break points"]].map(t=>`<button role="tab" aria-selected="${t[0]===tab}" data-tab="${t[0]}">${t[1]}</button>`).join("")}</div>
@@ -704,7 +706,7 @@ function planner(){
   return S.ptab==="week"?tabs+week():tabs+runningOrder();
 }
 function runningOrder(){
-  const a=at(etSec()); const total=S.lineup.reduce((x,id)=>x+byId(id).dur-(S.trim[id]??byId(id).promo??0),0);
+  const a=at(etSec()); const total=S.lineup.reduce((x,id)=>x+byId(id).dur-(S.trim[id]??byId(id).promo??DEFAULT_TRIM),0);
   let acc=a?a.start:0, nowIdx=-1;
   if(a){let pi=-1;for(let k=0;k<=a.i;k++)if(a.seq[k].type==="p")pi++;nowIdx=a.seq[a.i].type==="p"?pi:-1;
     let t=a.start;for(let k=a.i;k>0;k--){} }
@@ -713,7 +715,7 @@ function runningOrder(){
   const pool=CLIPS.filter(c=>!S.lineup.includes(c.id));
   const q=S.q.toLowerCase(); const pl=pool.filter(c=>!q||c.t.toLowerCase().includes(q)||c.show.toLowerCase().includes(q));
   let sp=0; const curI=a?a.i:-1;
-  const rows=S.lineup.map((id,i)=>{const c=byId(id);const mySp=sp++;const hasBrk=breakAfter(i,S.lineup);const brkSp=hasBrk?sp++:-1;const d=c.dur-(S.trim[id]??c.promo??0);const airs=hhmm(acc);acc+=d+(breakAfter(i,S.lineup)?120:0);
+  const rows=S.lineup.map((id,i)=>{const c=byId(id);const mySp=sp++;const hasBrk=breakAfter(i,S.lineup);const brkSp=hasBrk?sp++:-1;const d=c.dur-(S.trim[id]??c.promo??DEFAULT_TRIM);const airs=hhmm(acc);acc+=d+(breakAfter(i,S.lineup)?120:0);
     return `<div class="ri gcols ${mySp===curI?"now":""}"><span class="n">${i+1}</span><span class="air">${airs}</span>
       <div class="who2">${thumb(c,84)}<div><b><a href="#/clip/${c.id}">${esc(c.t)}</a></b><small>${esc(c.show)}</small></div></div>
       <span class="len">${mmss(d)}</span><span class="pfc"><span class="chip ok">Ready</span></span>
@@ -973,7 +975,7 @@ function wire(p,parts){
   $$("[data-tab]").forEach(b=>b.addEventListener("click",()=>location.hash=`#/clip/${parts[1]}?tab=${b.dataset.tab}`));
   $$("[data-job]").forEach(b=>b.addEventListener("click",()=>startJob(byId(parts[1]).id,b.dataset.job)));
   const tm=$("#tm"),tp=$("#tp");
-  if(tm){const c=byId(parts[1]);const cur=()=>S.trim[c.id]??c.promo??15;tm.addEventListener("click",()=>{S.trim[c.id]=Math.max(0,cur()-1);render()});tp.addEventListener("click",()=>{S.trim[c.id]=Math.min(60,cur()+1);render()})}
+  if(tm){const c=byId(parts[1]);const cur=()=>S.trim[c.id]??c.promo??DEFAULT_TRIM;tm.addEventListener("click",()=>{S.trim[c.id]=Math.max(0,cur()-1);render()});tp.addEventListener("click",()=>{S.trim[c.id]=Math.min(60,cur()+1);render()})}
   $$("[data-approve]").forEach(b=>b.addEventListener("click",()=>{const c=byId(parts[1]);const bp=S.bps[c.id].find(x=>x.t===+b.dataset.approve);bp.ok=true;bp.l="Approved, "+(S.role==="admin"?"Digital admin":"Video desk");log("Approved break point "+mmss(bp.t),c.t);toast("Break point approved. It's marked on the timeline.");render()}));
   const ab=$("#addbp");if(ab)ab.addEventListener("click",()=>{const c=byId(parts[1]);const t=Math.round(c.dur*0.46);S.bps[c.id]=S.bps[c.id]||[];if(S.bps[c.id].some(b=>b.t===t)){toast("There's already a break point there.");return}S.bps[c.id].push({t,l:"Added at the playhead",ok:true});log("Added break point "+mmss(t),c.t);toast("Break point added at "+mmss(t)+".");render()});
   $$("[data-ptab]").forEach(b=>b.addEventListener("click",()=>{S.ptab=b.dataset.ptab;render()}));
@@ -991,7 +993,7 @@ function wire(p,parts){
   if(vb){const c=byId(parts[1]);
     if(!v){vb.addEventListener("click",()=>toast("Video preview plays once this clip syncs from Brid. The five clips published Oct 1 play now."));}
     else{
-      v.dataset.cid=c.id; const trimNow=()=>S.trim[c.id]??c.promo??15; let previewing=false;
+      v.dataset.cid=c.id; const trimNow=()=>S.trim[c.id]??c.promo??DEFAULT_TRIM; let previewing=false;
       const last=v.querySelector("source[data-last]");if(last)last.addEventListener("error",()=>{v.style.display="none";const f=$("#vfail");if(f)f.style.display="block"});
       v.addEventListener("loadedmetadata",()=>{if(S.vt[c.id]){try{v.currentTime=S.vt[c.id]}catch(e){}}});
       vb.addEventListener("click",()=>{if(v.paused){v.play().catch(()=>toast("Click play again to start the preview."))}else v.pause()});
