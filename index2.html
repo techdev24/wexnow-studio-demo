@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>WEX NOW Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEECE8; --card:#FFFFFF; --row:#F6F5F2; --line:#E2DFD9; --line2:#ECEAE5;
+  --ink:#111111; --tx:#1C1C1C; --mut:#5C5C5C; --dim:#8C8C8C;
+  --red:#E4002B; --redtx:#C8102E; --pink:#FDECEF;
+  --green:#1E7B3A; --greenbg:#E6F4EA; --amber:#9A6A00; --amberline:#D9A43A; --amberbg:#FFF5E0;
+  --blue:#2457C5; --bluebg:#E8EEFB; --airs:#C9D6F2;
+  --head:"Archivo","IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif; color:var(--tx); background:var(--bg);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{font-size:14.5px;line-height:1.45;min-height:100vh}
+button,input,select{font:inherit;color:inherit}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:4px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.mono{font-family:var(--mono)}
+
+/* ===== header ===== */
+.hdr{background:var(--ink);color:#fff;position:sticky;top:0;z-index:5}
+.hrow{display:flex;align-items:center;gap:16px;padding:0 28px;height:62px}
+.logo{font-family:var(--head);font-weight:800;font-size:21px;letter-spacing:-.2px;white-space:nowrap}
+.logo span{color:var(--red)}
+.vbar{width:1px;height:24px;background:#3A3A3A;flex:none}
+.prod{font-family:var(--head);font-weight:700;font-size:16.5px;white-space:nowrap}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.tabs a{color:#C9C9C9;padding:7px 12px;border-radius:7px;font-size:14px;white-space:nowrap}
+.tabs a:hover{color:#fff;background:#1E1E1E}
+.tabs a[aria-current="page"]{background:#2A2A2A;color:#fff}
+.hright{margin-left:auto;display:flex;align-items:center;gap:12px;flex:none}
+.hpill{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;font-weight:600;padding:5px 11px;border-radius:999px;white-space:nowrap;background:#163A22;color:#7BE29A}
+.hpill i{width:7px;height:7px;border-radius:50%;background:#38C766;box-shadow:0 0 6px #38C766}
+.clock{font-family:var(--mono);font-size:13.5px;color:#E6E6E6;white-space:nowrap}
+.clock small{color:#9A9A9A;margin-left:3px}
+.userbox{display:flex;align-items:center;gap:9px}
+.av{width:32px;height:32px;border-radius:50%;background:var(--red);display:grid;place-items:center;font-weight:700;font-size:12.5px;flex:none}
+.userbox select{background:#1E1E1E;border:1px solid #3A3A3A;border-radius:7px;color:#fff;padding:5px 8px;font-size:13px}
+
+/* ===== page ===== */
+.page{max-width:1480px;margin:0 auto;padding:24px 28px 56px}
+.ph{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:18px}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:1.4px;color:var(--redtx);text-transform:uppercase;margin:0 0 6px}
+h1,h2,h3{font-family:var(--head);letter-spacing:-.25px;margin:0;color:var(--ink)}
+h1{font-size:30px;font-weight:800;line-height:1.1}
+h2{font-size:18px;font-weight:700}
+.lead{color:var(--mut);margin:5px 0 0;max-width:78ch}
+.card{background:var(--card);border-radius:16px;padding:20px}
+.card.flush{padding:0;overflow:hidden}
+.ch{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.ch small{color:var(--mut)}
+.grid{display:grid;gap:20px}
+.g2{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}
+.g2e{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.mt{margin-top:20px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 15px;font-weight:600;cursor:pointer;white-space:nowrap}
+.btn:hover{border-color:#BBB5AB}
+.btn.red{background:var(--red);border-color:var(--red);color:#fff}
+.btn.red:hover{background:#C8002A}
+.btn.dark{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn.redline{border-color:var(--red);color:var(--redtx)}
+.btn.redline:hover{background:var(--pink)}
+.btn[disabled]{color:var(--dim);cursor:not-allowed;border-color:var(--line);background:#fff}
+.btn.sm{padding:5px 11px;font-size:13px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:3px 10px;border-radius:999px;white-space:nowrap}
+.chip.ok{background:var(--greenbg);color:var(--green)}
+.chip.warn{background:var(--amberbg);color:var(--amber)}
+.chip.bad{background:var(--pink);color:var(--redtx)}
+.chip.info{background:var(--bluebg);color:var(--blue)}
+.chip.gray{background:#EFEDE9;color:var(--mut)}
+.chip.live{background:var(--red);color:#fff}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex:none}
+.dot.live{background:var(--red);box-shadow:0 0 0 3px rgba(228,0,43,.15)}
+.dot.ok{background:#2E9E57} .dot.warn{background:#D99A1E} .dot.plan{background:transparent;border:1.5px solid #A8A39A}
+.small{font-size:13px;color:var(--mut);margin:0}
+table{border-collapse:collapse;width:100%}
+th{font-size:11.5px;font-weight:600;letter-spacing:1.1px;color:var(--mut);text-transform:uppercase;text-align:left;padding:10px 14px;border-bottom:1px solid var(--line2);white-space:nowrap}
+td{padding:11px 14px;border-bottom:1px solid var(--line2);vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+tr.go{cursor:pointer}
+tr.go:hover td{background:#FAF9F7}
+.tw{overflow-x:auto}
+
+/* thumbs: show-branded tile, real frame on top when it loads */
+.th{position:relative;aspect-ratio:16/9;border-radius:6px;overflow:hidden;flex:none;display:flex;align-items:flex-end;padding:6px 7px;color:#fff}
+.th .sn{font-family:var(--head);font-weight:800;font-size:11px;line-height:1.05;letter-spacing:.2px;max-width:70%;text-shadow:0 1px 2px rgba(0,0,0,.3)}
+.th img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.th .d{position:absolute;right:4px;bottom:4px;background:rgba(0,0,0,.78);font-family:var(--mono);font-size:10.5px;padding:0 4px;border-radius:3px;z-index:1}
+.th .bug{display:none}
+.monitor .th .bug{display:block;position:absolute}
+.player .th,.monitor .th,.phone .th,.vframe .th{aspect-ratio:auto;height:100%}
+.vframe .th .sn{display:none}
+.cc{display:flex;gap:12px;align-items:center;min-width:300px}
+.cc b{display:block;font-weight:600;line-height:1.3}
+.cc small{color:var(--mut);font-size:12.5px}
+
+/* ===== control ===== */
+.onair{background:var(--ink);color:#fff;border-radius:16px;padding:20px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:20px}
+.onair .eyebrow{color:#FF4D6D}
+.monitor{position:relative;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000}
+.monitor .th{position:absolute;inset:0;border-radius:0;padding:14px}
+.monitor .th .sn{font-size:20px}
+.monitor .th .bug{font-size:13px;right:12px;top:10px;background:var(--red);padding:2px 7px;border-radius:3px;opacity:1}
+.monitor .tag{position:absolute;left:12px;top:10px;display:flex;align-items:center;gap:6px;background:rgba(0,0,0,.7);font-size:11.5px;font-weight:700;letter-spacing:.8px;padding:3px 8px;border-radius:4px;z-index:2}
+.monitor .cd{position:absolute;right:12px;bottom:10px;font-family:var(--mono);font-size:15px;background:rgba(0,0,0,.72);padding:2px 8px;border-radius:4px;z-index:2}
+.monitor .slate{position:absolute;inset:0;display:grid;place-items:center;background:linear-gradient(135deg,#2A0A12,#111);font-family:var(--head);font-weight:800;font-size:22px;z-index:1}
+.oa-title{font-family:var(--head);font-weight:700;font-size:20px;line-height:1.25;margin:4px 0 12px;color:#fff}
+.bar{height:5px;background:#363636;border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--red)}
+.times{display:flex;justify-content:space-between;font-family:var(--mono);font-size:13px;color:#CFCFCF;margin-top:7px}
+.nl{border-top:1px solid #2E2E2E;margin-top:14px;padding-top:12px;display:grid;grid-template-columns:58px minmax(0,1fr) auto;gap:9px 12px;font-size:14px}
+.nl span{font-size:11.5px;font-weight:600;letter-spacing:1px;color:#A0A0A0;padding-top:2px}
+.nl em{font-style:normal;font-family:var(--mono);font-size:12.5px;color:#A0A0A0}
+.health{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}
+.health div{background:#1C1C1C;border-radius:9px;padding:9px 11px}
+.health small{display:block;font-size:11.5px;color:#9A9A9A}
+.health b{display:flex;align-items:center;gap:7px;font-weight:600;font-size:13.5px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.kpi{background:var(--card);border-radius:14px;padding:14px 16px}
+.kpi small{display:block;color:var(--mut);font-size:12.5px;font-weight:600}
+.kpi b{display:block;font-family:var(--head);font-size:30px;font-weight:800;line-height:1.1;margin-top:2px}
+.kpi span{font-size:12.5px;color:var(--mut)}
+.kpi.r b{color:var(--redtx)} .kpi.g b{color:var(--green)} .kpi.a b{color:var(--amber)}
+.alerts li{display:grid;grid-template-columns:4px minmax(0,1fr) auto;gap:14px;padding:13px 0;border-top:1px solid var(--line2);align-items:center}
+.alerts li:first-child{border-top:0}
+.alerts .sev{align-self:stretch;border-radius:2px;background:var(--amberline)}
+.alerts .sev.r{background:var(--red)} .alerts .sev.b{background:#9DB3E6}
+.alerts b{display:block;font-weight:600}
+.alerts .meta{display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;color:var(--mut);margin-top:2px}
+.alerts .meta span b{display:inline;font-weight:600;color:var(--tx)}
+ul.clean{list-style:none;margin:0;padding:0}
+.trace select{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px 12px;background:#fff}
+.path{margin-top:14px;display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:12px;align-items:start;position:relative;padding-bottom:14px}
+.step:not(:last-child)::after{content:"";position:absolute;left:10px;top:20px;bottom:0;width:2px;background:var(--line)}
+.step .nd{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:#fff;border:2px solid var(--line);z-index:1}
+.step .nd.live{border-color:var(--red);background:var(--red)}
+.step .nd.ok{border-color:#2E9E57;background:#2E9E57}
+.step .nd.warn{border-color:#D99A1E;background:#D99A1E}
+.step b{display:block;font-weight:600}
+.step small{color:var(--mut);font-size:12.5px}
+.log li{display:grid;grid-template-columns:80px minmax(0,1fr) auto;gap:12px;padding:10px 0;border-top:1px solid var(--line2);font-size:13.5px}
+.log li:first-child{border-top:0}
+.log time{font-family:var(--mono);color:var(--mut);font-size:12.5px}
+.log .who{color:var(--mut);font-size:12.5px}
+
+/* ===== library ===== */
+.lib{display:grid;grid-template-columns:220px minmax(0,1fr);gap:20px;align-items:start}
+.facets .grp{padding:14px 16px;border-top:1px solid var(--line2)}
+.facets .grp:first-child{border-top:0}
+.facets h3{font-family:inherit;font-size:11.5px;font-weight:600;letter-spacing:1.1px;color:var(--mut);text-transform:uppercase;margin:0 0 6px}
+.facet{display:flex;justify-content:space-between;width:100%;background:none;border:0;padding:6px 9px;border-radius:7px;cursor:pointer;font-size:14px;text-align:left}
+.facet:hover{background:var(--row)}
+.facet[aria-pressed="true"]{background:var(--ink);color:#fff}
+.facet span{opacity:.65}
+.libbar{display:flex;gap:12px;align-items:center;padding:12px 14px;border-bottom:1px solid var(--line2);flex-wrap:wrap}
+.libbar input{flex:1 1 260px;border:1px solid var(--line);border-radius:9px;padding:9px 12px}
+.ck{display:flex;gap:4px}
+.ck i{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:700}
+.ck i.ok{background:var(--greenbg);color:var(--green)} .ck i.bad{background:var(--pink);color:var(--redtx)} .ck i.warn{background:var(--amberbg);color:var(--amber)} .ck i.na{background:#F0EEEA;color:#A8A39A}
+.dests{display:flex;gap:4px}
+.dc{font-family:var(--mono);font-size:10.5px;font-weight:600;padding:1px 5px;border-radius:4px;border:1px solid var(--line);color:#A8A39A}
+.dc.on{color:var(--redtx);border-color:#F3B5C1;background:var(--pink)}
+.dc.ok{color:var(--green);border-color:#B5DEC2;background:var(--greenbg)}
+.dc.hold{color:var(--amber);border-color:#EED29A;background:var(--amberbg)}
+
+/* ===== studio (clip) ===== */
+.back{display:inline-block;color:var(--redtx);font-size:14px;margin-bottom:6px}
+.ed{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(360px,1fr);gap:20px;align-items:start}
+.player{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#151515}
+.player .th{position:absolute;inset:0;border-radius:0;padding:18px}
+.player .th .sn{font-size:24px}
+.player .ov{position:absolute;inset:0;display:grid;place-items:center;z-index:2;background:rgba(0,0,0,.18);cursor:pointer;border:0;color:#fff}
+.player .ov span{width:58px;height:58px;border-radius:50%;background:rgba(0,0,0,.55);display:grid;place-items:center}
+.player .tc{position:absolute;left:12px;top:10px;font-family:var(--mono);font-size:15px;background:rgba(0,0,0,.65);color:#fff;padding:2px 8px;border-radius:4px;z-index:3}
+.player .cut{position:absolute;right:12px;bottom:12px;background:var(--red);color:#fff;font-size:12px;font-weight:700;padding:3px 8px;border-radius:4px;z-index:3}
+.player .lk{position:absolute;right:12px;top:10px;z-index:3}
+.tline{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12.5px;color:var(--mut);margin:14px 0 6px}
+.track{position:relative;height:42px;background:var(--airs);border-radius:7px;overflow:hidden}
+.track .wv{position:absolute;inset:6px 4px;display:flex;align-items:center;gap:1px}
+.track .wv i{flex:1;background:rgba(36,87,197,.28);border-radius:1px}
+.track .trim{position:absolute;top:0;bottom:0;right:0;background:repeating-linear-gradient(135deg,#F3A6B4 0 6px,#FBD3DA 6px 12px)}
+.track .bp{position:absolute;top:0;bottom:0;width:3px;background:var(--amber);transform:translateX(-1px)}
+.track .ph{position:absolute;top:0;bottom:0;width:2px;background:var(--ink)}
+.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:12.5px;color:var(--mut);margin-top:10px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:14px;height:10px;border-radius:2px}
+.trimctl{display:flex;align-items:center;gap:12px;margin-top:18px;flex-wrap:wrap}
+.trimctl b{font-weight:600}
+.stp{width:40px;height:40px;border:1px solid var(--line);background:#fff;border-radius:9px;font-size:19px;cursor:pointer}
+.stp:hover{border-color:#BBB5AB}
+.tv{font-family:var(--mono);font-size:20px;min-width:58px;text-align:center}
+.seg{display:flex;background:var(--row);border-radius:10px;padding:4px;gap:2px;margin-bottom:14px}
+.seg button{flex:1;border:0;background:transparent;border-radius:7px;padding:8px 6px;font-weight:600;font-size:13.5px;cursor:pointer;color:var(--mut)}
+.seg button[aria-selected="true"]{background:#fff;color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.chk li{display:grid;grid-template-columns:24px minmax(0,1fr) auto;gap:10px;padding:10px 0;border-top:1px solid var(--line2);align-items:start}
+.chk li:first-child{border-top:0}
+.chk b{display:block;font-weight:600}
+.chk small{color:var(--mut);font-size:12.5px}
+.ver{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;padding:12px 0;border-top:1px solid var(--line2)}
+.ver:first-child{border-top:0}
+.ver b{display:block;font-weight:600}
+.ver small{color:var(--mut);font-size:12.5px}
+.vframe{width:64px;aspect-ratio:16/9;border-radius:5px;overflow:hidden;position:relative}
+.vframe.v{width:30px;aspect-ratio:9/16}
+.vframe .th{position:absolute;inset:0;border-radius:0;padding:3px}
+.vframe .th .sn{font-size:7px}
+.job{min-width:120px;text-align:right}
+.pbar{height:5px;background:#ECEAE5;border-radius:3px;overflow:hidden;margin-top:6px}
+.pbar i{display:block;height:100%;background:var(--blue);transition:width .25s}
+.bpi{display:flex;justify-content:space-between;align-items:center;gap:12px;background:var(--amberbg);border-radius:10px;padding:11px 12px;margin-bottom:10px}
+.bpi.sug{background:#fff;border:1.5px dashed var(--line)}
+.bpi .t{font-family:var(--mono);font-size:15px;display:block}
+.bpi small{color:var(--amber);font-size:12.5px}
+.bpi.sug small{color:var(--mut)}
+.wide{width:100%}
+.vert{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;align-items:start;background:var(--row);border-radius:12px;padding:14px;margin-top:14px}
+.phone{aspect-ratio:9/16;border-radius:14px;background:#000;position:relative;overflow:hidden;border:4px solid #1A1A1A}
+.phone .th{position:absolute;inset:0;border-radius:0;padding:10px;align-items:center;justify-content:center}
+.phone .th img{object-position:50% 50%}
+.phone .cap{position:absolute;left:8px;right:8px;bottom:22%;text-align:center;font-family:var(--head);font-weight:800;font-size:12px;color:#fff;line-height:1.15;text-shadow:0 1px 3px #000;z-index:2}
+.phone .cap em{font-style:normal;background:var(--red);padding:0 3px}
+.phone .brand{position:absolute;left:8px;top:8px;font-family:var(--head);font-weight:800;font-size:10px;color:#fff;z-index:2}
+.phone .brand span{color:var(--red)}
+
+/* ===== planner ===== */
+.ro{display:grid;grid-template-columns:minmax(0,1fr) 460px;gap:20px;align-items:start}
+.ro-head{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;flex-wrap:wrap;margin-bottom:12px}
+.ro-head > div:first-child{flex:1 1 280px;min-width:0}
+.pattern label{display:block;font-size:12.5px;font-weight:600;margin-bottom:5px}
+.pattern select{border:1px solid var(--line);border-radius:9px;padding:9px 12px;min-width:190px;background:#fff}
+.gcols{display:grid;grid-template-columns:30px 62px minmax(0,1fr) 72px 92px 136px;gap:12px;align-items:center}
+.thr{font-size:11.5px;font-weight:600;letter-spacing:1.1px;color:var(--mut);text-transform:uppercase;padding:6px 12px}
+.thr .r{text-align:right}
+.ri{background:var(--row);border-radius:12px;padding:10px 12px}
+.ri.now{background:var(--pink)}
+.ri .n{color:var(--mut)} .ri .air,.ri .len{font-family:var(--mono);font-size:13.5px}
+.ri .who2{display:flex;gap:12px;align-items:center;min-width:0}
+.ri .th{width:84px}
+.ri b{display:block;font-weight:600;line-height:1.3}
+.ri small{color:var(--mut);font-size:12.5px}
+.order{display:flex;gap:5px;justify-content:flex-end}
+.ob{width:38px;height:36px;border:1px solid var(--line);background:#fff;border-radius:8px;display:grid;place-items:center;cursor:pointer}
+.ob:hover{border-color:#BBB5AB}
+.ob.x{color:var(--red)}
+.ob[disabled]{opacity:.35;cursor:not-allowed}
+.brk{display:flex;align-items:center;gap:12px;margin:5px 0 5px 116px;font-size:11.5px;font-weight:700;letter-spacing:1.1px;color:var(--amber);text-transform:uppercase;white-space:nowrap}
+.brk.onnow{color:var(--redtx)}
+.brk.onnow::before,.brk.onnow::after{border-top-color:var(--red)}
+.brk::before,.brk::after{content:"";flex:1;border-top:1.5px dashed var(--amberline)}
+.rol{display:flex;flex-direction:column;gap:6px}
+.logline{display:flex;align-items:center;gap:10px;border-top:1px solid var(--line2);margin-top:14px;padding-top:12px;font-size:13px;color:var(--mut)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0 12px}
+.stat{border-radius:12px;padding:12px 14px}
+.stat b{display:block;font-family:var(--head);font-size:28px;line-height:1}
+.stat span{font-size:13px}
+.stat.g{background:var(--greenbg);color:var(--green)} .stat.r{background:var(--pink);color:var(--redtx)}
+.srch input{width:100%;border:1px solid var(--line);border-radius:9px;padding:10px 12px}
+.pl li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-top:1px solid var(--line2)}
+.pl b{display:block;font-weight:600;line-height:1.3}
+.pl small{color:var(--mut);font-size:12.5px}
+.pl small .ok{color:var(--green);font-weight:600} .pl small .bad{color:var(--redtx);font-weight:600}
+.week{display:grid;grid-template-columns:104px repeat(7,minmax(118px,1fr));gap:8px;min-width:1020px}
+.week .dh{font-weight:600;font-size:13px;color:var(--mut);padding:4px 10px}
+.week .dh.today{color:var(--redtx)}
+.week .rl{font-size:13px;padding:8px 0}
+.week .rl b{display:block;font-weight:600;color:var(--ink)}
+.week .rl small{color:var(--mut)}
+.blk{border-radius:8px;padding:10px;font-size:13px;line-height:1.35;min-height:54px;border:0;text-align:left;cursor:pointer}
+.blk b{display:block;font-weight:600}
+.blk:hover{filter:brightness(.97)}
+.b-am{background:#FCE4E8} .b-nh{background:#FFF1D9} .b-lf{background:#E5F1E8} .b-sp{background:#E1EAF8} .b-rl{background:#EFEEEA;color:var(--mut)}
+.wlegend{display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:var(--mut);margin-top:14px}
+.wlegend span{display:inline-flex;align-items:center;gap:7px}
+.wlegend i{width:13px;height:13px;border-radius:3px;display:inline-block}
+
+/* ===== playout ===== */
+.po{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:20px;align-items:start}
+.po .onair{grid-template-columns:minmax(0,1fr)}
+.epg{position:relative;overflow:hidden}
+.epg .rul{position:relative;height:28px;margin-left:150px;border-bottom:1px solid var(--line)}
+.epg .tick{position:absolute;top:0;bottom:0;border-left:1px solid var(--line);padding-left:6px;font-family:var(--mono);font-size:11.5px;color:var(--mut);line-height:28px}
+.lane{display:grid;grid-template-columns:150px minmax(0,1fr);border-bottom:1px solid var(--line2)}
+.lane .lb{padding:12px 14px;font-weight:600;font-size:13.5px;border-right:1px solid var(--line2)}
+.lane .lb small{display:block;font-weight:400;color:var(--mut);font-size:12px}
+.lane .tr{position:relative;height:62px}
+.lane .tr.thin{height:34px}
+.eb{position:absolute;top:7px;bottom:7px;border-radius:7px;padding:5px 8px;overflow:hidden;font-size:12px;line-height:1.25}
+.eb b{display:block;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.eb small{font-family:var(--mono);font-size:11px;opacity:.75}
+.eb.p{background:#E8EEFB;color:#1B3A7A;border:1px solid #C9D6F2}
+.eb.k{background:#FFF1D9;color:#7A5300;border:1px solid #F2D49B}
+.eb.m{background:#E5F1E8;color:#185C2E;border:1px solid #BFDDC9}
+.eb.past{opacity:.45}
+.mk{position:absolute;top:10px;width:13px;height:13px;transform:translateX(-6px) rotate(45deg);background:var(--amberline);border-radius:2px}
+.now-l{position:absolute;top:0;bottom:0;width:2px;background:var(--red);pointer-events:none;z-index:2}
+.now-l::before{content:"NOW";position:absolute;top:32px;left:5px;font-size:10.5px;font-weight:700;letter-spacing:.8px;color:#fff;background:var(--red);padding:1px 5px;border-radius:3px}
+.elg{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--mut);padding:12px 16px}
+.elg span{display:inline-flex;align-items:center;gap:6px}
+.elg i{width:12px;height:12px;border-radius:3px;display:inline-block}
+
+/* ===== connect ===== */
+.dl{display:grid;grid-template-columns:minmax(0,1fr) 440px;gap:20px;align-items:start}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tile{background:#fff;border-radius:14px;padding:14px 16px;border:2px solid transparent;text-align:left;cursor:pointer;display:grid;grid-template-columns:42px minmax(0,1fr);gap:12px;align-items:start}
+.tile:hover{border-color:var(--line)}
+.tile[aria-pressed="true"]{border-color:var(--ink)}
+.gl{width:42px;height:42px;border-radius:10px;display:grid;place-items:center;font-family:var(--head);font-weight:800;font-size:14px}
+.gl.live{background:var(--pink);color:var(--redtx)} .gl.ok{background:var(--greenbg);color:var(--green)} .gl.plan{background:#EFEDE9;color:var(--mut)}
+.tile b{display:block;font-weight:600}
+.tile small{display:block;color:var(--mut);font-size:12.5px}
+.tile .s{display:flex;align-items:center;gap:7px;font-weight:600;font-size:13px;margin-top:5px}
+.kv{display:grid;grid-template-columns:140px minmax(0,1fr);gap:8px 14px;font-size:13.5px}
+.kv dt{color:var(--mut)}
+.kv dd{margin:0;font-weight:500}
+.rules li{display:flex;gap:10px;padding:7px 0;font-size:13.5px;border-top:1px solid var(--line2)}
+.rules li:first-child{border-top:0}
+.rules li::before{content:"✓";color:var(--green);font-weight:700}
+.lockn{display:flex;gap:10px;align-items:center;background:var(--bluebg);color:#1B3A7A;border-radius:12px;padding:11px 14px;margin-bottom:16px;font-size:13.5px}
+
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(16px);background:var(--ink);color:#fff;padding:11px 16px;border-radius:10px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .18s,transform .18s;max-width:min(92vw,560px);z-index:20;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (max-width:1240px){.g2,.ro,.po,.ed,.dl{grid-template-columns:minmax(0,1fr)} .onair{grid-template-columns:minmax(0,1fr)} .tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:900px){.hpill,.clock,.prod,.vbar{display:none} .kpis{grid-template-columns:repeat(2,minmax(0,1fr))} .lib{grid-template-columns:minmax(0,1fr)} .g2e,.g3{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:640px){
+  .hrow{padding:0 14px;gap:10px} .page{padding:18px 14px 40px} h1{font-size:25px}
+  .tiles{grid-template-columns:minmax(0,1fr)}
+  .gcols{grid-template-columns:22px minmax(0,1fr) auto} .gcols .air,.gcols .len,.gcols .pfc,.thr{display:none} .ri .th{display:none} .ri .who2 > div{min-width:0;overflow-wrap:anywhere}
+  .brk{margin-left:0;white-space:normal;text-align:center;font-size:10.5px} .ob{width:32px} .vert{grid-template-columns:110px minmax(0,1fr)}
+  .userbox select{max-width:110px}
+}
+</style>
+</head>
+<body>
+<header class="hdr">
+  <div class="hrow">
+    <div class="logo">WEX <span>NOW</span></div>
+    <div class="vbar"></div>
+    <div class="prod">Studio</div>
+    <nav class="tabs" aria-label="Main">
+      <a href="#/control" data-r="control">Control</a>
+      <a href="#/library" data-r="library">Library</a>
+      <a href="#/planner" data-r="planner">Planner</a>
+      <a href="#/playout" data-r="playout">Playout</a>
+      <a href="#/connect" data-r="connect">Connect</a>
+    </nav>
+    <div class="hright">
+      <span class="hpill"><i></i>Amazon channel live</span>
+      <span class="clock" id="clock">--:--:--<small>ET</small></span>
+      <div class="userbox"><div class="av" id="av">DA</div>
+        <select id="role" aria-label="Signed in as"><option value="admin">Digital admin</option><option value="editor">Editor</option></select></div>
+    </div>
+  </div>
+</header>
+<main class="page" id="app" tabindex="-1"></main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+/* ===================== DATA ===================== */
+const SHOW_COLORS={"Daily News Hits":"#B5102A","Inside Scoop":"#1F3A5F","The Wakeup":"#A85A12","The Debriefs":"#136F63","America 250":"#2B4C9B","Full interview":"#3E3E3E"};
+const TOTAL_LIBRARY=18358;
+/* First five: real Brid clips pulled Oct 1 (partner 19383). The rest: from the Amazon playlist used in the console mockup. */
+const CLIPS=[
+ {id:2834706,t:"Trump slams convention date, Good family sues Trump, 100+ CDC monkeys need home",show:"Daily News Hits",dur:206,h:360,src:"YouTube import",desc:"links",thumb:false,tf:null,promo:null,yt:true,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834706_sd_6abeca254e54c_1790888485.jpg",at:"Oct 1, 8:59 PM"},
+ {id:2834659,t:"Potential pardons, 2028, and Iran: Trump sounds off at the White House",show:"Daily News Hits",dur:314,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:null,promo:null,yt:false,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834659_sd_6abec58c6ebf8_1790887308.jpg",at:"Oct 1, 8:27 PM"},
+ {id:2834515,t:"JD Vance heckled by protesters during Florida rally",show:"Daily News Hits",dur:149,h:1080,src:"Brid upload",desc:"none",thumb:true,tf:null,promo:null,yt:false,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834515_sd_6abeb8b0b00c4_1790884016.jpg",at:"Oct 1, 7:44 PM"},
+ {id:2834510,t:"Blackburn calls to reinstate electric chair after Tennessee death row inmate\u2019s botched lethal injections",show:"Daily News Hits",dur:80,h:1080,src:"Brid upload",desc:"none",thumb:true,tf:null,promo:null,yt:false,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834510_sd_6abeb8129720e_1790883858.jpg",at:"Oct 1, 7:43 PM"},
+ {id:2834373,t:"California governor debate turns into Trump-Newsom proxy war",show:"Daily News Hits",dur:108,h:360,src:"YouTube import",desc:"links",thumb:false,tf:null,promo:null,yt:true,img:"https://cdn.target-video.com/live/partners/19383/snapshot/2834373_sd_6abec98101ee2_1790888321.jpg",at:"Oct 1, 6:24 PM"},
+ {id:101,t:"Inside Scoop: Democrats\u2019 decision time, God and the internet",show:"Inside Scoop",dur:803,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:15,yt:true,at:"Oct 1"},
+ {id:102,t:"South Korea to commit $54 billion for Alaska LNG pipeline",show:"Daily News Hits",dur:84,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:15,yt:true,at:"Oct 1"},
+ {id:103,t:"Republicans worry they\u2019ve \u2018glossed over\u2019 voters\u2019 affordability concerns",show:"Daily News Hits",dur:108,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:15,yt:true,at:"Oct 1"},
+ {id:104,t:"Congress unveils slate of bills to combat healthcare fraud",show:"Daily News Hits",dur:66,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:15,yt:false,at:"Oct 1"},
+ {id:105,t:"Deportations to \u2018lower rent\u2019, Supreme Court takes deportation case",show:"The Wakeup",dur:161,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:15,yt:true,at:"Oct 1"},
+ {id:106,t:"US announces all forces withdrawn from Iraq",show:"Daily News Hits",dur:66,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:15,yt:true,at:"Oct 1"},
+ {id:107,t:"Entergy insists Google covering costs for data center power project",show:"Full interview",dur:1063,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:15,yt:false,at:"Sep 30"},
+ {id:108,t:"Sen. Eric Schmitt presses Jack Smith\u2019s basketball game testimony",show:"Daily News Hits",dur:56,h:1080,src:"Brid upload",desc:"none",thumb:true,tf:true,promo:15,yt:false,at:"Sep 30"},
+ {id:109,t:"Cutting gas taxes becomes bipartisan issue",show:"Daily News Hits",dur:92,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:true,promo:15,yt:true,at:"Sep 30"},
+ {id:110,t:"Jack Smith\u2019s disbarment, Netanyahu\u2019s warning, Candace Owens\u2019s second lawsuit",show:"Daily News Hits",dur:244,h:720,src:"Brid upload",desc:"ok",thumb:false,tf:null,promo:null,yt:true,at:"Sep 30"},
+ {id:111,t:"GOP midterm freakout: Are Republicans doomed?",show:"Inside Scoop",dur:612,h:1080,src:"Brid upload",desc:"ok",thumb:true,tf:false,promo:14,yt:true,at:"Sep 30"}
+];
+const byId=id=>CLIPS.find(c=>String(c.id)===String(id));
+const APP_ROWS=[["America 250","27942","27942"],["WEX NOW Daily (News Hits)","25675","25675","Every published clip, not a picked lineup"],["March to the Midterms","27944","27944"],["Wake Up","21699","21699"],["Political Perspectives","27365","27365"],["Over the Target","26352","26352"],["On Deadline","26353","26353"],["The Debriefs","21235","27366","Different playlist on each app"],["Reporters Notebooks","21229","21229"],["Inside Scoop","26092","26092"],["Latest News","25675","25403","Fire TV repeats WEX NOW Daily"]];
+const S={
+  role:"admin",
+  lineup:[101,102,103,104,105,106],
+  pattern:"15",
+  q:"", libq:"", libf:"all",
+  trim:{}, bps:{101:[{t:252,l:"End of segment 1, pause detected",ok:true},{t:527,l:"End of segment 2, pause detected",ok:true},{t:690,l:"Suggested, low risk of cutting mid-sentence",ok:false}]},
+  jobs:{}, trace:101, dest:"amazon", ptab:"order",
+  log:[
+    {t:"10:42",w:"Video desk",a:"Published the 24/7 lineup",d:"6 clips, breaks after every clip"},
+    {t:"10:31",w:"Video desk",a:"Approved break point 8:47",d:"Inside Scoop: Democrats\u2019 decision time"},
+    {t:"10:12",w:"Studio",a:"Held back 2 clips from Amazon",d:"No description"},
+    {t:"09:58",w:"Studio",a:"Synced 5 new clips from Brid",d:"Partner 19383"},
+    {t:"Sep 30",w:"Digital",a:"Connected the Amazon on-demand feed",d:"WEX NOW Daily News Hits"}
+  ]
+};
+
+/* ===================== HELPERS ===================== */
+const $=(s,e=document)=>e.querySelector(s);
+const $$=(s,e=document)=>[...e.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const mmss=s=>{s=Math.max(0,Math.round(s));const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60;return h?`${h}:${String(m).padStart(2,"0")}:${String(x).padStart(2,"0")}`:`${m}:${String(x).padStart(2,"0")}`};
+const tc=s=>{s=Math.max(0,s);const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=Math.floor(s%60),f=Math.floor((s%1)*30);return [h,m,x,f].map(v=>String(v).padStart(2,"0")).join(":")};
+const hhmm=sec=>{sec=((Math.floor(sec)%86400)+86400)%86400;return String(Math.floor(sec/3600)).padStart(2,"0")+":"+String(Math.floor(sec%3600/60)).padStart(2,"0")};
+function etDate(){return new Date(new Date().toLocaleString("en-US",{timeZone:"America/New_York"}))}
+function etSec(){const d=etDate();return d.getHours()*3600+d.getMinutes()*60+d.getSeconds()+(Date.now()%1000)/1000}
+const nowHHMM=()=>hhmm(etSec());
+function toast(m){const t=$("#toast");t.textContent=m;t.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove("show"),3600)}
+function log(a,d){S.log.unshift({t:nowHHMM(),w:S.role==="admin"?"Digital admin":"Video desk",a,d})}
+const I={
+  play:'<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>',
+  up:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>',
+  down:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>',
+  x:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M6 6l12 12M18 6 6 18"/></svg>',
+  clock:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
+  lock:'<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+  check:'<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2"><path d="m5 12 5 5 9-10"/></svg>'
+};
+function thumb(c,w,extra=""){
+  const col=SHOW_COLORS[c.show]||"#333";
+  return `<div class="th" style="${w?`width:${w}px;`:""}background:linear-gradient(140deg,${col},#141414 135%)">
+    <span class="bug">WEX NOW</span><span class="sn">${esc(c.show)}</span>
+    ${c.img?`<img src="${c.img}" alt="" loading="lazy" onerror="this.remove()">`:""}${extra}</div>`;
+}
+
+/* checks: the rules that decide what can go to TV */
+function checks(c){
+  const o=[];
+  o.push(c.h>=1080?{k:"ok",s:"V",l:"Full HD video",n:`${c.h===1080?"1920×1080":c.h+"p"}`}:c.h>=720?{k:"warn",s:"V",l:"HD video, not full HD",n:"720p. Airs, but 1080p looks better on TV"}:{k:"bad",s:"V",l:"Video too small for TV",n:`${c.h}p. TV needs 720p or higher`,short:`${c.h}p`});
+  o.push(c.thumb?{k:"ok",s:"T",l:"Full-size thumbnail",n:"1920×1080"}:{k:"bad",s:"T",l:"No full-size thumbnail",n:"TV needs 1920×1080",short:"No full thumbnail"});
+  o.push(c.desc==="ok"?{k:"ok",s:"D",l:"Description",n:"Clean"}:c.desc==="links"?{k:"warn",s:"D",l:"Links and hashtags in description",n:"Removed automatically for TV"}:{k:"bad",s:"D",l:"No description",n:"Add one in Brid. Clips without one stay off TV",short:"No description"});
+  o.push(c.t.length<=100?{k:"ok",s:"L",l:"Title length",n:`${c.t.length} of 100 characters`}:{k:"bad",s:"L",l:"Title too long",n:`${c.t.length} characters. TV allows 100`,short:"Long title"});
+  o.push(c.tf===true?{k:"ok",s:"F",l:"Text-free thumbnail",n:"Confirmed by editorial"}:c.tf===false?{k:"warn",s:"F",l:"Text on thumbnail",n:"Airs, but Amazon won't promote it on Alexa"}:{k:"na",s:"F",l:"Text-free thumbnail",n:"Not confirmed yet"});
+  o.push(c.promo!=null?{k:"ok",s:"P",l:"End promo trimmed",n:`Last ${c.promo} seconds removed for TV`}:{k:"na",s:"P",l:"End promo",n:"Cut point not set yet"});
+  return o;
+}
+const fails=c=>checks(c).filter(x=>x.k==="bad");
+const tvReady=c=>fails(c).length===0;
+function liveOn(c){
+  const inApps=c.id>200000; /* the five real clips are in the WEX NOW Daily row on both apps */
+  return {fire:inApps||["Inside Scoop","The Wakeup"].includes(c.show)||true,roku:true,amazon:tvReady(c),yt:c.yt,247:S.lineup.includes(c.id)};
+}
+function chips(c){
+  const l=liveOn(c);
+  return `<div class="dests"><span class="dc on" title="Fire TV app">FTV</span><span class="dc on" title="Roku app">RKU</span><span class="dc ${l.amazon?"on":"hold"}" title="Amazon free channel: ${l.amazon?"live":"held back"}">AMZ</span><span class="dc ${l.yt?"ok":""}" title="YouTube">YT</span><span class="dc ${l[247]?"on":""}" title="24/7 channel">24/7</span></div>`;
+}
+
+/* ===================== 24/7 SCHEDULE ENGINE ===================== */
+function breakAfter(idx,list){
+  if(idx>=list.length-1&&S.pattern!=="every") return false;
+  if(S.pattern==="every") return true;
+  if(S.pattern==="two") return idx%2===1;
+  if(S.pattern==="none") return false;
+  if(S.pattern==="15"){let t=0;for(let k=0;k<=idx;k++)t+=byId(list[k]).dur;const p=t-byId(list[idx]).dur;return Math.floor(t/900)>Math.floor(p/900)}
+  return true;
+}
+function sequence(){
+  const s=[];S.lineup.forEach((id,i)=>{const c=byId(id);const trim=S.trim[id]??c.promo??0;s.push({type:"p",c,dur:c.dur-trim});if(breakAfter(i,S.lineup))s.push({type:"k",dur:120});});
+  return s;
+}
+function at(t){const seq=sequence();const L=seq.reduce((a,b)=>a+b.dur,0);if(!L)return null;let o=((t%L)+L)%L,i=0;while(o>=seq[i].dur){o-=seq[i].dur;i++}return{seq,L,i,off:o,start:t-o}}
+
+/* ===================== CONTROL ===================== */
+function control(){
+  const ready=CLIPS.filter(tvReady).length, held=CLIPS.length-ready;
+  const alerts=[
+    {s:"r",w:`${CLIPS.filter(c=>c.h<720).length} clips are 360p YouTube imports`,where:"Amazon, 24/7 channel",imp:"Can't air on TV",act:"Upload the original file to Brid",go:"#/library?f=low"},
+    {s:"a",w:`${CLIPS.filter(c=>c.desc==="none").length} clips have no description`,where:"Amazon free channel",imp:"Held back from Amazon",act:"Add descriptions in Brid",go:"#/library?f=nodesc"},
+    {s:"a",w:"1 title is over 100 characters",where:"Amazon free channel",imp:"Held back",act:"Shorten it in Brid",go:"#/clip/2834510"},
+    {s:"a",w:"The Debriefs uses different playlists",where:"Fire TV 21235, Roku 27366",imp:"Apps show different episodes",act:"Pick one playlist",go:"#/connect?d=fire"},
+    {s:"b",w:"Amazon feed takes every published clip",where:"Amazon free channel",imp:"No editorial approval before air",act:"Turn on TV approval",go:"#/connect?d=amazon"}
+  ];
+  return `<div class="ph"><div><p class="eyebrow">WEX NOW, ${etDate().toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"})}</p><h1>Control</h1>
+    <p class="lead">What's running, what's next, what failed, what needs you, and where every video went.</p></div>
+    <div style="display:flex;gap:8px"><a class="btn" href="#/library">Library</a><a class="btn dark" href="#/planner">Open running order</a></div></div>
+  <div class="grid g2">
+    <section class="onair" aria-label="24/7 channel">
+      <div><div class="monitor" id="mon"></div></div>
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:center"><p class="eyebrow" style="margin:0">24/7 channel, on air now</p><span class="chip" style="background:#3A2D10;color:#F5C25B">Preview channel</span></div>
+        <div class="oa-title" id="oa-t"></div>
+        <div class="bar"><i id="oa-b"></i></div>
+        <div class="times"><span id="oa-e"></span><span id="oa-l"></span></div>
+        <div class="nl" id="oa-nl"></div>
+        <div class="health"><div><small>Ad markers</small><b><span class="dot ok"></span>Placed every break</b></div><div><small>Clips ready</small><b><span class="dot ok"></span>${S.lineup.length} of ${S.lineup.length}</b></div></div>
+      </div>
+    </section>
+    <div style="display:grid;gap:12px;align-content:start">
+      <div class="kpis" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+        <div class="kpi r"><small>Live destinations</small><b>4</b><span>Fire TV, Roku, wexnow.tv, Amazon</span></div>
+        <div class="kpi"><small>In the Library</small><b>${TOTAL_LIBRARY.toLocaleString("en-US")}</b><span>videos synced from Brid</span></div>
+        <div class="kpi g"><small>Ready for TV</small><b>${ready}</b><span>of the latest ${CLIPS.length}</span></div>
+        <div class="kpi a"><small>Need a fix</small><b>${held}</b><span>held back from TV</span></div>
+      </div>
+      <section class="card"><div class="ch"><h2>Destinations</h2><a class="small" href="#/connect" style="color:var(--redtx)">Manage</a></div>
+        <ul class="clean">${[["Fire TV app","live","Live"],["Roku app","live","Live"],["wexnow.tv","live","Live"],["Amazon free channel","live","Live in Fire TV News"],["YouTube","ok","Live"],["Roku free channel","plan","Jan 1"],["24/7 channel","plan","Preview"],["Samsung TV app","plan","Jan 1"]].map(d=>`<li style="display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--line2)"><span>${d[0]}</span><span style="display:flex;align-items:center;gap:7px;font-size:13px;color:var(--mut)"><span class="dot ${d[1]}"></span>${d[2]}</span></li>`).join("")}</ul></section>
+    </div>
+  </div>
+  <div class="grid g2 mt">
+    <section class="card"><div class="ch"><h2>Needs you</h2><small>${alerts.length} open</small></div>
+      <ul class="clean alerts">${alerts.map(a=>`<li><span class="sev ${a.s}"></span><div><b>${a.w}</b><div class="meta"><span>Where: <b>${a.where}</b></span><span>Impact: <b>${a.imp}</b></span><span>Fix: <b>${a.act}</b></span></div></div><a class="btn sm" href="${a.go}">Open</a></li>`).join("")}</ul></section>
+    <section class="card trace"><div class="ch"><h2>Where did this video go?</h2></div>
+      <select id="trace" aria-label="Pick a clip">${CLIPS.map(c=>`<option value="${c.id}" ${String(c.id)===String(S.trace)?"selected":""}>${esc(c.t)}</option>`).join("")}</select>
+      <div class="path" id="path">${tracePath(byId(S.trace))}</div></section>
+  </div>
+  <section class="card mt"><div class="ch"><h2>Activity</h2><small>Every action is logged with a name</small></div>
+    <ul class="clean log">${S.log.slice(0,7).map(l=>`<li><time>${l.t}</time><div><b style="font-weight:600">${esc(l.a)}</b> <span class="small">${esc(l.d)}</span></div><span class="who">${esc(l.w)}</span></li>`).join("")}</ul></section>`;
+}
+function tracePath(c){
+  const f=fails(c), r=tvReady(c), l=liveOn(c);
+  const node=(cls,title,sub,right="")=>`<div class="step"><span class="nd ${cls}">${cls==="ok"||cls==="live"?I.check:""}</span><div><b>${title}</b><small>${sub}</small></div>${right}</div>`;
+  let slot="";
+  if(l[247]){const a=at(etSec());if(a){let t=a.start,i=a.i;for(let k=0;k<a.seq.length*2;k++){const s=a.seq[i];if(s.type==="p"&&s.c.id===c.id){slot=k===0?"now":hhmm(t);break}t+=s.dur;i=(i+1)%a.seq.length}}}
+  return node("ok","Published in Brid",`${c.src}, ${c.at}. The original stays untouched.`)+
+    node(r?"ok":"warn","TV checks",r?"Passed every check":f.map(x=>x.l).join(", "),r?`<span class="chip ok">Ready</span>`:`<a class="btn sm" href="#/clip/${c.id}">Fix</a>`)+
+    node("live","Fire TV and Roku apps","WEX NOW Daily row",`<span class="chip live">Live</span>`)+
+    node(l.amazon?"live":"warn","Amazon free channel",l.amazon?"In the on-demand catalog, Fire TV News":"Held back until the checks pass",l.amazon?`<span class="chip live">Live</span>`:`<span class="chip warn">Held</span>`)+
+    node(l.yt?"ok":"","YouTube",l.yt?"Posted":"Not posted",l.yt?`<span class="chip ok">Live</span>`:`<span class="chip gray">None</span>`)+
+    node(l[247]?"live":"","24/7 channel",l[247]?(slot==="now"?"On air right now":`In the running order, next airs at ${slot||"the next loop"}`):"Not in the running order",l[247]?(slot==="now"?`<span class="chip live">On air</span>`:`<span class="chip info">Scheduled</span>`):`<a class="btn sm" href="#/planner">Add</a>`);
+}
+
+/* ===================== LIBRARY ===================== */
+function library(p){
+  const f=p.get("f")||S.libf, q=(p.get("q")??S.libq).toLowerCase();
+  const F={all:()=>true,ready:tvReady,held:c=>!tvReady(c),nodesc:c=>c.desc==="none",low:c=>c.h<720,yt:c=>c.src==="YouTube import",up:c=>c.src==="Brid upload",dnh:c=>c.show==="Daily News Hits",lf:c=>c.show!=="Daily News Hits"};
+  const rows=CLIPS.filter(F[f]||F.all).filter(c=>!q||c.t.toLowerCase().includes(q)||c.show.toLowerCase().includes(q));
+  const fb=(k,l)=>`<button class="facet" data-f="${k}" aria-pressed="${f===k}">${l}<span>${CLIPS.filter(F[k]).length}</span></button>`;
+  return `<div class="ph"><div><p class="eyebrow">Synced from Brid every 15 minutes</p><h1>Library</h1>
+    <p class="lead">Every video, checked against what each screen needs. Brid keeps the original; the Studio never changes it.</p></div>
+    <button class="btn" data-toast="Pulled the latest from Brid. ${TOTAL_LIBRARY.toLocaleString("en-US")} videos, 0 changes since the last sync.">Sync now</button></div>
+  <div class="lib">
+    <aside class="card flush facets" aria-label="Filters">
+      <div class="grp"><h3>TV status</h3>${fb("all","All recent")}${fb("ready","Ready for TV")}${fb("held","Needs a fix")}${fb("nodesc","No description")}${fb("low","Too small for TV")}</div>
+      <div class="grp"><h3>Source</h3>${fb("up","Uploaded to Brid")}${fb("yt","Imported from YouTube")}</div>
+      <div class="grp"><h3>Show</h3>${fb("dnh","Daily News Hits")}${fb("lf","Shows and interviews")}</div>
+    </aside>
+    <section class="card flush">
+      <div class="libbar"><input id="libq" type="search" placeholder="Search titles or shows" value="${esc(q)}" aria-label="Search"><span class="small">${rows.length} shown of the latest ${CLIPS.length}. ${TOTAL_LIBRARY.toLocaleString("en-US")} in total.</span></div>
+      <div class="tw"><table><thead><tr><th>Clip</th><th>Length</th><th>Video</th><th title="Video, thumbnail, description, title length, text-free thumbnail, end promo">Checks</th><th>Live on</th><th>TV</th></tr></thead><tbody>
+      ${rows.length?rows.map(c=>`<tr class="go" data-go="#/clip/${c.id}" tabindex="0">
+        <td><div class="cc">${thumb(c,104)}<div><b>${esc(c.t)}</b><small>${esc(c.show)}, ${c.src.toLowerCase()}, ${c.at}</small></div></div></td>
+        <td class="mono">${mmss(c.dur)}</td>
+        <td>${c.h>=1080?`<span class="chip ok">1080p</span>`:c.h>=720?`<span class="chip warn">720p</span>`:`<span class="chip bad">${c.h}p</span>`}</td>
+        <td><div class="ck">${checks(c).map(x=>`<i class="${x.k}" title="${esc(x.l)}">${x.s}</i>`).join("")}</div></td>
+        <td>${chips(c)}</td>
+        <td>${tvReady(c)?`<span class="chip ok">Ready</span>`:`<span class="chip bad">${esc(fails(c)[0].short)}</span>`}</td></tr>`).join(""):`<tr><td colspan="6" class="small" style="padding:30px 14px">No clips match. Pick another filter or clear the search.</td></tr>`}
+      </tbody></table></div>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;padding:12px 14px;border-top:1px solid var(--line2);font-size:12.5px;color:var(--mut)"><span><b class="mono">V</b> video</span><span><b class="mono">T</b> thumbnail</span><span><b class="mono">D</b> description</span><span><b class="mono">L</b> title length</span><span><b class="mono">F</b> text-free thumbnail</span><span><b class="mono">P</b> end promo</span></div>
+    </section>
+  </div>`;
+}
+
+/* ===================== STUDIO (CLIP) ===================== */
+function seeded(n){let x=n%2147483647||7;return()=>(x=x*16807%2147483647)/2147483647}
+function clip(id,tab){
+  const c=byId(id); if(!c) return `<h1>Clip not found</h1><p><a class="btn" href="#/library">Back to Library</a></p>`;
+  const trim=S.trim[c.id]??c.promo??15, airs=c.dur-trim, pct=trim/c.dur*100, head=Math.round(c.dur*0.46);
+  const bps=S.bps[c.id]||[];
+  const r=seeded(c.id), wave=Array.from({length:120},()=>Math.round(25+r()*70));
+  tab=["checks","versions","breaks"].includes(tab)?tab:"versions";
+  const f=fails(c);
+  const job=k=>{const j=S.jobs[c.id+":"+k];if(!j)return null;return j};
+  const verRow=(k,frame,title,sub,ready,action)=>{const j=job(k);let right;
+    if(j&&j.state!=="READY")right=`<div class="job" id="job-${k}"><span class="chip info">${j.state==="QUEUED"?"Queued":"Processing video"}</span><div class="pbar"><i style="width:${j.pct}%"></i></div></div>`;
+    else if(ready||(j&&j.state==="READY"))right=`<span class="chip ok">Ready</span>`;
+    else right=action;
+    return `<div class="ver">${frame}<div><b>${title}</b><small>${sub}</small></div>${right}</div>`};
+  const panels={
+    versions:`
+      ${verRow("orig",`<div class="vframe">${thumb(c)}</div>`,"Original","In Brid. Locked. The apps and web use it as it is.",true,"")}
+      ${verRow("tv",`<div class="vframe">${thumb(c)}</div>`,"TV clean cut",`End promo trimmed, audio evened to TV level, text-free thumbnail. For Amazon, Roku channel, 24/7.`,c.promo!=null&&tvReady(c),tvReady(c)?`<button class="btn sm redline" data-job="tv">Create</button>`:`<button class="btn sm" disabled title="Fix the checks first">Fix first</button>`)}
+      ${verRow("yt",`<div class="vframe">${thumb(c)}</div>`,"YouTube with outro",`Clean cut plus the show's outro, added by rule for every ${esc(c.show)} clip.`,false,`<button class="btn sm redline" data-job="yt">Create</button>`)}
+      ${verRow("vert",`<div class="vframe v">${thumb(c)}</div>`,"Vertical 9:16 for social","Reframed for phones, captions burned in. For Reels, Shorts and TikTok.",false,`<button class="btn sm redline" data-job="vert">Create</button>`)}
+      <div class="vert"><div class="phone">${thumb(c)}<div class="brand">WEX <span>NOW</span></div><div class="cap">${esc(c.t.split(" ").slice(0,6).join(" "))} <em>${esc(c.t.split(" ").slice(6,8).join(" ")||"now")}</em></div></div>
+        <div><b style="font-weight:600">Vertical preview</b><p class="small" style="margin:4px 0 10px">Keeps the speaker centered, adds burned-in captions from the transcript and the WEX NOW brand. Editors approve before anything posts.</p>
+        <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="chip gray">Instagram Reels</span><span class="chip gray">YouTube Shorts</span><span class="chip gray">TikTok</span><span class="chip gray">Facebook</span></div></div></div>`,
+    checks:`<ul class="clean chk">${checks(c).map(x=>`<li><span class="ck"><i class="${x.k}">${x.k==="ok"?"✓":x.k==="na"?"–":"!"}</i></span><div><b>${x.l}</b><small>${x.n}</small></div>${x.k==="bad"?`<button class="btn sm" data-toast="Opens this clip in Brid. The Studio picks up the fix on its next sync, within 15 minutes.">Fix in Brid</button>`:""}</li>`).join("")}</ul>`,
+    breaks:`<p class="small" style="margin-bottom:12px;color:var(--tx)">Long shows need natural pauses for mid-show breaks. Pick from the suggested pauses, or add your own at the playhead.</p>
+      ${bps.length?bps.slice().sort((a,b)=>a.t-b.t).map(b=>`<div class="bpi ${b.ok?"":"sug"}"><div><span class="t">${mmss(b.t)}</span><small>${b.l}</small></div>${b.ok?`<span class="chip ok">Approved</span>`:`<button class="btn sm redline" data-approve="${b.t}">Approve</button>`}</div>`).join(""):`<p class="small">No break points yet. Short clips usually don't need them.</p>`}
+      <button class="btn wide" id="addbp">+ Add break point at ${mmss(head)}</button>
+      <div style="margin-top:16px;border-top:1px solid var(--line2);padding-top:12px">
+        <div style="display:flex;justify-content:space-between;padding:4px 0"><span>Before each break</span><b style="font-weight:600">“We'll be right back” card</b></div>
+        <div style="display:flex;justify-content:space-between;padding:4px 0"><span>After each break</span><b style="font-weight:600">WEX NOW bumper</b></div>
+        <p class="small" style="margin-top:6px">Amazon sets the ad length. We mark where breaks can go.</p></div>`
+  };
+  return `<a class="back" href="#/library">← Library</a>
+  <div class="ph"><div><h1>${esc(c.t)}</h1><p class="lead">${esc(c.show)}. ${c.src}, ${c.at}. Source length ${mmss(c.dur)}. Video and text are edited in Brid, not here.</p></div>
+    ${f.length?`<span class="chip bad">${f.length} to fix before TV</span>`:`<span class="chip ok">Ready for TV</span>`}</div>
+  <div class="ed">
+    <section class="card">
+      <div class="player">${thumb(c)}<button class="ov" type="button" aria-label="Preview" data-toast="Plays the last 20 seconds and stops at the cut point, so you can check the cut."><span>${I.play}</span></button>
+        <span class="tc">${tc(head)}</span><span class="lk"><span class="chip gray">Original, locked</span></span><span class="cut">TV CUT AT ${mmss(airs)}</span></div>
+      <div class="tline"><span>0:00</span><span>${mmss(c.dur/2)}</span><span>${mmss(c.dur)}</span></div>
+      <div class="track"><div class="wv">${wave.map(h=>`<i style="height:${h}%"></i>`).join("")}</div><div class="trim" style="width:${pct}%"></div>
+        ${bps.filter(b=>b.ok).map(b=>`<div class="bp" style="left:${b.t/c.dur*100}%"></div>`).join("")}<div class="ph" style="left:${head/c.dur*100}%"></div></div>
+      <div class="legend"><span><i style="background:var(--airs)"></i>Airs on TV</span><span><i style="background:#F3A6B4"></i>Trimmed end promo</span><span><i style="background:var(--amber);width:3px;height:14px"></i>Ad break point</span><span><i style="background:var(--ink);width:2px;height:14px"></i>Playhead</span></div>
+      <div class="trimctl"><b>Trim from end</b><button class="stp" id="tm" aria-label="Trim less">−</button><span class="tv">${mmss(trim)}</span><button class="stp" id="tp" aria-label="Trim more">+</button>
+        <span class="small">${esc(c.show)} default 0:15. Airs as ${mmss(airs)}. Trimming makes a new TV version; the original never changes.</span></div>
+    </section>
+    <section class="card">
+      <div class="seg" role="tablist">${[["versions","Versions"],["checks","TV checks"],["breaks","Break points"]].map(t=>`<button role="tab" aria-selected="${t[0]===tab}" data-tab="${t[0]}">${t[1]}</button>`).join("")}</div>
+      <div role="tabpanel">${panels[tab]}</div>
+    </section>
+  </div>`;
+}
+function startJob(cid,k){
+  const key=cid+":"+k; S.jobs[key]={state:"QUEUED",pct:0};
+  log({tv:"Started a TV clean cut",yt:"Started a YouTube version",vert:"Started a vertical version"}[k],byId(cid).t);
+  toast("Started in the background. You can leave this page; it keeps going.");
+  setTimeout(()=>{S.jobs[key].state="PROCESSING";const iv=setInterval(()=>{const j=S.jobs[key];j.pct=Math.min(100,j.pct+7+Math.random()*9);
+    const el=$("#job-"+k);if(el){el.querySelector(".chip").textContent="Processing video";el.querySelector(".pbar i").style.width=j.pct+"%"}
+    if(j.pct>=100){clearInterval(iv);j.state="READY";log({tv:"TV clean cut ready",yt:"YouTube version ready",vert:"Vertical version ready"}[k],byId(cid).t);toast({tv:"TV clean cut is ready.",yt:"YouTube version is ready.",vert:"Vertical version is ready for review."}[k]);if(location.hash.startsWith("#/clip/"+cid))render()}},300)},900);
+  render();
+}
+
+/* ===================== PLANNER ===================== */
+function planner(){
+  const tabs=`<div class="seg" style="max-width:360px">${[["order","Running order"],["week","Week"]].map(t=>`<button aria-selected="${S.ptab===t[0]}" data-ptab="${t[0]}">${t[1]}</button>`).join("")}</div>`;
+  return S.ptab==="week"?tabs+week():tabs+runningOrder();
+}
+function runningOrder(){
+  const a=at(etSec()); const total=S.lineup.reduce((x,id)=>x+byId(id).dur-(S.trim[id]??byId(id).promo??0),0);
+  let acc=a?a.start:0, nowIdx=-1;
+  if(a){let pi=-1;for(let k=0;k<=a.i;k++)if(a.seq[k].type==="p")pi++;nowIdx=a.seq[a.i].type==="p"?pi:-1;
+    let t=a.start;for(let k=a.i;k>0;k--){} }
+  // airs times for this pass
+  const passStart=a?a.start-a.seq.slice(0,a.i).reduce((x,s)=>x+s.dur,0):0; acc=passStart;
+  const pool=CLIPS.filter(c=>!S.lineup.includes(c.id));
+  const q=S.q.toLowerCase(); const pl=pool.filter(c=>!q||c.t.toLowerCase().includes(q)||c.show.toLowerCase().includes(q));
+  let sp=0; const curI=a?a.i:-1;
+  const rows=S.lineup.map((id,i)=>{const c=byId(id);const mySp=sp++;const hasBrk=breakAfter(i,S.lineup);const brkSp=hasBrk?sp++:-1;const d=c.dur-(S.trim[id]??c.promo??0);const airs=hhmm(acc);acc+=d+(breakAfter(i,S.lineup)?120:0);
+    return `<div class="ri gcols ${mySp===curI?"now":""}"><span class="n">${i+1}</span><span class="air">${airs}</span>
+      <div class="who2">${thumb(c,84)}<div><b><a href="#/clip/${c.id}">${esc(c.t)}</a></b><small>${esc(c.show)}</small></div></div>
+      <span class="len">${mmss(d)}</span><span class="pfc"><span class="chip ok">Ready</span></span>
+      <div class="order"><button class="ob" aria-label="Move up" data-up="${i}" ${i===0?"disabled":""}>${I.up}</button><button class="ob" aria-label="Move down" data-down="${i}" ${i===S.lineup.length-1?"disabled":""}>${I.down}</button><button class="ob x" aria-label="Remove" data-rm="${i}">${I.x}</button></div></div>
+      ${hasBrk?`<div class="brk${brkSp===curI?" onnow":""}">${brkSp===curI?"On air now: ":""}Ad break, 2:00, filled by Amazon</div>`:""}`}).join("");
+  const readyPool=pool.filter(tvReady).length;
+  return `<div class="ro">
+    <section class="card">
+      <div class="ro-head"><div><p class="eyebrow">Running order, today</p><h1 style="font-size:27px">WEX NOW 24/7 lineup</h1>
+        <p class="lead">${S.lineup.length} clips, ${Math.round(total/60)} min of programming. Loops when it reaches the end. Ad load about ${a?Math.round(a.seq.filter(x=>x.type==="k").length*120/a.L*60):0} min per hour.</p></div>
+        <div style="display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap">
+          <div class="pattern"><label for="pat">Ad break pattern</label><select id="pat">${[["every","After every clip"],["two","After every 2 clips"],["15","About every 15 minutes"],["none","No breaks"]].map(o=>`<option value="${o[0]}" ${S.pattern===o[0]?"selected":""}>${o[1]}</option>`).join("")}</select></div>
+          <button class="btn red" id="pub">Publish lineup</button></div></div>
+      <div class="thr gcols"><span>#</span><span>Airs</span><span>Clip</span><span>Length</span><span>Pre-flight</span><span class="r">Order</span></div>
+      <div class="rol">${rows||`<div class="card" style="background:var(--row);text-align:center" >The lineup is empty. Add clips from the right.</div>`}</div>
+      <div class="logline">${I.clock}Every change is logged with a name. Last change: ${esc(S.log[0].w)}, ${S.log[0].t}, ${esc(S.log[0].a.toLowerCase())}.</div>
+    </section>
+    <div style="display:grid;gap:20px;align-content:start">
+      <section class="card"><p class="eyebrow">Pre-flight check</p>
+        <div class="stats"><div class="stat g"><b>${S.lineup.length+readyPool}</b><span>Ready to air</span></div><div class="stat r"><b>${pool.length-readyPool}</b><span>Need a fix first</span></div></div>
+        <p class="small">Every clip is checked for a description, 720p or better video, a full-size text-free thumbnail and a trimmed end promo. Clips that fail can't go into the lineup.</p></section>
+      <section class="card"><p class="eyebrow">Library, not in lineup</p>
+        <div class="srch"><input id="plq" placeholder="Search title or show" value="${esc(S.q)}" aria-label="Search clips"></div>
+        <ul class="clean pl" style="margin-top:8px">${pl.slice(0,7).map(c=>`<li><div><b>${esc(c.t)}</b><small>${esc(c.show)}, ${mmss(c.dur)}, ${tvReady(c)?`<span class="ok">Ready</span>`:`<span class="bad">${esc(fails(c)[0].short)}</span>`}</small></div>
+          ${tvReady(c)?`<button class="btn sm redline" data-add="${c.id}">Add</button>`:`<a class="btn sm" href="#/clip/${c.id}">Fix first</a>`}</li>`).join("")||`<li class="small">No clips match.</li>`}</ul></section>
+    </div></div>`;
+}
+const WEEK=[
+  {n:"Morning",h:"6 AM to 10 AM",c:[["am","The Wakeup","+ Daily News Hits"],["am","The Wakeup","+ Daily News Hits"],["am","The Wakeup","+ Daily News Hits"],["am","The Wakeup","+ Daily News Hits"],["am","The Wakeup","+ Daily News Hits"],["rl","Replay loop",""],["rl","Replay loop",""]]},
+  {n:"Midday",h:"10 AM to 4 PM",c:[["nh","Daily News Hits","Refreshes as clips land"],["nh","Daily News Hits","Refreshes as clips land"],["nh","Daily News Hits","Refreshes as clips land"],["nh","Daily News Hits","Refreshes as clips land"],["nh","Daily News Hits","Refreshes as clips land"],["sp","America 250","Specials"],["sp","America 250","Specials"]]},
+  {n:"Evening",h:"4 PM to 11 PM",c:[["lf","Inside Scoop","+ Daily News Hits"],["lf","The Debriefs","+ Daily News Hits"],["lf","Inside Scoop","+ Daily News Hits"],["lf","The Debriefs","+ Daily News Hits"],["lf","Week in review","Show to confirm"],["sp","America 250","Specials"],["lf","Inside Scoop","Week's best"]]},
+  {n:"Overnight",h:"11 PM to 6 AM",c:Array(7).fill(["rl","Replay loop",""])}
+];
+function week(){
+  const days=["Mon","Tue","Wed","Thu","Fri","Sat","Sun"], today=(etDate().getDay()+6)%7;
+  return `<div class="ph"><div><p class="eyebrow">This week</p><h1>Weekly schedule</h1><p class="lead">Blocks set what runs when. Each block plays its own running order. Gaps fall back to the replay loop, so the channel never goes dark.</p></div>
+    <div style="display:flex;gap:8px"><button class="btn" data-toast="Copied last week's blocks. Nothing changes on air until you publish.">Copy last week</button><button class="btn red" data-toast="Checked: every day adds up to 24 hours, no gaps, no overlaps. Week published.">Publish week</button></div></div>
+  <section class="card tw"><div class="week"><div></div>${days.map((d,i)=>`<div class="dh ${i===today?"today":""}">${d}${i===today?", today":""}</div>`).join("")}
+    ${WEEK.map(r=>`<div class="rl"><b>${r.n}</b><small>${r.h}</small></div>`+r.c.map((c,i)=>`<button class="blk b-${c[0]}" data-toast="${esc(days[i]+" "+r.n.toLowerCase()+": opens the "+c[1]+" running order.")}"><b>${esc(c[1])}</b>${esc(c[2])}</button>`).join("")).join("")}</div></section>
+  <div class="wlegend"><span><i class="b-am"></i>Morning show</span><span><i class="b-nh"></i>News hits</span><span><i class="b-lf"></i>Long-form shows</span><span><i class="b-sp"></i>Specials</span><span><i class="b-rl"></i>Replay loop, automatic</span></div>`;
+}
+
+/* ===================== PLAYOUT ===================== */
+const WIN=45*60; let epg0=0;
+function playout(){
+  epg0=Math.floor((etSec()-8*60)/60)*60;
+  const a=at(etSec());
+  return `<div class="ph"><div><p class="eyebrow">WEX NOW 24/7, preview channel</p><h1>Playout</h1><p class="lead">The running order turned into a continuous channel, with ad markers at every break. Built for Amazon first; the same stream feeds Roku.</p></div>
+    <div style="display:flex;gap:8px"><button class="btn" data-toast="Swaps the channel to the standby loop of approved clips in one click. The channel never goes dark.">Emergency schedule</button><button class="btn dark" data-toast="Skips to the next program. Logged with your name.">Skip to next</button></div></div>
+  <div class="po">
+    <section class="onair"><div>
+      <div class="monitor" id="mon"></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px"><p class="eyebrow" style="margin:0">Program output</p><span class="chip" style="background:#3A2D10;color:#F5C25B">Preview channel</span></div>
+      <div class="oa-title" id="oa-t"></div><div class="bar"><i id="oa-b"></i></div><div class="times"><span id="oa-e"></span><span id="oa-l"></span></div>
+    </div></section>
+    <div style="display:grid;gap:20px;align-content:start">
+      <section class="card"><div class="ch"><h2>Now, next, later</h2></div><div class="nl" id="oa-nl" style="border-top:0;margin-top:0;padding-top:0;color:var(--tx)"></div></section>
+      <section class="card"><div class="ch"><h2>Channel health</h2><small>Checked every few seconds</small></div>
+        <div class="kv" style="grid-template-columns:150px minmax(0,1fr)">
+          <span class="small">Stream</span><span style="display:flex;gap:7px;align-items:center"><span class="dot ok"></span>Advancing normally</span>
+          <span class="small">Ad markers</span><span style="display:flex;gap:7px;align-items:center"><span class="dot ok"></span>${a?a.seq.filter(s=>s.type==="k").length:0} per loop, all valid</span>
+          <span class="small">Clips in rotation</span><span style="display:flex;gap:7px;align-items:center"><span class="dot ok"></span>${S.lineup.length}, all passed checks</span>
+          <span class="small">Loop length</span><span class="mono">${a?mmss(a.L):"-"}</span>
+          <span class="small">If a clip fails</span><span>It's skipped and the next one plays. The channel never stops.</span>
+        </div></section>
+    </div>
+  </div>
+  <section class="card flush mt"><div class="ch" style="padding:16px 16px 0"><h2>Timeline</h2><small>Next 45 minutes, Eastern</small></div><div class="epg" id="epg"></div>
+    <div class="elg"><span><i style="background:#E8EEFB;border:1px solid #C9D6F2"></i>News hits</span><span><i style="background:#E5F1E8;border:1px solid #BFDDC9"></i>Shows and interviews</span><span><i style="background:#FFF1D9;border:1px solid #F2D49B"></i>Ad break, filled by Amazon</span><span><i style="background:var(--amberline);transform:rotate(45deg);width:10px;height:10px"></i>Ad marker</span><span><i style="background:var(--red);width:3px"></i>Now</span></div></section>`;
+}
+function drawEPG(){
+  const el=$("#epg"); if(!el) return; const end=epg0+WIN, now=etSec(); const a=at(epg0); if(!a){el.innerHTML="";return}
+  let ticks="";for(let t=Math.ceil(epg0/300)*300;t<end;t+=300)ticks+=`<div class="tick" style="left:${(t-epg0)/WIN*100}%">${hhmm(t)}</div>`;
+  let bl="",mk="",t=a.start,i=a.i;
+  while(t<end){const s=a.seq[i];const l=Math.max(0,(t-epg0)/WIN*100),r=Math.min(100,(t+s.dur-epg0)/WIN*100),w=r-l,past=t+s.dur<now?" past":"",txt=w>4.2;
+    if(w>0){if(s.type==="p"){const cls=s.c.show==="Daily News Hits"?"p":"m";bl+=`<div class="eb ${cls}${past}" style="left:${l}%;width:calc(${w}% - 3px)" title="${esc(s.c.t)}, ${hhmm(t)}">${txt?`<b>${esc(s.c.t)}</b><small>${hhmm(t)}, ${mmss(s.dur)}</small>`:""}</div>`}
+      else{bl+=`<div class="eb k${past}" style="left:${l}%;width:calc(${w}% - 3px)" title="Ad break ${hhmm(t)}">${txt?`<b>Ad break</b><small>${mmss(s.dur)}</small>`:""}</div>`;if(t>=epg0)mk+=`<div class="mk" style="left:${l}%" title="Ad marker at ${hhmm(t)}"></div>`}}
+    t+=s.dur;i=(i+1)%a.seq.length}
+  el.innerHTML=`<div class="rul">${ticks}</div><div class="lane"><div class="lb">WEX NOW 24/7<small>Program</small></div><div class="tr">${bl}</div></div><div class="lane"><div class="lb">Ad markers<small>Sent with the stream</small></div><div class="tr thin">${mk}</div></div><div class="now-l" id="nowl"></div>`;
+}
+function tickChannel(){
+  const a=at(etSec()); if(!a) return; const s=a.seq[a.i];
+  const mon=$("#mon");
+  if(mon){const key=a.i+":"+Math.floor(a.start);if(mon.dataset.k!==key){mon.dataset.k=key;
+      mon.innerHTML=(s.type==="p"?thumb(s.c):`<div class="slate">We'll be right back</div>`)+`<span class="tag"><span class="dot live"></span>PROGRAM</span><span class="cd" id="cd"></span>`;
+      const tt=$("#oa-t");if(tt)tt.textContent=s.type==="p"?s.c.t:"Ad break, filled by Amazon";
+      const nl=$("#oa-nl");if(nl){let t=a.start+s.dur,i=(a.i+1)%a.seq.length,out="";for(let k=0;k<3;k++){const x=a.seq[i];out+=`<span>${k===0?"NEXT":k===1?"THEN":"LATER"}</span><div>${x.type==="p"?esc(x.c.t):"Ad break, filled by Amazon"}</div><em>${hhmm(t)}</em>`;t+=x.dur;i=(i+1)%a.seq.length}nl.innerHTML=out}}
+    const cd=$("#cd");if(cd)cd.textContent=tc(s.dur-a.off);}
+  const b=$("#oa-b");if(b)b.style.width=(a.off/s.dur*100)+"%";
+  const e=$("#oa-e");if(e)e.textContent=mmss(a.off);
+  const l=$("#oa-l");if(l)l.textContent=mmss(s.dur-a.off)+" left";
+  const ep=$("#epg");
+  if(ep){const now=etSec();if(now-epg0>WIN*0.75){epg0=Math.floor((now-8*60)/60)*60;drawEPG()}
+    const nl=$("#nowl"),tr=ep.querySelector(".tr");if(nl&&tr){const off=tr.getBoundingClientRect().left-ep.getBoundingClientRect().left;nl.style.left=(off+(now-epg0)/WIN*tr.clientWidth)+"px"}}
+}
+
+/* ===================== CONNECT ===================== */
+const DEST={
+  fire:{g:"FT",n:"Fire TV app",type:"Owned app",st:"live",sl:"Live",sub:"11 rows from Brid playlists"},
+  roku:{g:"RK",n:"Roku app",type:"Owned app",st:"live",sl:"Live",sub:"11 rows, matched Aug 31"},
+  web:{g:"WN",n:"wexnow.tv",type:"Owned web",st:"live",sl:"Live",sub:"Web home for WEX NOW"},
+  amazon:{g:"AZ",n:"Amazon free channel",type:"Free channel, on demand",st:"live",sl:"Live",sub:"Fire TV News lineup"},
+  yt:{g:"YT",n:"YouTube",type:"Social and web",st:"ok",sl:"Live",sub:"Clean cut plus outro, next"},
+  rokuch:{g:"RC",n:"Roku free channel",type:"Free channel, 24/7",st:"plan",sl:"Jan 1",sub:"Same stream as Amazon 24/7"},
+  ch247:{g:"24",n:"WEX NOW 24/7",type:"Our own stream",st:"plan",sl:"Preview",sub:"Amazon first, then Roku"},
+  samsung:{g:"SM",n:"Samsung TV app",type:"Owned app",st:"plan",sl:"Jan 1",sub:"Same playlists as Fire TV and Roku"},
+  social:{g:"SO",n:"Reels, Shorts, TikTok",type:"Social, vertical",st:"plan",sl:"Next",sub:"Posted after editor approval"}
+};
+function connect(p){
+  const ed=S.role==="editor"; const d=p.get("d")||S.dest; S.dest=d; const x=DEST[d]||DEST.amazon;
+  return `<div class="ph"><div><p class="eyebrow">Distribution</p><h1>Connect</h1><p class="lead">One video, every screen. Each destination plugs in through its own connector, so adding one never touches the others.</p></div>
+    ${ed?"":`<button class="btn" data-toast="Adds a destination by plugging in a new connector. Nothing else in the Studio changes.">Add destination</button>`}</div>
+  ${ed?`<div class="lockn">${I.lock}<span><b>Managed by Digital.</b> You can see where video goes. Connections and settings stay with Digital.</span></div>`:""}
+  <div class="dl">
+    <div class="tiles">${Object.entries(DEST).map(([k,v])=>`<button class="tile" data-dest="${k}" aria-pressed="${k===d}"><span class="gl ${v.st}">${v.g}</span><span><b>${v.n}</b><small>${v.type}</small><span class="s"><span class="dot ${v.st}"></span>${v.sl}</span><small>${v.sub}</small></span></button>`).join("")}</div>
+    <section class="card">${destDetail(d,x,ed)}</section>
+  </div>`;
+}
+function destDetail(k,x,ed){
+  const head=`<div class="ch"><div style="display:flex;gap:12px;align-items:center"><span class="gl ${x.st}">${x.g}</span><div><h2>${x.n}</h2><small>${x.type}</small></div></div><span class="chip ${x.st==="live"?"live":x.st==="ok"?"ok":"gray"}">${x.sl}</span></div>`;
+  if(k==="amazon")return head+`<dl class="kv"><dt>How it's fed</dt><dd>On-demand feed, checked by Amazon every 5 minutes</dd><dt>Placement</dt><dd>Fire TV News lineup, beside national networks</dd><dt>Ads</dt><dd>Sold and inserted by Amazon; revenue shared monthly</dd><dt>First run</dt><dd>20 clips in, 15 sent, 5 held back</dd>${ed?"":`<dt>Source playlist</dt><dd class="mono">25675</dd>`}</dl>
+    <h3 style="font-size:14px;margin:16px 0 6px;font-family:inherit">Rules applied before anything is sent</h3><ul class="clean rules"><li>Full HD video file, never the streaming version</li><li>Only 1920×1080 thumbnails</li><li>Links, hashtags and emoji stripped; titles capped at 100</li><li>Clips with no description are held back, not lost</li><li>Each clip keeps one stable ID, so nothing duplicates</li></ul>
+    <div style="display:flex;gap:8px;margin-top:14px;flex-wrap:wrap"><button class="btn" data-toast="Shows exactly which clips were sent and which were held back, and why.">View last check</button>${ed?"":`<button class="btn redline" data-toast="Only clips an editor approves for TV go to Amazon. Today the feed takes every published clip.">Turn on TV approval</button>`}</div>`;
+  if(k==="fire"||k==="roku")return head+`<div class="tw"><table><thead><tr><th>Row</th>${ed?"":"<th>Fire TV</th><th>Roku</th>"}<th></th></tr></thead><tbody>${APP_ROWS.map(r=>`<tr><td>${r[0]}</td>${ed?"":`<td class="mono">${r[1]}</td><td class="mono">${r[2]}</td>`}<td>${r[3]?`<span class="chip warn">${r[3]}</span>`:`<span class="chip ok">Matches</span>`}</td></tr>`).join("")}</tbody></table></div>`;
+  if(k==="yt")return head+`<dl class="kv"><dt>Today</dt><dd>Posted outside the Studio, with the end promo baked in</dd><dt>Next</dt><dd>Clean master from Brid, outro added by rule per show, YouTube end screen on top</dd><dt>Shorts</dt><dd>From the vertical versions made in the Studio</dd></dl>`;
+  if(k==="social")return head+`<dl class="kv"><dt>What goes out</dt><dd>Vertical 9:16 versions with burned-in captions and WEX NOW branding</dd><dt>Approval</dt><dd>An editor approves every post</dd><dt>Accounts</dt><dd>Connected by Digital; editors never see logins</dd></dl>`;
+  if(k==="ch247"||k==="rokuch")return head+`<dl class="kv"><dt>Built from</dt><dd>The Planner's running order and weekly schedule</dd><dt>Stream</dt><dd>Continuous HD stream with ad markers at every break</dd><dt>Ads</dt><dd>Filled by the platform; we mark where breaks go</dd><dt>Safety</dt><dd>A failed clip is skipped; the channel never goes dark</dd><dt>Status</dt><dd>${k==="ch247"?"Preview running in Playout. Waiting on enough programming to fill the day.":"Applying to Roku's free channel lineup; target Jan 1"}</dd></dl><a class="btn mt" href="#/playout">Open playout</a>`;
+  if(k==="samsung")return head+`<dl class="kv"><dt>Type</dt><dd>Our own app, like Fire TV and Roku</dd><dt>Content</dt><dd>Same Brid playlists and rows</dd><dt>Target</dt><dd>Jan 1</dd></dl>`;
+  return head+`<dl class="kv"><dt>Type</dt><dd>${x.type}</dd><dt>Status</dt><dd>${x.sl}</dd><dt>Notes</dt><dd>${x.sub}</dd></dl>`;
+}
+
+/* ===================== ROUTER ===================== */
+let timer=null;
+function render(){
+  const raw=location.hash.replace(/^#\/?/,"")||"control"; const [path,qs]=raw.split("?"); const parts=path.split("/"); const p=new URLSearchParams(qs||"");
+  let r=parts[0],html;
+  if(r==="library")html=library(p);
+  else if(r==="clip"){html=clip(parts[1],p.get("tab"));r="library"}
+  else if(r==="planner")html=planner();
+  else if(r==="playout")html=playout();
+  else if(r==="connect")html=connect(p);
+  else{html=control();r="control"}
+  const app=$("#app");app.innerHTML=html;
+  $$(".tabs a").forEach(a=>a.toggleAttribute("aria-current",false));const cur=$(`.tabs a[data-r="${r}"]`);if(cur)cur.setAttribute("aria-current","page");
+  clearInterval(timer);
+  if(r==="control"||r==="playout"){if(r==="playout")drawEPG();tickChannel();timer=setInterval(tickChannel,250)}
+  wire(p,parts);
+}
+function rerenderKeep(id){const el=$("#"+id);const pos=el?el.selectionStart:0;render();const n=$("#"+id);if(n){n.focus();n.setSelectionRange(pos,pos)}}
+function wire(p,parts){
+  $$("[data-toast]").forEach(b=>b.addEventListener("click",()=>toast(b.dataset.toast)));
+  $$("tr.go").forEach(tr=>{const go=()=>location.hash=tr.dataset.go;tr.addEventListener("click",go);tr.addEventListener("keydown",e=>{if(e.key==="Enter")go()})});
+  $$(".facet").forEach(b=>b.addEventListener("click",()=>{S.libf=b.dataset.f;location.hash="#/library?f="+b.dataset.f}));
+  const lq=$("#libq");if(lq)lq.addEventListener("input",()=>{S.libq=lq.value;history.replaceState(null,"","#/library?f="+(p.get("f")||S.libf)+"&q="+encodeURIComponent(lq.value));rerenderKeep("libq")});
+  const tr=$("#trace");if(tr)tr.addEventListener("change",()=>{S.trace=tr.value;$("#path").innerHTML=tracePath(byId(tr.value))});
+  $$("[data-tab]").forEach(b=>b.addEventListener("click",()=>location.hash=`#/clip/${parts[1]}?tab=${b.dataset.tab}`));
+  $$("[data-job]").forEach(b=>b.addEventListener("click",()=>startJob(byId(parts[1]).id,b.dataset.job)));
+  const tm=$("#tm"),tp=$("#tp");
+  if(tm){const c=byId(parts[1]);const cur=()=>S.trim[c.id]??c.promo??15;tm.addEventListener("click",()=>{S.trim[c.id]=Math.max(0,cur()-1);render()});tp.addEventListener("click",()=>{S.trim[c.id]=Math.min(60,cur()+1);render()})}
+  $$("[data-approve]").forEach(b=>b.addEventListener("click",()=>{const c=byId(parts[1]);const bp=S.bps[c.id].find(x=>x.t===+b.dataset.approve);bp.ok=true;bp.l="Approved, "+(S.role==="admin"?"Digital admin":"Video desk");log("Approved break point "+mmss(bp.t),c.t);toast("Break point approved. It's marked on the timeline.");render()}));
+  const ab=$("#addbp");if(ab)ab.addEventListener("click",()=>{const c=byId(parts[1]);const t=Math.round(c.dur*0.46);S.bps[c.id]=S.bps[c.id]||[];if(S.bps[c.id].some(b=>b.t===t)){toast("There's already a break point there.");return}S.bps[c.id].push({t,l:"Added at the playhead",ok:true});log("Added break point "+mmss(t),c.t);toast("Break point added at "+mmss(t)+".");render()});
+  $$("[data-ptab]").forEach(b=>b.addEventListener("click",()=>{S.ptab=b.dataset.ptab;render()}));
+  $$("[data-up]").forEach(b=>b.addEventListener("click",()=>{const i=+b.dataset.up;[S.lineup[i-1],S.lineup[i]]=[S.lineup[i],S.lineup[i-1]];log("Moved a clip up",byId(S.lineup[i-1]).t);render()}));
+  $$("[data-down]").forEach(b=>b.addEventListener("click",()=>{const i=+b.dataset.down;[S.lineup[i+1],S.lineup[i]]=[S.lineup[i],S.lineup[i+1]];log("Moved a clip down",byId(S.lineup[i+1]).t);render()}));
+  $$("[data-rm]").forEach(b=>b.addEventListener("click",()=>{const [id]=S.lineup.splice(+b.dataset.rm,1);log("Removed from the lineup",byId(id).t);toast("Removed. Publish to update the channel.");render()}));
+  $$("[data-add]").forEach(b=>b.addEventListener("click",()=>{const id=isNaN(+b.dataset.add)?b.dataset.add:+b.dataset.add;S.lineup.push(id);log("Added to the lineup",byId(id).t);toast("Added to the end of the lineup. Publish to update the channel.");render()}));
+  const pat=$("#pat");if(pat)pat.addEventListener("change",()=>{S.pattern=pat.value;log("Changed the ad break pattern",pat.options[pat.selectedIndex].text);render()});
+  const pub=$("#pub");if(pub)pub.addEventListener("click",()=>{log("Published the 24/7 lineup",`${S.lineup.length} clips`);toast("Published. The channel picks up the new lineup within minutes.");render()});
+  const plq=$("#plq");if(plq)plq.addEventListener("input",()=>{S.q=plq.value;rerenderKeep("plq")});
+  $$("[data-dest]").forEach(b=>b.addEventListener("click",()=>{S.dest=b.dataset.dest;history.replaceState(null,"","#/connect?d="+b.dataset.dest);render()}));
+}
+$("#role").addEventListener("change",e=>{S.role=e.target.value;$("#av").textContent=S.role==="admin"?"DA":"VD";render();toast(S.role==="editor"?"Signed in as an editor: playlist IDs, connections and settings are hidden.":"Signed in as Digital admin.")});
+function clk(){$("#clock").innerHTML=new Date().toLocaleTimeString("en-US",{timeZone:"America/New_York",hour12:false})+"<small>ET</small>"}
+setInterval(clk,1000);clk();
+window.addEventListener("hashchange",render);render();
+</script>
+</body>
+</html>
